@@ -11,7 +11,6 @@
 		A9B7D433215DFA15002A95CB /* ImageLayersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7D432215DFA15002A95CB /* ImageLayersTests.swift */; };
 		A9B7D435215DFA15002A95CB /* Foil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9B7D41C215DF9B9002A95CB /* Foil.framework */; };
 		A9B7D443215DFA2F002A95CB /* ImageLayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7D43C215DFA2F002A95CB /* ImageLayers.swift */; };
-		A9B7D444215DFA2F002A95CB /* Bitmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7D43D215DFA2F002A95CB /* Bitmap.swift */; };
 		A9B7D445215DFA2F002A95CB /* ImageEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7D43F215DFA2F002A95CB /* ImageEditor.swift */; };
 		A9B7D446215DFA2F002A95CB /* ImageEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7D440215DFA2F002A95CB /* ImageEditView.swift */; };
 		A9B7D447215DFA2F002A95CB /* NSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7D442215DFA2F002A95CB /* NSImage.swift */; };
@@ -61,7 +60,6 @@
 		A9B7D432215DFA15002A95CB /* ImageLayersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLayersTests.swift; sourceTree = "<group>"; };
 		A9B7D434215DFA15002A95CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9B7D43C215DFA2F002A95CB /* ImageLayers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLayers.swift; sourceTree = "<group>"; };
-		A9B7D43D215DFA2F002A95CB /* Bitmap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bitmap.swift; sourceTree = "<group>"; };
 		A9B7D43F215DFA2F002A95CB /* ImageEditor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditor.swift; sourceTree = "<group>"; };
 		A9B7D440215DFA2F002A95CB /* ImageEditView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditView.swift; sourceTree = "<group>"; };
 		A9B7D442215DFA2F002A95CB /* NSImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSImage.swift; sourceTree = "<group>"; };
@@ -145,7 +143,6 @@
 			isa = PBXGroup;
 			children = (
 				A9B7D43C215DFA2F002A95CB /* ImageLayers.swift */,
-				A9B7D43D215DFA2F002A95CB /* Bitmap.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -312,7 +309,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9B7D445215DFA2F002A95CB /* ImageEditor.swift in Sources */,
-				A9B7D444215DFA2F002A95CB /* Bitmap.swift in Sources */,
 				A9B7D446215DFA2F002A95CB /* ImageEditView.swift in Sources */,
 				A9B7D443215DFA2F002A95CB /* ImageLayers.swift in Sources */,
 				A9B7D447215DFA2F002A95CB /* NSImage.swift in Sources */,
