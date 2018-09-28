@@ -76,5 +76,18 @@ class ImageLayersTests: XCTestCase {
         // THEN
         Utils.compareImage(image, fixtureName: "100x100-red-greenline.png")
     }
+    
+    func testThatItDrawsARect() {
+        
+        // GIVEN
+        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 50, height: 50))
+        layers.backgroundColor = NSColor.green
+        
+        // WHEN
+        layers.drawRect(NSRect(x: 10, y: 10, width: 30, height: 30), color: NSColor.white)
+        
+        // THEN
+        Utils.compareImage(layers.renderResult, fixtureName: "100x100-green-square.png")
+    }
 
 }

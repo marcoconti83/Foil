@@ -82,6 +82,15 @@ public class ImageLayers {
         }
         self.redraw()
     }
+    
+    public func drawRect(_ rect: NSRect, color: NSColor) {
+        self.rasterLayer.lockingFocus {
+            color.setFill()
+            let path = NSBezierPath(rect: rect)
+            path.fill()
+        }
+        self.redraw()
+    }
 }
 
 extension NSImage {
