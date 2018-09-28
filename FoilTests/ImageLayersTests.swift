@@ -89,5 +89,42 @@ class ImageLayersTests: XCTestCase {
         // THEN
         Utils.compareImage(layers.renderResult, fixtureName: "100x100-green-square.png")
     }
+    
+    func testThatItDrawsBitmaps() {
+        
+        // GIVEN
+        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 100, height: 100))
+        layers.backgroundColor = NSColor.green
+        
+        // WHEN
+        layers.drawRect(NSRect(x: 10, y: 10, width: 30, height: 30), color: NSColor.white)
+        _ = layers.addBitmap(Utils.testImage("moon.jpg")!, centerPosition: NSPoint(x: 100, y: 100))
+        
+        // THEN
+        Utils.compareImage(layers.renderResult, fixtureName: "200x200-green-rect-moon.png")
+    }
+    
+    func testThatItDrawsBitmapsScaled() {
+        
+        // GIVEN
+        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 100, height: 100))
+        layers.backgroundColor = NSColor.red
+        
+        // WHEN
+        layers.drawLine(from: NSPoint(x: 0, y: 0), to: NSPoint(x: 100, y: 100), lineWidth: 5, color: NSColor.green)
+        layers.addBitmap(
+            Utils.testImage("moon.jpg")!,
+            centerPosition: NSPoint(x: 50, y: 50),
+            scale: 0.2
+        )
+        layers.addBitmap(
+            Utils.testImage("moon.jpg")!,
+            centerPosition: NSPoint(x: 25, y: 50),
+            scale: 0.2
+        )
+        
+        // THEN
+        Utils.compareImage(layers.renderResult, fixtureName: "200x200-red-moons.png")
+    }
 
 }

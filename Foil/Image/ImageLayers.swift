@@ -42,6 +42,13 @@ public class ImageLayers {
         }
     }
     
+    /// Bitmaps ogjects
+    var bitmaps: [Bitmap] {
+        didSet {
+            self.redraw()
+        }
+    }
+    
     /// A layer holding raster data, to be overimposed on background image and color
     let rasterLayer: NSImage
     
@@ -49,6 +56,7 @@ public class ImageLayers {
         self.renderResult = NSImage(size: size)
         self.rasterLayer = NSImage(size: size)
         self.backgroundImage = NSImage(size: size)
+        self.bitmaps = []
         self.redraw()
     }
     
@@ -56,8 +64,14 @@ public class ImageLayers {
         self.renderResult = NSImage(size: backgroundImage.size)
         self.rasterLayer = NSImage(size: backgroundImage.size)
         self.backgroundImage = backgroundImage
-        redraw()
+        self.bitmaps = []
+        self.redraw()
     }
+    
+}
+
+// MARK: - Drawing functions
+extension ImageLayers {
     
     private func redraw(rect: NSRect? = nil) {
         let rect = rect ?? NSRect(
@@ -68,8 +82,16 @@ public class ImageLayers {
             self.backgroundColor.drawSwatch(in: rect)
             self.backgroundImage.draw(in: rect)
             self.rasterLayer.draw(in: rect)
+            self.bitmaps.forEach {
+                $0.image.draw(in: $0.drawingRect)
+            }
         }
     }
+    
+}
+
+// MARK: - Draw functions
+extension ImageLayers {
     
     public func drawLine(from p1: NSPoint, to p2: NSPoint, lineWidth: CGFloat, color: NSColor) {
         self.rasterLayer.lockingFocus {
@@ -90,6 +112,17 @@ public class ImageLayers {
             path.fill()
         }
         self.redraw()
+    }
+    
+    @discardableResult public func addBitmap(
+        _ image: NSImage,
+        centerPosition: NSPoint,
+        scale: CGFloat = 1
+        ) -> Bitmap
+    {
+        let bitmap = Bitmap(image: image, centerPostion: centerPosition, scale: scale)
+        self.bitmaps.append(bitmap)
+        return bitmap
     }
 }
 
