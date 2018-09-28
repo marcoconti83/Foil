@@ -49,19 +49,30 @@ class Utils {
         line: UInt = #line)
     {
         let png = try! image.pngData()
-        //saveFixtures(data: png, name: fixtureName)
+        if Environment.get("generate_fixtures") == "1" {
+            saveFixtures(data: png, name: fixtureName)
+        }
         XCTAssertEqual(png, try! Utils.testImage(fixtureName).pngData(), "Images don't match", file: file, line: line)
-        
     }
 }
 
 private func saveFixtures(data: Data, name: String) {
     var root: URL = URL(fileURLWithPath: NSHomeDirectory())
-    if let rawValue = getenv("source_path"),
-        let string = String(utf8String: rawValue)
+    if let source = Environment.get("source_path")
     {
-        root = URL(fileURLWithPath: string).appendingPathComponent("FoilTests/Resources/")
+        root = URL(fileURLWithPath: source).appendingPathComponent("FoilTests/Resources/")
     }
     let url = root.appendingPathComponent("Fixtures/" + name)
     try! data.write(to: url)
+}
+
+
+struct Environment {
+    
+    static func get(_ name: String) -> String? {
+        if let rawValue = getenv(name) {
+            return String(utf8String: rawValue)
+        }
+        return nil
+    }
 }
