@@ -22,6 +22,7 @@
 		A9B7D455215DFCAB002A95CB /* 5pepper.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B7D450215DFCAB002A95CB /* 5pepper.png */; };
 		A9B7D456215DFCAB002A95CB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7D451215DFCAB002A95CB /* Utils.swift */; };
 		A9B7D458215DFDB6002A95CB /* Cartography.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A9B7D449215DFC7B002A95CB /* Cartography.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A9B7D45C215E0753002A95CB /* 100x100-red-greenline.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B7D45B215E0753002A95CB /* 100x100-red-greenline.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		A9B7D44F215DFCAB002A95CB /* 100x100-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-red.png"; sourceTree = "<group>"; };
 		A9B7D450215DFCAB002A95CB /* 5pepper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5pepper.png; sourceTree = "<group>"; };
 		A9B7D451215DFCAB002A95CB /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		A9B7D45B215E0753002A95CB /* 100x100-red-greenline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-red-greenline.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +185,7 @@
 		A9B7D44D215DFCAB002A95CB /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
+				A9B7D45B215E0753002A95CB /* 100x100-red-greenline.png */,
 				A9B7D44E215DFCAB002A95CB /* 100x100-black.png */,
 				A9B7D44F215DFCAB002A95CB /* 100x100-red.png */,
 				A9B7D450215DFCAB002A95CB /* 5pepper.png */,
@@ -290,6 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9B7D453215DFCAB002A95CB /* 100x100-black.png in Resources */,
+				A9B7D45C215E0753002A95CB /* 100x100-red-greenline.png in Resources */,
 				A9B7D452215DFCAB002A95CB /* original-5pepper.png in Resources */,
 				A9B7D454215DFCAB002A95CB /* 100x100-red.png in Resources */,
 				A9B7D455215DFCAB002A95CB /* 5pepper.png in Resources */,

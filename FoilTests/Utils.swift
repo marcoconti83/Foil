@@ -24,11 +24,15 @@ import Foundation
 import Cocoa
 import XCTest
 
+private let fixtureFolder = "Fixtures/"
+private let testResourcesFolder = "FoilTests/Resources/"
+private let forceFixtureGeneration = false
+
 class Utils {
     
     private init() {}
     
-    static func testImage(_ fileName: String) -> NSImage {
+    static func testImage(_ fileName: String) -> NSImage? {
         
         let ext = (fileName as NSString).pathExtension
         let name = (fileName as NSString).deletingPathExtension
@@ -49,10 +53,19 @@ class Utils {
         line: UInt = #line)
     {
         let png = try! image.pngData()
-        if Environment.get("generate_fixtures") == "1" {
+        if forceFixtureGeneration || Environment.get("generate_fixtures") == "1" {
             saveFixtures(data: png, name: fixtureName)
         }
-        XCTAssertEqual(png, try! Utils.testImage(fixtureName).pngData(), "Images don't match", file: file, line: line)
+        guard let image = Utils.testImage(fixtureName) else {
+            return XCTFail(
+                "Missing fixture image \(fixtureName). Run fixture generation test to fix.",
+                file: file, line: line
+            )
+        }
+        XCTAssertEqual(
+            png, try! image.pngData(),
+            "Image \(fixtureName) doesn't match",
+            file: file, line: line)
     }
 }
 
@@ -60,9 +73,9 @@ private func saveFixtures(data: Data, name: String) {
     var root: URL = URL(fileURLWithPath: NSHomeDirectory())
     if let source = Environment.get("source_path")
     {
-        root = URL(fileURLWithPath: source).appendingPathComponent("FoilTests/Resources/")
+        root = URL(fileURLWithPath: source).appendingPathComponent(testResourcesFolder)
     }
-    let url = root.appendingPathComponent("Fixtures/" + name)
+    let url = root.appendingPathComponent(fixtureFolder + name)
     try! data.write(to: url)
 }
 

@@ -29,7 +29,7 @@ public class ImageLayers {
     public let renderResult: NSImage
     
     /// An image to be used as background
-    public var backgroundImage: NSImage? = nil {
+    public var backgroundImage: NSImage {
         didSet {
             self.redraw()
         }
@@ -43,32 +43,52 @@ public class ImageLayers {
     }
     
     /// A layer holding raster data, to be overimposed on background image and color
-    public let rasterLayer: NSImage
+    let rasterLayer: NSImage
     
-    init(emptyImageOfSize size: NSSize) {
+    public init(emptyImageOfSize size: NSSize) {
         self.renderResult = NSImage(size: size)
         self.rasterLayer = NSImage(size: size)
+        self.backgroundImage = NSImage(size: size)
         self.redraw()
     }
     
-    init(backgroundImage: NSImage) {
+    public init(backgroundImage: NSImage) {
         self.renderResult = NSImage(size: backgroundImage.size)
         self.rasterLayer = NSImage(size: backgroundImage.size)
         self.backgroundImage = backgroundImage
         redraw()
     }
     
-    private func redraw() {
-        let rect = NSRect(
+    private func redraw(rect: NSRect? = nil) {
+        let rect = rect ?? NSRect(
             x: 0, y: 0,
             width: self.renderResult.size.width,
             height: self.renderResult.size.height)
-        self.renderResult.lockFocus()
-        self.backgroundColor.drawSwatch(in: rect)
-        if let backgroundImage = self.backgroundImage {
-            backgroundImage.draw(in: rect)
+        self.renderResult.lockingFocus {
+            self.backgroundColor.drawSwatch(in: rect)
+            self.backgroundImage.draw(in: rect)
+            self.rasterLayer.draw(in: rect)
         }
-        self.renderResult.unlockFocus()
     }
     
+    public func drawLine(from p1: NSPoint, to p2: NSPoint, lineWidth: CGFloat, color: NSColor) {
+        self.rasterLayer.lockingFocus {
+            color.setStroke()
+            let path = NSBezierPath()
+            path.lineWidth = lineWidth
+            path.move(to: p1)
+            path.line(to: p2)
+            path.stroke()
+        }
+        self.redraw()
+    }
+}
+
+extension NSImage {
+    
+    func lockingFocus(_ block: ()->()) {
+        self.lockFocus()
+        block()
+        self.unlockFocus()
+    }
 }

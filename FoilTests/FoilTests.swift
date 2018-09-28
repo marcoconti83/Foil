@@ -23,7 +23,7 @@
 import XCTest
 @testable import Foil
 
-class FoilTests: XCTestCase {
+class ImageLayersTests: XCTestCase {
 
     func testThatItCreatesAnImageWithOnlyBackground() {
         
@@ -53,7 +53,7 @@ class FoilTests: XCTestCase {
     func testThatItCreatesAnImageFromImageWithTransparency() {
         
         // GIVEN
-        let layers = ImageLayers(backgroundImage: Utils.testImage("original-5pepper.png"))
+        let layers = ImageLayers(backgroundImage: Utils.testImage("original-5pepper.png")!)
         layers.backgroundColor = NSColor.blue
         
         // WHEN
@@ -61,6 +61,20 @@ class FoilTests: XCTestCase {
         
         // THEN
         Utils.compareImage(image, fixtureName: "5pepper.png")
+    }
+    
+    func testThatItDrawsALine() {
+        
+        // GIVEN
+        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 50, height: 50))
+        layers.backgroundColor = NSColor.red
+        
+        // WHEN
+        layers.drawLine(from: NSPoint(x: 0, y: 0), to: NSPoint(x: 50, y: 50), lineWidth: 5, color: NSColor.green)
+        let image = layers.renderResult
+        
+        // THEN
+        Utils.compareImage(image, fixtureName: "100x100-red-greenline.png")
     }
 
 }
