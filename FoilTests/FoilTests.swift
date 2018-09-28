@@ -31,7 +31,7 @@ class FoilTests: XCTestCase {
         let layers = ImageLayers(emptyImageOfSize: NSSize(width: 50, height: 50))
         
         // WHEN
-        let image = layers.finalImage        
+        let image = layers.renderResult        
         
         // THEN
         Utils.compareImage(image, fixtureName: "100x100-black.png")
@@ -44,7 +44,7 @@ class FoilTests: XCTestCase {
         
         // WHEN
         layers.backgroundColor = NSColor.red
-        let image = layers.finalImage
+        let image = layers.renderResult
         
         // THEN
         Utils.compareImage(image, fixtureName: "100x100-red.png")
@@ -57,7 +57,7 @@ class FoilTests: XCTestCase {
         layers.backgroundColor = NSColor.blue
         
         // WHEN
-        let image = layers.finalImage
+        let image = layers.renderResult
         
         // THEN
         Utils.compareImage(image, fixtureName: "5pepper.png")

@@ -26,7 +26,7 @@ import Cocoa
 /// Layers that compose the image: background, foreground, vector layer and so on
 public class ImageLayers {
     
-    public let finalImage: NSImage
+    public let renderResult: NSImage
     
     /// An image to be used as background
     public var backgroundImage: NSImage? = nil {
@@ -46,13 +46,13 @@ public class ImageLayers {
     public let rasterLayer: NSImage
     
     init(emptyImageOfSize size: NSSize) {
-        self.finalImage = NSImage(size: size)
+        self.renderResult = NSImage(size: size)
         self.rasterLayer = NSImage(size: size)
         self.redraw()
     }
     
     init(backgroundImage: NSImage) {
-        self.finalImage = NSImage(size: backgroundImage.size)
+        self.renderResult = NSImage(size: backgroundImage.size)
         self.rasterLayer = NSImage(size: backgroundImage.size)
         self.backgroundImage = backgroundImage
         redraw()
@@ -61,14 +61,14 @@ public class ImageLayers {
     private func redraw() {
         let rect = NSRect(
             x: 0, y: 0,
-            width: self.finalImage.size.width,
-            height: self.finalImage.size.height)
-        self.finalImage.lockFocus()
+            width: self.renderResult.size.width,
+            height: self.renderResult.size.height)
+        self.renderResult.lockFocus()
         self.backgroundColor.drawSwatch(in: rect)
         if let backgroundImage = self.backgroundImage {
             backgroundImage.draw(in: rect)
         }
-        self.finalImage.unlockFocus()
+        self.renderResult.unlockFocus()
     }
     
 }
