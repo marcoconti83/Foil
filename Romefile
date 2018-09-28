@@ -1,0 +1,2 @@
+cache: # required
+  local: ~/Library/Caches/Rome
