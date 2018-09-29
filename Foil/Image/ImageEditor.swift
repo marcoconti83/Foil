@@ -24,10 +24,22 @@
 
 import Foundation
 
+public enum ToolType {
+    case line
+    case selection
+}
+
 /// Adds user interaction to image layers
 public class ImageEditor {
     
     public let layers: ImageLayers
+    
+    private(set) var tool: Tool
+    public var toolSettings: ToolSettings = ToolSettings() {
+        didSet {
+            self.tool.settings = self.toolSettings
+        }
+    }
     
     public convenience init(emptyImageOfSize size: NSSize) {
         let backgroundImage = NSImage(size: size)
@@ -36,38 +48,18 @@ public class ImageEditor {
     
     public init(backgroundImage: NSImage) {
         self.layers = ImageLayers(backgroundImage: backgroundImage)
+        self.toolSettings.lineWidth = Swift.max(2, backgroundImage.size.min / 200)
+        self.tool = SelectionTool(layers: self.layers, settings: self.toolSettings)
+    }
+    
+    public func setTool(_ tool: ToolType) {
+        switch tool {
+        case .line:
+            self.tool = LineTool(layers: self.layers, settings: self.toolSettings)
+        case .selection:
+            self.tool = SelectionTool(layers: self.layers, settings: self.toolSettings)
+        }
     }
 }
 
-extension ImageEditor {
-    
-    /// The user tapped on a point
-    public func didTapOnPoint(_ point: NSPoint, shiftKeyPressed: Bool) {
-        guard let selectedBitmap = self.layers.bitmaps.first(where: {
-            $0.drawingRect.contains(point)
-        }) else {
-            if !shiftKeyPressed {
-                self.layers.selectedBitmaps = Set()
-            }
-            return
-        }
-        
-        if shiftKeyPressed {
-            if self.layers.selectedBitmaps.contains(selectedBitmap) {
-                self.layers.selectedBitmaps.remove(selectedBitmap)
-            } else {
-                self.layers.selectedBitmaps.insert(selectedBitmap)
-            }
-        } else {
-            self.layers.selectedBitmaps = Set([selectedBitmap])
-        }
-    }
-    
-    /// User pressed key
-    public func didPressKey(key: Keycode) {
-        if key == .delete || key == .forwardDelete {
-            self.layers.bitmaps = self.layers.bitmaps.filter { !self.layers.selectedBitmaps.contains($0) }
-            self.layers.selectedBitmaps = Set()
-        }
-    }
-}
+

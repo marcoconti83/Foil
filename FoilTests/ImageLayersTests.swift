@@ -29,6 +29,7 @@ class ImageLayersTests: XCTestCase {
         
         // GIVEN
         let layers = ImageLayers(emptyImageOfSize: NSSize(width: 50, height: 50))
+        layers.backgroundColor = .black
         
         // WHEN
         let image = layers.renderResult        

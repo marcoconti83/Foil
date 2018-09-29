@@ -22,9 +22,42 @@
 //
     
 
-import XCTest
-@testable import Foil
+import Foundation
 
-class ImageEditorTests: XCTestCase {
+public protocol Tool {
+    
+    func didPressKey(key: Keycode)
+    func didTapOnPoint(_ point: NSPoint, shiftKeyPressed: Bool)
+    func didMoveMouse(_ point: NSPoint)
+    
+    var settings: ToolSettings { get set }
 }
 
+class ToolMixin {
+    
+    let layers: ImageLayers
+    var settings: ToolSettings {
+        didSet {
+            self.updateSettings()
+        }
+    }
+    
+    init(layers: ImageLayers, settings: ToolSettings) {
+        self.layers = layers
+        self.settings = settings
+    }
+    
+    func updateSettings() {
+        
+    }
+}
+
+public struct ToolSettings {
+    public var color: NSColor
+    public var lineWidth: CGFloat
+    
+    public init(color: NSColor = .black, lineWidth: CGFloat = 2) {
+        self.color = color
+        self.lineWidth = lineWidth
+    }
+}

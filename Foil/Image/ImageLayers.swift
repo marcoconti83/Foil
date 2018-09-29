@@ -41,7 +41,7 @@ public class ImageLayers {
     }
     
     /// Background color drawn below the rest
-    public var backgroundColor: NSColor = NSColor.black {
+    public var backgroundColor: NSColor = NSColor.white {
         didSet {
             self.redrawIfNeeded()
         }
@@ -199,33 +199,33 @@ extension Bitmap {
     }
 }
 
-public struct Line {
+public struct Line: Equatable {
     
     let start: NSPoint
     let end: NSPoint
     let color: NSColor
-    let path: NSBezierPath
+    let width: CGFloat
     
     public init(start: NSPoint, end: NSPoint, color: NSColor, width: CGFloat) {
         self.start = start
         self.end = end
         self.color = color
-        let path = NSBezierPath()
-        path.lineWidth = width
-        path.move(to: start)
-        path.line(to: end)
-        self.path = path
+        self.width = width
     }
     
     func moveEnd(_ end: NSPoint) -> Line {
         return Line(start: self.start,
                     end: end,
                     color: self.color,
-                    width: self.path.lineWidth)
+                    width: self.width)
     }
     
     fileprivate func draw() {
         self.color.setStroke()
-        self.path.stroke()
+        let path = NSBezierPath()
+        path.lineWidth = width
+        path.move(to: start)
+        path.line(to: end)
+        path.stroke()
     }
 }
