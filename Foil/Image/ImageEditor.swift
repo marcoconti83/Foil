@@ -1,4 +1,5 @@
 //
+//
 // Copyright (c) 2018 Marco Conti
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,19 +20,46 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
+    
 
 import Foundation
-import Cocoa
 
-public class LayeredImage: NSViewController {
+/// Adds user interaction to image layers
+public class ImageEditor {
     
-    var imageEditView: ImageEditView!
+    public let layers: ImageLayers
     
-    public override func loadView() {
-        self.view = NSView()
+    public convenience init(emptyImageOfSize size: NSSize) {
+        let backgroundImage = NSImage(size: size)
+        self.init(backgroundImage: backgroundImage)
     }
     
-    public override func viewDidLoad() {
-        self.imageEditView = ImageEditView()
+    public init(backgroundImage: NSImage) {
+        self.layers = ImageLayers(backgroundImage: backgroundImage)
+    }
+}
+
+extension ImageEditor {
+    
+    /// The user tapped on a point
+    public func didTapOnPoint(_ point: NSPoint, shiftKeyPressed: Bool) {
+        guard let selectedBitmap = self.layers.bitmaps.first(where: {
+            $0.drawingRect.contains(point)
+        }) else {
+            if !shiftKeyPressed {
+                self.layers.selectedBitmaps = Set()
+            }
+            return
+        }
+        
+        if shiftKeyPressed {
+            if self.layers.selectedBitmaps.contains(selectedBitmap) {
+                self.layers.selectedBitmaps.remove(selectedBitmap)
+            } else {
+                self.layers.selectedBitmaps.insert(selectedBitmap)
+            }
+        } else {
+            self.layers.selectedBitmaps = Set([selectedBitmap])
+        }
     }
 }

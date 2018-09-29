@@ -53,7 +53,7 @@ public class ImageLayers {
     }
     
     /// Bitmaps that are currently selected
-    var selectedBitmaps = Set<Bitmap>() {
+    internal(set) public var selectedBitmaps = Set<Bitmap>() {
         didSet {
             self.redraw()
         }
@@ -77,7 +77,7 @@ public class ImageLayers {
     
 }
 
-// MARK: - Drawing functions
+// MARK: - Redraw
 extension ImageLayers {
     
     private func redraw(rect: NSRect? = nil) {
