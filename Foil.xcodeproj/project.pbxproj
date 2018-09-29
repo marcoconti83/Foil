@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		A926C30D215F52C8006B1388 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C30C215F52C8006B1388 /* Math.swift */; };
 		A926C312215F5550006B1388 /* MathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C311215F5550006B1388 /* MathTests.swift */; };
+		A926C314215F5DFB006B1388 /* DrawingUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C313215F5DFB006B1388 /* DrawingUtils.swift */; };
+		A926C316215F5EB6006B1388 /* 200x200-red-moons-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = A926C315215F5EB5006B1388 /* 200x200-red-moons-selected.png */; };
+		A926C318215F6555006B1388 /* 200x200-red-moons-selected-large.png in Resources */ = {isa = PBXBuildFile; fileRef = A926C317215F6555006B1388 /* 200x200-red-moons-selected-large.png */; };
 		A9B7D421215DF9B9002A95CB /* Foil.h in Headers */ = {isa = PBXBuildFile; fileRef = A9B7D41F215DF9B9002A95CB /* Foil.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9B7D433215DFA15002A95CB /* ImageLayersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7D432215DFA15002A95CB /* ImageLayersTests.swift */; };
 		A9B7D435215DFA15002A95CB /* Foil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9B7D41C215DF9B9002A95CB /* Foil.framework */; };
@@ -57,6 +60,9 @@
 /* Begin PBXFileReference section */
 		A926C30C215F52C8006B1388 /* Math.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		A926C311215F5550006B1388 /* MathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathTests.swift; sourceTree = "<group>"; };
+		A926C313215F5DFB006B1388 /* DrawingUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingUtils.swift; sourceTree = "<group>"; };
+		A926C315215F5EB5006B1388 /* 200x200-red-moons-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "200x200-red-moons-selected.png"; sourceTree = "<group>"; };
+		A926C317215F6555006B1388 /* 200x200-red-moons-selected-large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "200x200-red-moons-selected-large.png"; sourceTree = "<group>"; };
 		A9B7D41C215DF9B9002A95CB /* Foil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Foil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9B7D41F215DF9B9002A95CB /* Foil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Foil.h; sourceTree = "<group>"; };
 		A9B7D420215DF9B9002A95CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -166,6 +172,7 @@
 			children = (
 				A9B7D43F215DFA2F002A95CB /* ImageEditor.swift */,
 				A9B7D440215DFA2F002A95CB /* ImageEditView.swift */,
+				A926C313215F5DFB006B1388 /* DrawingUtils.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -200,6 +207,8 @@
 		A9B7D44D215DFCAB002A95CB /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
+				A926C317215F6555006B1388 /* 200x200-red-moons-selected-large.png */,
+				A926C315215F5EB5006B1388 /* 200x200-red-moons-selected.png */,
 				A9CC2404215EC79000194228 /* 200x200-red-moons.png */,
 				A9CC2402215EC6EF00194228 /* 200x200-green-rect-moon.png */,
 				A9CC23FA215EB97B00194228 /* 100x100-green-square.png */,
@@ -312,12 +321,14 @@
 			files = (
 				A9B7D453215DFCAB002A95CB /* 100x100-black.png in Resources */,
 				A9B7D45C215E0753002A95CB /* 100x100-red-greenline.png in Resources */,
+				A926C318215F6555006B1388 /* 200x200-red-moons-selected-large.png in Resources */,
 				A9CC23FF215EC43F00194228 /* moon.jpg in Resources */,
 				A9CC2403215EC6EF00194228 /* 200x200-green-rect-moon.png in Resources */,
 				A9B7D452215DFCAB002A95CB /* original-5pepper.png in Resources */,
 				A9B7D454215DFCAB002A95CB /* 100x100-red.png in Resources */,
 				A9B7D455215DFCAB002A95CB /* 5pepper.png in Resources */,
 				A9CC23FB215EB97B00194228 /* 100x100-green-square.png in Resources */,
+				A926C316215F5EB6006B1388 /* 200x200-red-moons-selected.png in Resources */,
 				A9CC2405215EC79000194228 /* 200x200-red-moons.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -330,6 +341,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A9B7D445215DFA2F002A95CB /* ImageEditor.swift in Sources */,
+				A926C314215F5DFB006B1388 /* DrawingUtils.swift in Sources */,
 				A9B7D446215DFA2F002A95CB /* ImageEditView.swift in Sources */,
 				A9B7D443215DFA2F002A95CB /* ImageLayers.swift in Sources */,
 				A9B7D447215DFA2F002A95CB /* NSImage.swift in Sources */,

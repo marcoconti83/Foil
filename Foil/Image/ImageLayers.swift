@@ -28,6 +28,9 @@ public class ImageLayers {
     
     public let renderResult: NSImage
     
+    /// How thick is the selection line width
+    let selectionLineWidth: CGFloat
+    
     /// An image to be used as background
     public var backgroundImage: NSImage {
         didSet {
@@ -42,8 +45,15 @@ public class ImageLayers {
         }
     }
     
-    /// Bitmaps ogjects
-    var bitmaps: [Bitmap] {
+    /// Bitmaps objects
+    var bitmaps: [Bitmap] = [] {
+        didSet {
+            self.redraw()
+        }
+    }
+    
+    /// Bitmaps that are currently selected
+    var selectedBitmaps = Set<Bitmap>() {
         didSet {
             self.redraw()
         }
@@ -52,19 +62,16 @@ public class ImageLayers {
     /// A layer holding raster data, to be overimposed on background image and color
     let rasterLayer: NSImage
     
-    public init(emptyImageOfSize size: NSSize) {
-        self.renderResult = NSImage(size: size)
-        self.rasterLayer = NSImage(size: size)
-        self.backgroundImage = NSImage(size: size)
-        self.bitmaps = []
-        self.redraw()
+    public convenience init(emptyImageOfSize size: NSSize) {
+        let backgroundImage = NSImage(size: size)
+        self.init(backgroundImage: backgroundImage)
     }
     
     public init(backgroundImage: NSImage) {
         self.renderResult = NSImage(size: backgroundImage.size)
         self.rasterLayer = NSImage(size: backgroundImage.size)
         self.backgroundImage = backgroundImage
-        self.bitmaps = []
+        self.selectionLineWidth = max(1, backgroundImage.size.max / 200)
         self.redraw()
     }
     
@@ -84,6 +91,9 @@ extension ImageLayers {
             self.rasterLayer.draw(in: rect)
             self.bitmaps.forEach {
                 $0.image.draw(in: $0.drawingRect)
+                if self.selectedBitmaps.contains($0) {
+                    $0.drawSelectionOverlay(lineWidth: self.selectionLineWidth)
+                }
             }
         }
     }
@@ -95,21 +105,25 @@ extension ImageLayers {
     
     public func drawLine(from p1: NSPoint, to p2: NSPoint, lineWidth: CGFloat, color: NSColor) {
         self.rasterLayer.lockingFocus {
-            color.setStroke()
-            let path = NSBezierPath()
-            path.lineWidth = lineWidth
-            path.move(to: p1)
-            path.line(to: p2)
-            path.stroke()
+            restoringGraphicState {
+                color.setStroke()
+                let path = NSBezierPath()
+                path.lineWidth = lineWidth
+                path.move(to: p1)
+                path.line(to: p2)
+                path.stroke()
+            }
         }
         self.redraw()
     }
     
     public func drawRect(_ rect: NSRect, color: NSColor) {
         self.rasterLayer.lockingFocus {
-            color.setFill()
-            let path = NSBezierPath(rect: rect)
-            path.fill()
+            restoringGraphicState {
+                color.setFill()
+                let path = NSBezierPath(rect: rect)
+                path.fill()
+            }
         }
         self.redraw()
     }
@@ -126,11 +140,28 @@ extension ImageLayers {
     }
 }
 
-extension NSImage {
+
+
+
+extension Bitmap {
     
-    func lockingFocus(_ block: ()->()) {
-        self.lockFocus()
-        block()
-        self.unlockFocus()
+    fileprivate func drawSelectionOverlay(lineWidth: CGFloat) {
+        let borderCountourSize = Swift.max(lineWidth / 2, 0.5)
+        let totalBorderSize = borderCountourSize * 2 + lineWidth
+        let drawRect = self.drawingRect.expand(by: totalBorderSize / 2)
+        restoringGraphicState {
+            // main border
+            NSColor.red.setStroke()
+            NSBezierPath.defaultLineWidth = lineWidth
+            NSBezierPath.stroke(drawRect)
+            
+            // border outer contour
+            NSBezierPath.defaultLineWidth = borderCountourSize
+            NSColor.white.setStroke()
+            NSBezierPath.stroke(drawRect.expand(by: borderCountourSize * 1.5))
+            
+            // border inner contour
+            NSBezierPath.stroke(drawRect.expand(by: -borderCountourSize * 1.5))
+        }
     }
 }

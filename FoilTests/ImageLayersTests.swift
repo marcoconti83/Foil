@@ -126,5 +126,51 @@ class ImageLayersTests: XCTestCase {
         // THEN
         Utils.compareImage(layers.renderResult, fixtureName: "200x200-red-moons.png")
     }
+    
+    func testThatItDrawsBitmapsSelectedSmall() {
+        
+        // GIVEN
+        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 100, height: 100))
+        layers.backgroundColor = NSColor.white
+        layers.addBitmap(
+            Utils.testImage("moon.jpg")!,
+            centerPosition: NSPoint(x: 50, y: 50),
+            scale: 0.2
+        )
+        let b2 = layers.addBitmap(
+            Utils.testImage("moon.jpg")!,
+            centerPosition: NSPoint(x: 25, y: 50),
+            scale: 0.2
+        )
+        
+        // WHEN
+        layers.selectedBitmaps.insert(b2)
+        
+        // THEN
+        Utils.compareImage(layers.renderResult, fixtureName: "200x200-red-moons-selected.png")
+    }
+    
+    func testThatItDrawsBitmapsSelectedLarge() {
+        
+        // GIVEN
+        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 800, height: 800))
+        layers.backgroundColor = NSColor.white
+        layers.addBitmap(
+            Utils.testImage("moon.jpg")!,
+            centerPosition: NSPoint(x: 400, y: 400),
+            scale: 0.5
+        )
+        let b2 = layers.addBitmap(
+            Utils.testImage("moon.jpg")!,
+            centerPosition: NSPoint(x: 100, y: 400),
+            scale: 0.5
+        )
+        
+        // WHEN
+        layers.selectedBitmaps.insert(b2)
+        
+        // THEN
+        Utils.compareImage(layers.renderResult, fixtureName: "200x200-red-moons-selected-large.png")
+    }
 
 }

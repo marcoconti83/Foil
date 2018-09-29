@@ -46,9 +46,3 @@ public class ImageEditView: NSView {
     }
 }
 
-
-private func restoringGraphicState(_ block: ()->()) {
-    NSGraphicsContext.current?.saveGraphicsState()
-    block()
-    NSGraphicsContext.current?.restoreGraphicsState()
-}

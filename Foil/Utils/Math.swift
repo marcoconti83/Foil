@@ -40,6 +40,14 @@ public func /(lhs: NSPoint, rhs: CGFloat) -> NSPoint {
     return NSPoint(x: lhs.x / rhs, y: lhs.y / rhs)
 }
 
+public func *(lhs: NSSize, rhs: CGFloat) -> NSSize {
+    return NSSize(width: lhs.width * rhs, height: lhs.height * rhs)
+}
+
+public func /(lhs: NSSize, rhs: CGFloat) -> NSSize {
+    return NSSize(width: lhs.width / rhs, height: lhs.height / rhs)
+}
+
 extension NSPoint {
 
     public func squareDistance(to: NSPoint) -> CGFloat {
@@ -59,5 +67,21 @@ extension NSRect {
     
     public var center: NSPoint {
         return NSPoint(x: self.midX, y: self.midY)
+    }
+    
+    public func expand(by offset: CGFloat) -> NSRect {
+        return NSRect(x: self.minX - offset, y: self.minY - offset,
+                      width: self.width + offset*2, height: self.height + offset*2)
+    }
+}
+
+extension NSSize {
+    
+    public var min: CGFloat {
+        return Swift.min(self.width, self.height)
+    }
+    
+    public var max: CGFloat {
+        return Swift.max(self.width, self.height)
     }
 }

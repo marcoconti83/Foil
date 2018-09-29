@@ -24,43 +24,17 @@
 
 import Foundation
 
-public class Bitmap: Equatable, Hashable {
-    
-    private let uuid: UUID = UUID()
-    
-    let image: NSImage
-    let centerPosition: NSPoint
-    let scale: CGFloat
-    
-    let originalSize: NSSize
-    let size: NSSize
-    let halfSize: NSSize
-    let drawingRect: NSRect
-    
-    init(
-        image: NSImage,
-        centerPostion: NSPoint = NSPoint(x: 0, y: 0),
-        scale: CGFloat = 1)
-    {
-        self.scale = scale
-        self.image = image
-        self.centerPosition = centerPostion
-        self.originalSize = image.size
-        self.size = self.originalSize * scale
-        self.halfSize = self.size / 2
-        self.drawingRect = NSRect(
-            x: self.centerPosition.x - self.halfSize.width,
-            y: self.centerPosition.y - self.halfSize.height,
-            width: self.size.width,
-            height: self.size.height
-        )
-    }
-    
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(Unmanaged.passUnretained(self).toOpaque())
-    }
+func restoringGraphicState(_ block: ()->()) {
+    NSGraphicsContext.current?.saveGraphicsState()
+    block()
+    NSGraphicsContext.current?.restoreGraphicsState()
 }
 
-public func ==(lhs: Bitmap, rhs: Bitmap) -> Bool {
-    return lhs === rhs
+extension NSImage {
+    
+    func lockingFocus(_ block: ()->()) {
+        self.lockFocus()
+        block()
+        self.unlockFocus()
+    }
 }
