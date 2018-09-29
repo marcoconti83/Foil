@@ -41,6 +41,7 @@ final class LineTool: ToolMixin, Tool {
                     width: self.settings.lineWidth)
             } else {
                 self.layers.lineBeingDrawn = nil
+                self.toolSelection(.selection)
             }
         }
         else {

@@ -24,42 +24,15 @@
 
 import Foundation
 
-public protocol Tool {
+class WeakBox<T: AnyObject>: Equatable {
     
-    func didPressKey(key: Keycode)
-    func didTapOnPoint(_ point: NSPoint, shiftKeyPressed: Bool)
-    func didMoveMouse(_ point: NSPoint)
+    weak var value: T? = nil
     
-    var settings: ToolSettings { get set }
-}
-
-class ToolMixin {
-    
-    let layers: ImageLayers
-    let toolSelection: (ToolType)->Void
-    var settings: ToolSettings {
-        didSet {
-            self.updateSettings()
-        }
-    }
-    
-    init(layers: ImageLayers, settings: ToolSettings, toolSelection: @escaping (ToolType)->Void) {
-        self.layers = layers
-        self.settings = settings
-        self.toolSelection = toolSelection
-    }
-    
-    func updateSettings() {
-        
+    init(value: T? = nil) {
+        self.value = value
     }
 }
 
-public struct ToolSettings {
-    public var color: NSColor
-    public var lineWidth: CGFloat
-    
-    public init(color: NSColor = .black, lineWidth: CGFloat = 2) {
-        self.color = color
-        self.lineWidth = lineWidth
-    }
+func ==<T>(lhs: WeakBox<T>, rhs: WeakBox<T>) -> Bool {
+    return lhs.value === rhs.value
 }

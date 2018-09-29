@@ -49,15 +49,34 @@ public class ImageEditor {
     public init(backgroundImage: NSImage) {
         self.layers = ImageLayers(backgroundImage: backgroundImage)
         self.toolSettings.lineWidth = Swift.max(2, backgroundImage.size.min / 200)
-        self.tool = SelectionTool(layers: self.layers, settings: self.toolSettings)
+        let box = WeakBox<ImageEditor>()
+        self.tool = SelectionTool(
+            layers: self.layers,
+            settings: self.toolSettings,
+            toolSelection: { type in
+                box.value?.setTool(type)
+            }
+        )
+        box.value = self
     }
     
     public func setTool(_ tool: ToolType) {
+        let toolSelection: (ToolType) -> () = { [weak self] type in
+            self?.setTool(type)
+        }
         switch tool {
         case .line:
-            self.tool = LineTool(layers: self.layers, settings: self.toolSettings)
+            self.tool = LineTool(
+                layers: self.layers,
+                settings: self.toolSettings,
+                toolSelection: toolSelection
+            )
         case .selection:
-            self.tool = SelectionTool(layers: self.layers, settings: self.toolSettings)
+            self.tool = SelectionTool(
+                layers: self.layers,
+                settings: self.toolSettings,
+                toolSelection: toolSelection
+            )
         }
     }
 }
