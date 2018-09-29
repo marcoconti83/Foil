@@ -24,9 +24,15 @@ import Foundation
 import Cocoa
 import Cartography
 
-public class ImageEditView: NSView {
+public class ImageEditView: NSView, ImageEditorDelegate {
+
+    
     
     var editor: ImageEditor!
+    
+    public override var acceptsFirstResponder: Bool {
+        return true
+    }
     
     public override init(frame frameRect: NSRect) {
         self.editor = ImageEditor(emptyImageOfSize: NSSize(width: 500, height: 500))
@@ -35,11 +41,8 @@ public class ImageEditView: NSView {
             s.width == self.editor.size.width
             s.height == self.editor.size.height
         }
-        self.editor.setTool(.line)
-        self.editor.layers.redrawDelegate = { [weak self] in
-            guard let self = self else { return }
-            self.needsDisplay = true
-        }
+        self.editor.toolType = .selection
+        self.editor.delegate = self
     }
     
     public required init?(coder decoder: NSCoder) {
@@ -66,6 +69,11 @@ public class ImageEditView: NSView {
         self.editor.tool.didMoveMouse(self.eventLocation(event))
     }
     
+    public override func keyUp(with event: NSEvent) {
+        guard let code = Keycode(rawValue: event.keyCode) else { return }
+        self.editor.tool.didPressKey(key: code)
+    }
+    
     private func eventLocation(_ event: NSEvent) -> NSPoint {
         return self.convert(event.locationInWindow, from: nil)
     }
@@ -82,5 +90,38 @@ public class ImageEditView: NSView {
                                       owner: self, userInfo: nil)
         self.addTrackingArea(self.mouseTrackingArea!)
     }
+    
+    public override func performKeyEquivalent(with event: NSEvent) -> Bool {
+        return true
+    }
+    
+    public override func resetCursorRects() {
+        let cursor = self.editor.toolType.cursor
+        self.discardCursorRects()
+        self.addCursorRect(self.frame, cursor: cursor)
+    }
+    
+    public func didRedrawImage() {
+        self.needsDisplay = true
+    }
+    
+    public func didChangeTool(_ tool: ToolType) {
+        tool.cursor.set()
+        self.resetCursorRects()
+    }
 }
 
+
+extension ToolType {
+    
+    var cursor: NSCursor {
+        switch self {
+        case .selection:
+            return NSCursor.pointingHand
+        case .line:
+            return NSCursor.crosshair
+        case .bitmap:
+            return NSCursor.crosshair
+        }
+    }
+}

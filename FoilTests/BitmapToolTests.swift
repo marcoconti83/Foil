@@ -32,7 +32,7 @@ class BitmapToolTests: XCTestCase {
         // GIVEN
         let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
         let moon = Utils.testImage("moon.jpg")!
-        editor.setTool(.bitmap(moon))
+        editor.toolType = .bitmap(moon)
         
         // WHEN
         let p = NSPoint(x: 20, y: 20)
@@ -52,7 +52,7 @@ class BitmapToolTests: XCTestCase {
         // GIVEN
         let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
         let moon = Utils.testImage("moon.jpg")!
-        editor.setTool(.bitmap(moon))
+        editor.toolType = .bitmap(moon)
         
         // WHEN
         let p = NSPoint(x: 20, y: 20)

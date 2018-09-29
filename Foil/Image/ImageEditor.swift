@@ -36,6 +36,16 @@ public class ImageEditor {
     public let layers: ImageLayers
     
     private(set) var tool: Tool
+    
+    weak var delegate: ImageEditorDelegate? = nil
+    
+    public var toolType: ToolType {
+        didSet {
+            self.setTool(self.toolType)
+            self.delegate?.didChangeTool(self.toolType)
+        }
+    }
+    
     public var toolSettings: ToolSettings = ToolSettings() {
         didSet {
             self.tool.settings = self.toolSettings
@@ -55,19 +65,23 @@ public class ImageEditor {
         self.layers = ImageLayers(backgroundImage: backgroundImage)
         self.toolSettings.lineWidth = Swift.max(2, backgroundImage.size.min / 200)
         let box = WeakBox<ImageEditor>()
+        self.toolType = .line
         self.tool = SelectionTool(
             layers: self.layers,
             settings: self.toolSettings,
             toolSelection: { type in
-                box.value?.setTool(type)
+                box.value?.toolType = type
             }
         )
         box.value = self
+        self.layers.redrawDelegate = { [weak self] in
+            self?.delegate?.didRedrawImage()
+        }
     }
     
-    public func setTool(_ tool: ToolType) {
+    private func setTool(_ tool: ToolType) {
         let toolSelection: (ToolType) -> () = { [weak self] type in
-            self?.setTool(type)
+            self?.toolType = type
         }
         switch tool {
         case .line:
@@ -94,3 +108,8 @@ public class ImageEditor {
 }
 
 
+public protocol ImageEditorDelegate: class {
+    
+    func didRedrawImage()
+    func didChangeTool(_ tool: ToolType)
+}

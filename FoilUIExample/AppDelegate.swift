@@ -32,7 +32,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        window.contentView = ImageEditView(frame: NSRect(x: 0, y: 0, width: 300, height: 300))
+        window.contentViewController = ImageEditorViewController()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

@@ -31,7 +31,7 @@ class LineToolTests: XCTestCase {
         
         // GIVEN
         let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
-        editor.setTool(.line)
+        editor.toolType = .line
         
         // WHEN
         let p = NSPoint(x: 20, y: 20)
@@ -45,7 +45,7 @@ class LineToolTests: XCTestCase {
         
         // GIVEN
         let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
-        editor.setTool(.line)
+        editor.toolType = .line
         
         // WHEN
         let p = NSPoint(x: 20, y: 20)
@@ -61,7 +61,7 @@ class LineToolTests: XCTestCase {
         
         // GIVEN
         let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
-        editor.setTool(.line)
+        editor.toolType = .line
         
         // WHEN
         let p1 = NSPoint(x: 20, y: 20)
@@ -77,7 +77,7 @@ class LineToolTests: XCTestCase {
         
         // GIVEN
         let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
-        editor.setTool(.line)
+        editor.toolType = .line
         
         // WHEN
         let p1 = NSPoint(x: 20, y: 20)
@@ -95,7 +95,7 @@ class LineToolTests: XCTestCase {
         
         // GIVEN
         let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
-        editor.setTool(.line)
+        editor.toolType = .line
         
         // WHEN
         let p1 = NSPoint(x: 20, y: 20)

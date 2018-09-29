@@ -30,6 +30,18 @@
 		A926C33F215FC004006B1388 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A926C33D215FC004006B1388 /* MainMenu.xib */; };
 		A926C348215FC07E006B1388 /* Cartography.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A9B7D449215DFC7B002A95CB /* Cartography.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A926C349215FC085006B1388 /* Foil.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A9B7D41C215DF9B9002A95CB /* Foil.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A926C34B215FCAD9006B1388 /* ImageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C34A215FCAD9006B1388 /* ImageEditorViewController.swift */; };
+		A926C34D215FD56F006B1388 /* THIRD_PARTY_LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A926C34C215FD56F006B1388 /* THIRD_PARTY_LICENSE */; };
+		A926C351215FD768006B1388 /* color_wheel.png in Resources */ = {isa = PBXBuildFile; fileRef = A926C350215FD768006B1388 /* color_wheel.png */; };
+		A926C353215FD774006B1388 /* cursor.png in Resources */ = {isa = PBXBuildFile; fileRef = A926C352215FD774006B1388 /* cursor.png */; };
+		A926C355215FD781006B1388 /* image_add.png in Resources */ = {isa = PBXBuildFile; fileRef = A926C354215FD781006B1388 /* image_add.png */; };
+		A926C357215FD793006B1388 /* pencil.png in Resources */ = {isa = PBXBuildFile; fileRef = A926C356215FD793006B1388 /* pencil.png */; };
+		A926C359215FD7E4006B1388 /* pencil_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = A926C358215FD7E4006B1388 /* pencil_delete.png */; };
+		A926C35B215FD827006B1388 /* eye.png in Resources */ = {isa = PBXBuildFile; fileRef = A926C35A215FD827006B1388 /* eye.png */; };
+		A926C35D215FD9F7006B1388 /* line_size.png in Resources */ = {isa = PBXBuildFile; fileRef = A926C35C215FD9F7006B1388 /* line_size.png */; };
+		A926C35F215FE069006B1388 /* ClosureControls.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A926C35E215FE069006B1388 /* ClosureControls.framework */; };
+		A926C360215FE06B006B1388 /* ClosureControls.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A926C35E215FE069006B1388 /* ClosureControls.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A926C361215FE749006B1388 /* ClosureControls.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A926C35E215FE069006B1388 /* ClosureControls.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A9B7D421215DF9B9002A95CB /* Foil.h in Headers */ = {isa = PBXBuildFile; fileRef = A9B7D41F215DF9B9002A95CB /* Foil.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9B7D433215DFA15002A95CB /* ImageLayersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7D432215DFA15002A95CB /* ImageLayersTests.swift */; };
 		A9B7D435215DFA15002A95CB /* Foil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9B7D41C215DF9B9002A95CB /* Foil.framework */; };
@@ -77,6 +89,7 @@
 			files = (
 				A926C349215FC085006B1388 /* Foil.framework in CopyFiles */,
 				A926C348215FC07E006B1388 /* Cartography.framework in CopyFiles */,
+				A926C360215FE06B006B1388 /* ClosureControls.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +99,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				A926C361215FE749006B1388 /* ClosureControls.framework in CopyFiles */,
 				A9B7D458215DFDB6002A95CB /* Cartography.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -117,6 +131,16 @@
 		A926C33E215FC004006B1388 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		A926C340215FC004006B1388 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A926C341215FC004006B1388 /* FoilUIExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FoilUIExample.entitlements; sourceTree = "<group>"; };
+		A926C34A215FCAD9006B1388 /* ImageEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditorViewController.swift; sourceTree = "<group>"; };
+		A926C34C215FD56F006B1388 /* THIRD_PARTY_LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = THIRD_PARTY_LICENSE; sourceTree = "<group>"; };
+		A926C350215FD768006B1388 /* color_wheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color_wheel.png; sourceTree = "<group>"; };
+		A926C352215FD774006B1388 /* cursor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cursor.png; sourceTree = "<group>"; };
+		A926C354215FD781006B1388 /* image_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_add.png; sourceTree = "<group>"; };
+		A926C356215FD793006B1388 /* pencil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pencil.png; sourceTree = "<group>"; };
+		A926C358215FD7E4006B1388 /* pencil_delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pencil_delete.png; sourceTree = "<group>"; };
+		A926C35A215FD827006B1388 /* eye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eye.png; sourceTree = "<group>"; };
+		A926C35C215FD9F7006B1388 /* line_size.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = line_size.png; sourceTree = "<group>"; };
+		A926C35E215FE069006B1388 /* ClosureControls.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClosureControls.framework; path = Carthage/Build/Mac/ClosureControls.framework; sourceTree = "<group>"; };
 		A9B7D41C215DF9B9002A95CB /* Foil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Foil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9B7D41F215DF9B9002A95CB /* Foil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Foil.h; sourceTree = "<group>"; };
 		A9B7D420215DF9B9002A95CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -156,6 +180,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A926C35F215FE069006B1388 /* ClosureControls.framework in Frameworks */,
 				A9B7D44A215DFC7B002A95CB /* Cartography.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -183,18 +208,41 @@
 			path = FoilUIExample;
 			sourceTree = "<group>";
 		};
+		A926C34E215FD759006B1388 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A926C34F215FD75E006B1388 /* Icons */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		A926C34F215FD75E006B1388 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				A926C35C215FD9F7006B1388 /* line_size.png */,
+				A926C35A215FD827006B1388 /* eye.png */,
+				A926C358215FD7E4006B1388 /* pencil_delete.png */,
+				A926C356215FD793006B1388 /* pencil.png */,
+				A926C354215FD781006B1388 /* image_add.png */,
+				A926C352215FD774006B1388 /* cursor.png */,
+				A926C350215FD768006B1388 /* color_wheel.png */,
+			);
+			path = Icons;
+			sourceTree = "<group>";
+		};
 		A9B7D412215DF9B9002A95CB = {
 			isa = PBXGroup;
 			children = (
 				A9B7D428215DF9F0002A95CB /* Cartfile */,
 				A9B7D42B215DF9F0002A95CB /* Cartfile.resolved */,
 				A9B7D42A215DF9F0002A95CB /* LICENSE */,
+				A926C34C215FD56F006B1388 /* THIRD_PARTY_LICENSE */,
 				A9B7D429215DF9F0002A95CB /* README.md */,
 				A926C338215FC002006B1388 /* FoilUIExample */,
-				A9B7D448215DFB07002A95CB /* Frameworks */,
 				A9B7D41E215DF9B9002A95CB /* Foil */,
 				A9B7D431215DFA15002A95CB /* FoilTests */,
 				A9B7D41D215DF9B9002A95CB /* Products */,
+				A9B7D448215DFB07002A95CB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -211,6 +259,7 @@
 		A9B7D41E215DF9B9002A95CB /* Foil */ = {
 			isa = PBXGroup;
 			children = (
+				A926C34E215FD759006B1388 /* Resources */,
 				A9B7D43B215DFA2F002A95CB /* Image */,
 				A9B7D43E215DFA2F002A95CB /* UI */,
 				A9B7D441215DFA2F002A95CB /* Utils */,
@@ -255,6 +304,7 @@
 			children = (
 				A9B7D440215DFA2F002A95CB /* ImageEditView.swift */,
 				A926C313215F5DFB006B1388 /* DrawingUtils.swift */,
+				A926C34A215FCAD9006B1388 /* ImageEditorViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -273,6 +323,7 @@
 		A9B7D448215DFB07002A95CB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A926C35E215FE069006B1388 /* ClosureControls.framework */,
 				A9B7D449215DFC7B002A95CB /* Cartography.framework */,
 			);
 			name = Frameworks;
@@ -431,6 +482,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A926C357215FD793006B1388 /* pencil.png in Resources */,
+				A926C34D215FD56F006B1388 /* THIRD_PARTY_LICENSE in Resources */,
+				A926C35D215FD9F7006B1388 /* line_size.png in Resources */,
+				A926C353215FD774006B1388 /* cursor.png in Resources */,
+				A926C359215FD7E4006B1388 /* pencil_delete.png in Resources */,
+				A926C35B215FD827006B1388 /* eye.png in Resources */,
+				A926C351215FD768006B1388 /* color_wheel.png in Resources */,
+				A926C355215FD781006B1388 /* image_add.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,6 +531,7 @@
 				A926C324215FAE63006B1388 /* SelectionTool.swift in Sources */,
 				A926C31E215F7283006B1388 /* Keycodes.swift in Sources */,
 				A926C314215F5DFB006B1388 /* DrawingUtils.swift in Sources */,
+				A926C34B215FCAD9006B1388 /* ImageEditorViewController.swift in Sources */,
 				A926C326215FAFBA006B1388 /* Tool.swift in Sources */,
 				A9B7D446215DFA2F002A95CB /* ImageEditView.swift in Sources */,
 				A9B7D443215DFA2F002A95CB /* ImageLayers.swift in Sources */,
