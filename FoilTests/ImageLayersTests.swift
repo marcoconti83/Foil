@@ -172,5 +172,22 @@ class ImageLayersTests: XCTestCase {
         // THEN
         Utils.compareImage(layers.renderResult, fixtureName: "200x200-red-moons-selected-large.png")
     }
+    
+    func testThatItDrawsTemporaryLine() {
+        
+        // GIVEN
+        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 500, height: 500))
+        layers.backgroundColor = NSColor.white
+        
+        // WHEN
+        layers.lineBeingDrawn = Line(
+            start: NSPoint(x: 130, y: 100),
+            end: NSPoint(x: 330, y: 400),
+            color: NSColor.red,
+            width: 5)
+        
+        // THEN
+        Utils.compareImage(layers.renderResult, fixtureName: "500x500-temporary-line.png")
+    }
 
 }

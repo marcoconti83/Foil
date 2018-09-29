@@ -149,4 +149,7 @@ extension ImageEditorTests {
 
 }
 
+// MARK: - Temporary line
+extension ImageEditorTests {
+    
 }

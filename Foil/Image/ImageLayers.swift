@@ -61,6 +61,11 @@ public class ImageLayers {
         }
     }
     
+    /// Line being drawn
+    /// This is a temporary line until it gets confirmed
+    var lineBeingDrawn: Line? = nil {
+        didSet {
+            self.redrawIfNeeded()
         }
     }
     
@@ -94,6 +99,7 @@ extension ImageLayers {
             self.backgroundColor.drawSwatch(in: rect)
             self.backgroundImage.draw(in: rect)
             self.rasterLayer.draw(in: rect)
+            self.drawTemporaryLine()
             self.bitmaps.forEach {
                 $0.image.draw(in: $0.drawingRect)
                 if self.selectedBitmaps.contains($0) {
@@ -103,6 +109,14 @@ extension ImageLayers {
         }
     }
     
+    private func drawTemporaryLine() {
+        guard let temporaryLine = self.lineBeingDrawn else {
+            return
+        }
+        restoringGraphicState {
+            temporaryLine.draw()
+        }
+    }
     
     private func redrawIfNeeded() {
         if self.shouldRedraw {
@@ -182,5 +196,36 @@ extension Bitmap {
             // border inner contour
             NSBezierPath.stroke(drawRect.expand(by: -borderCountourSize * 1.5))
         }
+    }
+}
+
+public struct Line {
+    
+    let start: NSPoint
+    let end: NSPoint
+    let color: NSColor
+    let path: NSBezierPath
+    
+    public init(start: NSPoint, end: NSPoint, color: NSColor, width: CGFloat) {
+        self.start = start
+        self.end = end
+        self.color = color
+        let path = NSBezierPath()
+        path.lineWidth = width
+        path.move(to: start)
+        path.line(to: end)
+        self.path = path
+    }
+    
+    func moveEnd(_ end: NSPoint) -> Line {
+        return Line(start: self.start,
+                    end: end,
+                    color: self.color,
+                    width: self.path.lineWidth)
+    }
+    
+    fileprivate func draw() {
+        self.color.setStroke()
+        self.path.stroke()
     }
 }
