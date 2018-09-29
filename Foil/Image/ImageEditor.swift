@@ -27,6 +27,7 @@ import Foundation
 public enum ToolType {
     case line
     case selection
+    case bitmap(NSImage)
 }
 
 /// Adds user interaction to image layers
@@ -75,6 +76,13 @@ public class ImageEditor {
             self.tool = SelectionTool(
                 layers: self.layers,
                 settings: self.toolSettings,
+                toolSelection: toolSelection
+            )
+        case .bitmap(let image):
+            self.tool = BitmapTool(
+                layers: self.layers,
+                settings: self.toolSettings,
+                image: image,
                 toolSelection: toolSelection
             )
         }
