@@ -22,26 +22,23 @@
 //
     
 
-import Foundation
+import Cocoa
+import Foil
 
-final class BitmapTool: ToolMixin, Tool {
-    
-    let image: NSImage
-    
-    init(
-        layers: ImageLayers,
-        settings: ToolSettings,
-        image: NSImage,
-        toolSelection: @escaping (ToolType) -> Void)
-    {
-        self.image = image
-        super.init(layers: layers, settings: settings, toolSelection: toolSelection)
+@NSApplicationMain
+class AppDelegate: NSObject, NSApplicationDelegate {
+
+    @IBOutlet weak var window: NSWindow!
+
+
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
+        window.contentView = ImageEditView(frame: NSRect(x: 0, y: 0, width: 300, height: 300))
     }
-    
-    override func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool) {
-        self.layers.addBitmap(image, centerPosition: point, scale: 1)
-        if !shiftKeyPressed {
-            self.toolSelection(.selection)
-        }
+
+    func applicationWillTerminate(_ aNotification: Notification) {
+        // Insert code here to tear down your application
     }
+
+
 }
+

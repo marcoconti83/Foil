@@ -42,6 +42,10 @@ public class ImageEditor {
         }
     }
     
+    public var size: NSSize {
+        return self.layers.backgroundImage.size
+    }
+    
     public convenience init(emptyImageOfSize size: NSSize) {
         let backgroundImage = NSImage(size: size)
         self.init(backgroundImage: backgroundImage)

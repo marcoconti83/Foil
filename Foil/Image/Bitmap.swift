@@ -24,7 +24,7 @@
 
 import Foundation
 
-public final class Bitmap: Equatable, Hashable {
+public final class Bitmap: Equatable, Hashable, CustomDebugStringConvertible {
     
     private let uuid: UUID = UUID()
     
@@ -59,9 +59,13 @@ public final class Bitmap: Equatable, Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(Unmanaged.passUnretained(self).toOpaque())
     }
+    
+    public var debugDescription: String {
+        return "center: \(self.centerPosition), scale: \(self.scale)"
+    }
 }
 
 public func ==(lhs: Bitmap, rhs: Bitmap) -> Bool {
     return lhs.scale == rhs.scale && lhs.centerPosition == rhs.centerPosition
-        && lhs.image == rhs.image
+        && lhs.image === rhs.image
 }

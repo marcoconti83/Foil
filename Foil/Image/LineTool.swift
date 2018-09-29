@@ -26,40 +26,48 @@ import Foundation
 
 final class LineTool: ToolMixin, Tool {
     
-    func didTapOnPoint(_ point: NSPoint, shiftKeyPressed: Bool) {
-        if let line = self.layers.lineBeingDrawn { // this is the last point
-            self.layers.drawLine(
-                from: line.start,
-                to: point,
-                lineWidth: self.settings.lineWidth,
-                color: self.settings.color)
-            if shiftKeyPressed {
-                self.layers.lineBeingDrawn = Line(
-                    start: point,
-                    end: point,
-                    color: self.settings.color,
-                    width: self.settings.lineWidth)
-            } else {
-                self.layers.lineBeingDrawn = nil
-                self.toolSelection(.selection)
-            }
-        }
-        else {
+    
+    override func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool) {
+        guard let line = self.layers.lineBeingDrawn else { return }
+        self.layers.drawLine(
+            from: line.start,
+            to: point,
+            lineWidth: self.settings.lineWidth,
+            color: self.settings.color)
+        if shiftKeyPressed {
             self.layers.lineBeingDrawn = Line(
                 start: point,
                 end: point,
                 color: self.settings.color,
                 width: self.settings.lineWidth)
+        } else {
+            self.layers.lineBeingDrawn = nil
+            self.toolSelection(.selection)
         }
     }
     
-    func didPressKey(key: Keycode) {
+    override func didMouseDown(_ point: NSPoint, shiftKeyPressed: Bool) {
+        guard self.layers.lineBeingDrawn == nil else { return }
+        self.layers.lineBeingDrawn = Line(
+            start: point,
+            end: point,
+            color: self.settings.color,
+            width: self.settings.lineWidth)
+    }
+    
+    override func didPressKey(key: Keycode) {
         if key == .escape {
             self.layers.lineBeingDrawn = nil
         }
     }
     
-    func didMoveMouse(_ point: NSPoint) {
+    override func didDragMouse(_ point: NSPoint) {
+        if let line = self.layers.lineBeingDrawn {
+            self.layers.lineBeingDrawn = line.moveEnd(point)
+        }
+    }
+    
+    override func didMoveMouse(_ point: NSPoint) {
         if let line = self.layers.lineBeingDrawn {
             self.layers.lineBeingDrawn = line.moveEnd(point)
         }

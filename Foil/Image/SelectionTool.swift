@@ -26,7 +26,7 @@ import Foundation
 
 final class SelectionTool: ToolMixin, Tool {
     
-    func didTapOnPoint(_ point: NSPoint, shiftKeyPressed: Bool) {
+    override func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool) {
         guard let selectedBitmap = self.layers.bitmaps.first(where: {
             $0.drawingRect.contains(point)
         }) else {
@@ -48,14 +48,10 @@ final class SelectionTool: ToolMixin, Tool {
     }
     
     
-    func didPressKey(key: Keycode) {
+    override func didPressKey(key: Keycode) {
         if key == .delete || key == .forwardDelete {
             self.layers.bitmaps = self.layers.bitmaps.filter { !self.layers.selectedBitmaps.contains($0) }
             self.layers.selectedBitmaps = Set()
         }
-    }
-    
-    func didMoveMouse(_ point: NSPoint) {
-        
     }
 }

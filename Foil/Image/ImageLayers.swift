@@ -33,6 +33,8 @@ public class ImageLayers {
     
     private var shouldRedraw: Bool = true
     
+    var redrawDelegate: (()->())? = nil
+    
     /// An image to be used as background
     public var backgroundImage: NSImage {
         didSet {
@@ -107,6 +109,7 @@ extension ImageLayers {
                 }
             }
         }
+        self.redrawDelegate?()
     }
     
     private func drawTemporaryLine() {

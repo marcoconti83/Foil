@@ -27,7 +27,9 @@ import Foundation
 public protocol Tool {
     
     func didPressKey(key: Keycode)
-    func didTapOnPoint(_ point: NSPoint, shiftKeyPressed: Bool)
+    func didMouseDown(_ point: NSPoint, shiftKeyPressed: Bool)
+    func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool)
+    func didDragMouse(_ point: NSPoint)
     func didMoveMouse(_ point: NSPoint)
     
     var settings: ToolSettings { get set }
@@ -52,6 +54,12 @@ class ToolMixin {
     func updateSettings() {
         
     }
+    
+    func didPressKey(key: Keycode) {}
+    func didMouseDown(_ point: NSPoint, shiftKeyPressed: Bool) {}
+    func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool) {}
+    func didDragMouse(_ point: NSPoint) {}
+    func didMoveMouse(_ point: NSPoint) {}
 }
 
 public struct ToolSettings {

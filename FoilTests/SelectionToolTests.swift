@@ -44,7 +44,7 @@ class SelectionToolTests: XCTestCase {
         )
         
         // WHEN
-        editor.tool.didTapOnPoint(NSPoint(x: 55, y: 55), shiftKeyPressed: false)
+        editor.tool.didMouseUp(NSPoint(x: 55, y: 55), shiftKeyPressed: false)
         
         // THEN
         XCTAssertEqual(editor.layers.selectedBitmaps, Set([b1]))
@@ -68,7 +68,7 @@ class SelectionToolTests: XCTestCase {
         editor.layers.selectedBitmaps = Set([b1])
         
         // WHEN
-        editor.tool.didTapOnPoint(NSPoint(x: 10, y: 80), shiftKeyPressed: false)
+        editor.tool.didMouseUp(NSPoint(x: 10, y: 80), shiftKeyPressed: false)
         
         // THEN
         XCTAssert(editor.layers.selectedBitmaps.isEmpty)
@@ -92,7 +92,7 @@ class SelectionToolTests: XCTestCase {
         editor.layers.selectedBitmaps = Set([b1])
         
         // WHEN
-        editor.tool.didTapOnPoint(NSPoint(x: 27, y: 55), shiftKeyPressed: true)
+        editor.tool.didMouseUp(NSPoint(x: 27, y: 55), shiftKeyPressed: true)
         
         // THEN
         XCTAssertEqual(editor.layers.selectedBitmaps, Set([b1, b2]))
@@ -116,7 +116,7 @@ class SelectionToolTests: XCTestCase {
         editor.layers.selectedBitmaps = Set([b1, b2])
         
         // WHEN
-        editor.tool.didTapOnPoint(NSPoint(x: 27, y: 55), shiftKeyPressed: true)
+        editor.tool.didMouseUp(NSPoint(x: 27, y: 55), shiftKeyPressed: true)
         
         // THEN
         XCTAssertEqual(editor.layers.selectedBitmaps, Set([b1]))

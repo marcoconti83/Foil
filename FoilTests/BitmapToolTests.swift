@@ -36,10 +36,14 @@ class BitmapToolTests: XCTestCase {
         
         // WHEN
         let p = NSPoint(x: 20, y: 20)
-        editor.tool.didTapOnPoint(p, shiftKeyPressed: false)
+        editor.tool.didMouseUp(p, shiftKeyPressed: false)
         
         // THEN
-        XCTAssertEqual(editor.layers.bitmaps, [Bitmap(image: moon, centerPostion: p, scale: 1)])
+        guard let bitmap = editor.layers.bitmaps.first else {
+            return XCTFail()
+        }
+        XCTAssertEqual(bitmap.centerPosition, p)
+        XCTAssertEqual(bitmap.scale, 1)
         XCTAssert(editor.tool is SelectionTool)
     }
     
@@ -52,7 +56,7 @@ class BitmapToolTests: XCTestCase {
         
         // WHEN
         let p = NSPoint(x: 20, y: 20)
-        editor.tool.didTapOnPoint(p, shiftKeyPressed: true)
+        editor.tool.didMouseUp(p, shiftKeyPressed: true)
         
         // THEN
         XCTAssert(editor.tool is BitmapTool)

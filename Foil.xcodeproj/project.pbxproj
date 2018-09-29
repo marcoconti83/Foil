@@ -25,6 +25,11 @@
 		A926C32E215FB97B006B1388 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C32D215FB97B006B1388 /* Box.swift */; };
 		A926C330215FBBCB006B1388 /* BitmapTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C32F215FBBCB006B1388 /* BitmapTool.swift */; };
 		A926C332215FBD6A006B1388 /* BitmapToolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C331215FBD6A006B1388 /* BitmapToolTests.swift */; };
+		A926C33A215FC002006B1388 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C339215FC002006B1388 /* AppDelegate.swift */; };
+		A926C33C215FC004006B1388 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A926C33B215FC004006B1388 /* Assets.xcassets */; };
+		A926C33F215FC004006B1388 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A926C33D215FC004006B1388 /* MainMenu.xib */; };
+		A926C348215FC07E006B1388 /* Cartography.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A9B7D449215DFC7B002A95CB /* Cartography.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A926C349215FC085006B1388 /* Foil.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A9B7D41C215DF9B9002A95CB /* Foil.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A9B7D421215DF9B9002A95CB /* Foil.h in Headers */ = {isa = PBXBuildFile; fileRef = A9B7D41F215DF9B9002A95CB /* Foil.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9B7D433215DFA15002A95CB /* ImageLayersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7D432215DFA15002A95CB /* ImageLayersTests.swift */; };
 		A9B7D435215DFA15002A95CB /* Foil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9B7D41C215DF9B9002A95CB /* Foil.framework */; };
@@ -47,6 +52,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A926C345215FC00E006B1388 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A9B7D413215DF9B9002A95CB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A9B7D41B215DF9B9002A95CB;
+			remoteInfo = Foil;
+		};
 		A9B7D436215DFA15002A95CB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A9B7D413215DF9B9002A95CB /* Project object */;
@@ -57,6 +69,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		A926C347215FC075006B1388 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A926C349215FC085006B1388 /* Foil.framework in CopyFiles */,
+				A926C348215FC07E006B1388 /* Cartography.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A9B7D457215DFDAE002A95CB /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -88,6 +111,12 @@
 		A926C32D215FB97B006B1388 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		A926C32F215FBBCB006B1388 /* BitmapTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapTool.swift; sourceTree = "<group>"; };
 		A926C331215FBD6A006B1388 /* BitmapToolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapToolTests.swift; sourceTree = "<group>"; };
+		A926C337215FC002006B1388 /* FoilUIExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoilUIExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A926C339215FC002006B1388 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A926C33B215FC004006B1388 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A926C33E215FC004006B1388 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		A926C340215FC004006B1388 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A926C341215FC004006B1388 /* FoilUIExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FoilUIExample.entitlements; sourceTree = "<group>"; };
 		A9B7D41C215DF9B9002A95CB /* Foil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Foil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9B7D41F215DF9B9002A95CB /* Foil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Foil.h; sourceTree = "<group>"; };
 		A9B7D420215DF9B9002A95CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -116,6 +145,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A926C334215FC002006B1388 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A9B7D419215DF9B9002A95CB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -135,6 +171,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A926C338215FC002006B1388 /* FoilUIExample */ = {
+			isa = PBXGroup;
+			children = (
+				A926C339215FC002006B1388 /* AppDelegate.swift */,
+				A926C33B215FC004006B1388 /* Assets.xcassets */,
+				A926C33D215FC004006B1388 /* MainMenu.xib */,
+				A926C340215FC004006B1388 /* Info.plist */,
+				A926C341215FC004006B1388 /* FoilUIExample.entitlements */,
+			);
+			path = FoilUIExample;
+			sourceTree = "<group>";
+		};
 		A9B7D412215DF9B9002A95CB = {
 			isa = PBXGroup;
 			children = (
@@ -142,6 +190,7 @@
 				A9B7D42B215DF9F0002A95CB /* Cartfile.resolved */,
 				A9B7D42A215DF9F0002A95CB /* LICENSE */,
 				A9B7D429215DF9F0002A95CB /* README.md */,
+				A926C338215FC002006B1388 /* FoilUIExample */,
 				A9B7D448215DFB07002A95CB /* Frameworks */,
 				A9B7D41E215DF9B9002A95CB /* Foil */,
 				A9B7D431215DFA15002A95CB /* FoilTests */,
@@ -154,6 +203,7 @@
 			children = (
 				A9B7D41C215DF9B9002A95CB /* Foil.framework */,
 				A9B7D430215DFA15002A95CB /* FoilTests.xctest */,
+				A926C337215FC002006B1388 /* FoilUIExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -270,6 +320,25 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		A926C336215FC002006B1388 /* FoilUIExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A926C342215FC004006B1388 /* Build configuration list for PBXNativeTarget "FoilUIExample" */;
+			buildPhases = (
+				A926C333215FC002006B1388 /* Sources */,
+				A926C334215FC002006B1388 /* Frameworks */,
+				A926C335215FC002006B1388 /* Resources */,
+				A926C347215FC075006B1388 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A926C346215FC00E006B1388 /* PBXTargetDependency */,
+			);
+			name = FoilUIExample;
+			productName = FoilUIExample;
+			productReference = A926C337215FC002006B1388 /* FoilUIExample.app */;
+			productType = "com.apple.product-type.application";
+		};
 		A9B7D41B215DF9B9002A95CB /* Foil */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A9B7D424215DF9B9002A95CB /* Build configuration list for PBXNativeTarget "Foil" */;
@@ -317,6 +386,9 @@
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Marco Conti";
 				TargetAttributes = {
+					A926C336215FC002006B1388 = {
+						CreatedOnToolsVersion = 10.0;
+					};
 					A9B7D41B215DF9B9002A95CB = {
 						CreatedOnToolsVersion = 10.0;
 					};
@@ -331,6 +403,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = A9B7D412215DF9B9002A95CB;
 			productRefGroup = A9B7D41D215DF9B9002A95CB /* Products */;
@@ -339,11 +412,21 @@
 			targets = (
 				A9B7D41B215DF9B9002A95CB /* Foil */,
 				A9B7D42F215DFA15002A95CB /* FoilTests */,
+				A926C336215FC002006B1388 /* FoilUIExample */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A926C335215FC002006B1388 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A926C33C215FC004006B1388 /* Assets.xcassets in Resources */,
+				A926C33F215FC004006B1388 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A9B7D41A215DF9B9002A95CB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -374,6 +457,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A926C333215FC002006B1388 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A926C33A215FC002006B1388 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A9B7D418215DF9B9002A95CB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -411,6 +502,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		A926C346215FC00E006B1388 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A9B7D41B215DF9B9002A95CB /* Foil */;
+			targetProxy = A926C345215FC00E006B1388 /* PBXContainerItemProxy */;
+		};
 		A9B7D437215DFA15002A95CB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A9B7D41B215DF9B9002A95CB /* Foil */;
@@ -418,7 +514,56 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		A926C33D215FC004006B1388 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A926C33E215FC004006B1388 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		A926C343215FC004006B1388 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FoilUIExample/FoilUIExample.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = X84W954ET6;
+				INFOPLIST_FILE = FoilUIExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.marcoconti83.FoilUIExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Debug;
+		};
+		A926C344215FC004006B1388 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = FoilUIExample/FoilUIExample.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = X84W954ET6;
+				INFOPLIST_FILE = FoilUIExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.marcoconti83.FoilUIExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+			};
+			name = Release;
+		};
 		A9B7D422215DF9B9002A95CB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -641,6 +786,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A926C342215FC004006B1388 /* Build configuration list for PBXNativeTarget "FoilUIExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A926C343215FC004006B1388 /* Debug */,
+				A926C344215FC004006B1388 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A9B7D416215DF9B9002A95CB /* Build configuration list for PBXProject "Foil" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

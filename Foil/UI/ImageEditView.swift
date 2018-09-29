@@ -26,14 +26,19 @@ import Cartography
 
 public class ImageEditView: NSView {
     
-    var imageLayers: ImageLayers!
+    var editor: ImageEditor!
     
     public override init(frame frameRect: NSRect) {
-        self.imageLayers = ImageLayers(emptyImageOfSize: NSSize(width: 500, height: 500))
+        self.editor = ImageEditor(emptyImageOfSize: NSSize(width: 500, height: 500))
         super.init(frame: frameRect)
         constrain(self) { s in
-            s.width >= 500
-            s.height >= 500
+            s.width == self.editor.size.width
+            s.height == self.editor.size.height
+        }
+        self.editor.setTool(.line)
+        self.editor.layers.redrawDelegate = { [weak self] in
+            guard let self = self else { return }
+            self.needsDisplay = true
         }
     }
     
@@ -42,7 +47,40 @@ public class ImageEditView: NSView {
     }
     
     public override func draw(_ dirtyRect: NSRect) {
-        
+        self.editor.layers.renderResult.draw(in: self.frame)
+    }
+    
+    public override func mouseDown(with event: NSEvent) {
+        self.editor.tool.didMouseDown(self.eventLocation(event), shiftKeyPressed: event.modifierFlags.contains(.shift))
+    }
+    
+    public override func mouseUp(with event: NSEvent) {
+        self.editor.tool.didMouseUp(self.eventLocation(event), shiftKeyPressed: event.modifierFlags.contains(.shift))
+    }
+    
+    public override func mouseDragged(with event: NSEvent) {
+        self.editor.tool.didDragMouse(self.eventLocation(event))
+    }
+    
+    public override func mouseMoved(with event: NSEvent) {
+        self.editor.tool.didMoveMouse(self.eventLocation(event))
+    }
+    
+    private func eventLocation(_ event: NSEvent) -> NSPoint {
+        return self.convert(event.locationInWindow, from: nil)
+    }
+    
+    var mouseTrackingArea: NSTrackingArea? = nil
+    
+    public override func updateTrackingAreas() {
+        if let area = self.mouseTrackingArea {
+            self.removeTrackingArea(area)
+        }
+        let options: NSTrackingArea.Options =
+            [.mouseEnteredAndExited, .mouseMoved, .activeInKeyWindow]
+        self.mouseTrackingArea = NSTrackingArea(rect: self.bounds, options: options,
+                                      owner: self, userInfo: nil)
+        self.addTrackingArea(self.mouseTrackingArea!)
     }
 }
 
