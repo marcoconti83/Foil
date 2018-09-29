@@ -62,4 +62,12 @@ extension ImageEditor {
             self.layers.selectedBitmaps = Set([selectedBitmap])
         }
     }
+    
+    /// User pressed key
+    public func didPressKey(key: Keycode) {
+        if key == .delete || key == .forwardDelete {
+            self.layers.bitmaps = self.layers.bitmaps.filter { !self.layers.selectedBitmaps.contains($0) }
+            self.layers.selectedBitmaps = Set()
+        }
+    }
 }

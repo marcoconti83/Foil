@@ -26,6 +26,10 @@ import XCTest
 @testable import Foil
 
 class ImageEditorTests: XCTestCase {
+}
+
+// MARK: - Bitmaps
+extension ImageEditorTests {
 
     func testThatItSelectBitmaps() {
         
@@ -117,5 +121,32 @@ class ImageEditorTests: XCTestCase {
         // THEN
         XCTAssertEqual(editor.layers.selectedBitmaps, Set([b1]))
     }
+    
+    func testThatItDeletesABitmap() {
+        
+        // GIVEN
+        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let b1 = editor.layers.addBitmap(
+            Utils.testImage("moon.jpg")!,
+            centerPosition: NSPoint(x: 50, y: 50),
+            scale: 0.2
+        )
+        let b2 = editor.layers.addBitmap(
+            Utils.testImage("moon.jpg")!,
+            centerPosition: NSPoint(x: 25, y: 50),
+            scale: 0.2
+        )
+        editor.layers.selectedBitmaps = Set([b1])
+        
+        // WHEN
+        editor.didPressKey(key: .delete)
+        
+        // THEN
+        XCTAssertEqual(editor.layers.selectedBitmaps, Set())
+        XCTAssertEqual(editor.layers.bitmaps, [b2])
+        
+    }
+
+}
 
 }

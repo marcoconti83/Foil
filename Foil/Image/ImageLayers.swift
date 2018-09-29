@@ -31,31 +31,36 @@ public class ImageLayers {
     /// How thick is the selection line width
     let selectionLineWidth: CGFloat
     
+    private var shouldRedraw: Bool = true
+    
     /// An image to be used as background
     public var backgroundImage: NSImage {
         didSet {
-            self.redraw()
+            self.redrawIfNeeded()
         }
     }
     
     /// Background color drawn below the rest
     public var backgroundColor: NSColor = NSColor.black {
         didSet {
-            self.redraw()
+            self.redrawIfNeeded()
         }
     }
     
     /// Bitmaps objects
-    var bitmaps: [Bitmap] = [] {
+    var bitmaps: Set<Bitmap> = Set() {
         didSet {
-            self.redraw()
+            self.redrawIfNeeded()
         }
     }
     
     /// Bitmaps that are currently selected
     internal(set) public var selectedBitmaps = Set<Bitmap>() {
         didSet {
-            self.redraw()
+            self.redrawIfNeeded()
+        }
+    }
+    
         }
     }
     
@@ -98,6 +103,22 @@ extension ImageLayers {
         }
     }
     
+    
+    private func redrawIfNeeded() {
+        if self.shouldRedraw {
+            redraw()
+        }
+    }
+    
+    /// Executes operation without intermediate redraws, only redraw at the end
+    public func batchOperations(_ block: () ->()) {
+        let oldValue = self.shouldRedraw
+        self.shouldRedraw = false
+        block()
+        self.shouldRedraw = oldValue
+        redrawIfNeeded()
+    }
+    
 }
 
 // MARK: - Draw functions
@@ -135,13 +156,11 @@ extension ImageLayers {
         ) -> Bitmap
     {
         let bitmap = Bitmap(image: image, centerPostion: centerPosition, scale: scale)
-        self.bitmaps.append(bitmap)
+        self.bitmaps.insert(bitmap)
         return bitmap
     }
+
 }
-
-
-
 
 extension Bitmap {
     

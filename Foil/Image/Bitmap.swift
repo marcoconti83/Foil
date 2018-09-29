@@ -24,7 +24,7 @@
 
 import Foundation
 
-public class Bitmap: Equatable, Hashable {
+public final class Bitmap: Equatable, Hashable {
     
     private let uuid: UUID = UUID()
     
