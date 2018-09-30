@@ -43,30 +43,39 @@ public class ImageEditorViewController: NSViewController {
         self.scroll.documentView = self.imageEditView
         
         let buttons = [
-            ClosureButton(image: NSImage(name: "cursor.png")!) { [weak self] _ in
-                self?.imageEditView.tool = .selection
+            ClosureButton(
+                image: NSImage(name: "cursor.png")!,
+                toolTip: "Select") { [weak self] _ in
+                    self?.imageEditView!.tool = .selection
             },
-            ClosureButton(image: NSImage(name: "pencil.png")!) { [weak self] _ in
-                self?.imageEditView.tool = .line
+            ClosureButton(
+                image: NSImage(name: "pencil.png")!,
+                toolTip: "Draw lines") { [weak self] _ in
+                    self?.imageEditView!.tool = .line
             },
-            ClosureButton(image: NSImage(name: "image_add.png")!) { [weak self] _ in
-                self?.selectBitmap()
+            ClosureButton(
+                image: NSImage(name: "image_add.png")!,
+                toolTip: "Add bitmap") { [weak self] _ in
+                    self?.selectBitmap()
             },
             NSBox.horizontalLine(),
-            ClosureButton(image: NSImage(name: "color_wheel.png")!) { [weak self] _ in
-                self?.selectColor()
+            ClosureButton(
+                image: NSImage(name: "color_wheel.png")!,
+                toolTip: "Change color"
+                ) { [weak self] _ in
+                    self?.selectColor()
             },
-            ClosureButton(image: NSImage(name: "line_size.png")!) { [weak self] _ in
-                self?.selectLineSize()
+            ClosureButton(
+                image: NSImage(name: "line_size.png")!,
+                toolTip: "Change line width"
+                ) { [weak self] in
+                    self?.selectLineSize($0)
             }
         ]
-        buttons.forEach {
-            if let button = $0 as? NSButton {
-                button.bezelStyle = NSButton.BezelStyle.shadowlessSquare
-            }
-        }
         let toolbar = NSStackView(views: buttons)
         toolbar.orientation = .vertical
+        toolbar.distribution = .gravityAreas
+        toolbar.spacing = 1
         
         self.view.addSubview(self.scroll)
         self.view.addSubview(toolbar)
@@ -95,8 +104,11 @@ public class ImageEditorViewController: NSViewController {
         self.imageEditView.tool = .bitmap(NSImage(name: "color_wheel.png")!)
     }
     
-    private func selectLineSize() {
-        
+    private func selectLineSize(_ sender: Any) {
+        guard let view = sender as? NSView else { return }
+        LineWidthSelectionViewController.showInPopup(over: view) { [weak self] value in
+            self?.imageEditView.toolSettings.lineWidth = CGFloat(value)
+        }
     }
     
     private func selectColor() {
@@ -112,3 +124,13 @@ public class ImageEditorViewController: NSViewController {
         }
     }
 }
+
+extension ClosureButton {
+    
+    convenience init(image: NSImage, toolTip: String, closure: @escaping (Any)->()) {
+        self.init(image: image, closure: closure)
+        self.toolTip = toolTip
+        self.bezelStyle = BezelStyle.shadowlessSquare
+    }
+}
+

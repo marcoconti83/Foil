@@ -23,12 +23,17 @@
     
 
 import Foundation
+import Cartography
 
 extension NSBox {
     
     static func horizontalLine() -> NSBox {
         let box = NSBox(frame: .zero)
         box.boxType = .separator
+        
+        constrain(box) { b in
+            b.height == 5
+        }
         return box
     }
     
