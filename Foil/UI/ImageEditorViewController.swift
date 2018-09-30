@@ -42,10 +42,10 @@ public class ImageEditorViewController: NSViewController {
         
         let buttons = [
             ClosureButton(image: NSImage(name: "cursor.png")!) { [weak self] _ in
-                self?.imageEditView.editor!.toolType = .selection
+                self?.imageEditView.tool = .selection
             },
             ClosureButton(image: NSImage(name: "pencil.png")!) { [weak self] _ in
-                self?.imageEditView.editor!.toolType = .line
+                self?.imageEditView.tool = .line
             },
             ClosureButton(image: NSImage(name: "image_add.png")!) { [weak self] _ in
                 self?.selectBitmap()
@@ -83,7 +83,7 @@ public class ImageEditorViewController: NSViewController {
     }
     
     private func selectBitmap() {
-        self.imageEditView.editor.toolType = .bitmap(NSImage(name: "color_wheel.png")!)
+        self.imageEditView.tool = .bitmap(NSImage(name: "color_wheel.png")!)
     }
     
     private func selectLineSize() {

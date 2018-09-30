@@ -24,15 +24,12 @@ import Foundation
 import Cocoa
 import Cartography
 
-public class ImageEditView: NSView, ImageEditorDelegate {
+public class ImageEditView: NSView {
 
+    private var editor: ImageEditor!
     
-    
-    var editor: ImageEditor!
-    
-    public override var acceptsFirstResponder: Bool {
-        return true
-    }
+    var mouseTrackingArea: NSTrackingArea? = nil
+
     
     public override init(frame frameRect: NSRect) {
         self.editor = ImageEditor(emptyImageOfSize: NSSize(width: 500, height: 500))
@@ -47,6 +44,15 @@ public class ImageEditView: NSView, ImageEditorDelegate {
     
     public required init?(coder decoder: NSCoder) {
         fatalError()
+    }
+    
+}
+
+// MARK: - UI events
+extension ImageEditView {
+    
+    public override var acceptsFirstResponder: Bool {
+        return true
     }
     
     public override func draw(_ dirtyRect: NSRect) {
@@ -78,7 +84,6 @@ public class ImageEditView: NSView, ImageEditorDelegate {
         return self.convert(event.locationInWindow, from: nil)
     }
     
-    var mouseTrackingArea: NSTrackingArea? = nil
     
     public override func updateTrackingAreas() {
         if let area = self.mouseTrackingArea {
@@ -100,17 +105,29 @@ public class ImageEditView: NSView, ImageEditorDelegate {
         self.discardCursorRects()
         self.addCursorRect(self.frame, cursor: cursor)
     }
-    
-    public func didRedrawImage() {
-        self.needsDisplay = true
-    }
+}
+
+// MARK: - Editor events
+extension ImageEditView: ImageEditorDelegate {
     
     public func didChangeTool(_ tool: ToolType) {
         tool.cursor.set()
         self.resetCursorRects()
     }
+    
+    public func didRedrawImage() {
+        self.needsDisplay = true
+    }
+    
+    public var tool: ToolType {
+        get {
+            return self.editor.toolType
+        }
+        set {
+            self.editor.toolType = newValue
+        }
+    }
 }
-
 
 extension ToolType {
     
