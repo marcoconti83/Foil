@@ -37,24 +37,21 @@ public protocol Tool {
 
 class ToolMixin {
     
+    weak var delegate: ToolDelegate?
     let layers: ImageLayers
-    let toolSelection: (ToolType)->Void
     var settings: ToolSettings {
         didSet {
             self.updateSettings()
         }
     }
     
-    init(layers: ImageLayers, settings: ToolSettings, toolSelection: @escaping (ToolType)->Void) {
+    init(layers: ImageLayers, settings: ToolSettings, delegate: ToolDelegate) {
         self.layers = layers
         self.settings = settings
-        self.toolSelection = toolSelection
+        self.delegate = delegate
     }
     
-    func updateSettings() {
-        
-    }
-    
+    func updateSettings() {}
     func didPressKey(key: Keycode) {}
     func didMouseDown(_ point: NSPoint, shiftKeyPressed: Bool) {}
     func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool) {}
@@ -70,4 +67,10 @@ public struct ToolSettings {
         self.color = color
         self.lineWidth = lineWidth
     }
+}
+
+protocol ToolDelegate: AnyObject {
+    
+    func selectTool(_ toolType: ToolType)
+    func pan(x: CGFloat, y: CGFloat)
 }

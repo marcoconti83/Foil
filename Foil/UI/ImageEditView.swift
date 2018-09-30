@@ -27,9 +27,9 @@ import Cartography
 public class ImageEditView: NSView {
 
     private var editor: ImageEditor!
+    private var mouseTrackingArea: NSTrackingArea? = nil
     
-    var mouseTrackingArea: NSTrackingArea? = nil
-
+    weak var scrollDelegate: ScrollDelegate?
     
     public override init(frame frameRect: NSRect) {
         self.editor = ImageEditor(emptyImageOfSize: NSSize(width: 500, height: 500))
@@ -105,6 +105,7 @@ extension ImageEditView {
         self.discardCursorRects()
         self.addCursorRect(self.frame, cursor: cursor)
     }
+    
 }
 
 // MARK: - Editor events
@@ -117,6 +118,10 @@ extension ImageEditView: ImageEditorDelegate {
     
     public func didRedrawImage() {
         self.needsDisplay = true
+    }
+    
+    public func didScroll(x: CGFloat, y: CGFloat) {
+        self.scrollDelegate?.scroll(x: x, y: y)
     }
     
     public var tool: ToolType {
@@ -134,11 +139,17 @@ extension ToolType {
     var cursor: NSCursor {
         switch self {
         case .selection:
-            return NSCursor.pointingHand
+            return NSCursor.arrow
         case .line:
             return NSCursor.crosshair
         case .bitmap:
             return NSCursor.crosshair
+        case .pan:
+            return NSCursor.closedHand
         }
     }
+}
+
+protocol ScrollDelegate: AnyObject {
+    func scroll(x: CGFloat, y: CGFloat)
 }

@@ -28,7 +28,8 @@ import ClosureControls
 
 public class ImageEditorViewController: NSViewController {
 
-    var imageEditView: ImageEditView!
+    private var imageEditView: ImageEditView!
+    private var scroll: ZoomableScrollView!
     
     override public func loadView() {
         self.view = NSView()
@@ -37,9 +38,10 @@ public class ImageEditorViewController: NSViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         self.imageEditView = ImageEditView(frame: NSRect.zero)
-        let scroll = ZoomableScrollView(frame: NSRect.zero)
-        scroll.contentView = CenteredClipView()
-        scroll.documentView = self.imageEditView
+        self.imageEditView.scrollDelegate = self
+        
+        self.scroll = ZoomableScrollView(frame: NSRect.zero)
+        self.scroll.documentView = self.imageEditView
         
         let buttons = [
             ClosureButton(image: NSImage(name: "cursor.png")!) { [weak self] _ in
@@ -64,10 +66,10 @@ public class ImageEditorViewController: NSViewController {
         let toolbar = NSStackView(views: buttons)
         toolbar.orientation = .vertical
         
-        self.view.addSubview(scroll)
+        self.view.addSubview(self.scroll)
         self.view.addSubview(toolbar)
         
-        constrain(self.view, scroll, toolbar) { parent, scroll, toolbar in
+        constrain(self.view, self.scroll, toolbar) { parent, scroll, toolbar in
             toolbar.width == 30
             toolbar.top == parent.top
             toolbar.left == parent.left
@@ -96,12 +98,8 @@ public class ImageEditorViewController: NSViewController {
     }
 }
 
-extension NSImage {
-    
-    convenience init?(name: String) {
-        guard let url = Bundle(for: ImageEditorViewController.self).urlForImageResource(name)
-            else { return nil }
-        self.init(contentsOf: url)
+extension ImageEditorViewController: ScrollDelegate {
+    func scroll(x: CGFloat, y: CGFloat) {
+        self.scroll.scroll(x: x, y: y)
     }
 }
-

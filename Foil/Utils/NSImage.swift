@@ -49,3 +49,12 @@ extension NSImage {
         try data.write(to: url, options: options)
     }
 }
+
+extension NSImage {
+    
+    convenience init?(name: String) {
+        guard let url = Bundle(for: ImageEditorViewController.self).urlForImageResource(name)
+            else { return nil }
+        self.init(contentsOf: url)
+    }
+}

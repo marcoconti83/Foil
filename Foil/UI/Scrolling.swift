@@ -46,6 +46,16 @@ class CenteredClipView: NSClipView {
 /// A scroll view that does not allow scrolling with mouse
 class ZoomableScrollView: NSScrollView {
     
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        self.contentView = CenteredClipView()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.contentView = CenteredClipView()
+    }
+    
     override func scrollWheel(with event: NSEvent) {
         if event.deltaY != 0 {
             let magnification = clip(self.magnification + (event.deltaY * 0.1), min: 0.1, max: 20)
@@ -53,5 +63,10 @@ class ZoomableScrollView: NSScrollView {
             return
         }
         self.nextResponder?.scrollWheel(with: event)
+    }
+    
+    func scroll(x: CGFloat, y: CGFloat) {
+        let newOrigin = self.contentView.documentVisibleRect.origin + NSPoint(x: x, y: y)
+        self.contentView.scroll(to: newOrigin)
     }
 }

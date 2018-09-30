@@ -26,10 +26,21 @@ import Foundation
 
 final class SelectionTool: ToolMixin, Tool {
     
-    override func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool) {
-        guard let selectedBitmap = self.layers.bitmaps.first(where: {
+    private func bitmapAtPoint(_ point: NSPoint) -> Bitmap? {
+        return self.layers.bitmaps.first(where: {
             $0.drawingRect.contains(point)
-        }) else {
+        })
+    }
+    
+    override func didMouseDown(_ point: NSPoint, shiftKeyPressed: Bool) {
+        guard self.bitmapAtPoint(point) == nil else {
+            return
+        }
+        self.delegate?.selectTool(.pan)
+    }
+    
+    override func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool) {
+        guard let selectedBitmap = self.bitmapAtPoint(point) else {
             if !shiftKeyPressed {
                 self.layers.selectedBitmaps = Set()
             }

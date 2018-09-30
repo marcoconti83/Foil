@@ -24,24 +24,21 @@
 
 import Foundation
 
-final class BitmapTool: ToolMixin, Tool {
+final class PanTool: ToolMixin, Tool {
     
-    let image: NSImage
+    private var lastMousePosition: NSPoint?
     
-    init(
-        layers: ImageLayers,
-        settings: ToolSettings,
-        image: NSImage,
-        delegate: ToolDelegate)
-    {
-        self.image = image
-        super.init(layers: layers, settings: settings, delegate: delegate)
+    override func didDragMouse(_ point: NSPoint) {
+        defer { self.lastMousePosition = point }
+        guard let last = self.lastMousePosition else {
+            return
+        }
+        let diff = last - point
+        self.delegate?.pan(x: diff.x, y: diff.y)
     }
     
     override func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool) {
-        self.layers.addBitmap(image, centerPosition: point, scale: 1)
-        if !shiftKeyPressed {
-            self.delegate?.selectTool(.selection)
-        }
+        self.delegate?.selectTool(.selection)
     }
+    
 }

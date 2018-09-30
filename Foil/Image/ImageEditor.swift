@@ -28,6 +28,7 @@ public enum ToolType {
     case line
     case selection
     case bitmap(NSImage)
+    case pan
 }
 
 /// Adds user interaction to image layers
@@ -35,7 +36,7 @@ public class ImageEditor {
     
     public let layers: ImageLayers
     
-    private(set) var tool: Tool
+    private(set) var tool: Tool!
     
     weak var delegate: ImageEditorDelegate? = nil
     
@@ -64,52 +65,57 @@ public class ImageEditor {
     public init(backgroundImage: NSImage) {
         self.layers = ImageLayers(backgroundImage: backgroundImage)
         self.toolSettings.lineWidth = Swift.max(2, backgroundImage.size.min / 200)
-        let box = WeakBox<ImageEditor>()
-        self.toolType = .line
-        self.tool = SelectionTool(
-            layers: self.layers,
-            settings: self.toolSettings,
-            toolSelection: { type in
-                box.value?.toolType = type
-            }
-        )
-        box.value = self
+        self.toolType = .selection
         self.layers.redrawDelegate = { [weak self] in
             self?.delegate?.didRedrawImage()
         }
+        self.setTool(.selection)
     }
     
     private func setTool(_ tool: ToolType) {
-        let toolSelection: (ToolType) -> () = { [weak self] type in
-            self?.toolType = type
-        }
         switch tool {
         case .line:
             self.tool = LineTool(
                 layers: self.layers,
                 settings: self.toolSettings,
-                toolSelection: toolSelection
+                delegate: self
             )
         case .selection:
             self.tool = SelectionTool(
                 layers: self.layers,
                 settings: self.toolSettings,
-                toolSelection: toolSelection
+                delegate: self
             )
         case .bitmap(let image):
             self.tool = BitmapTool(
                 layers: self.layers,
                 settings: self.toolSettings,
                 image: image,
-                toolSelection: toolSelection
+                delegate: self
+            )
+        case .pan:
+            self.tool = PanTool(
+                layers: self.layers,
+                settings: self.toolSettings,
+                delegate: self
             )
         }
     }
 }
 
+extension ImageEditor: ToolDelegate {
+    func selectTool(_ toolType: ToolType) {
+        self.toolType = toolType
+    }
+    
+    func pan(x: CGFloat, y: CGFloat) {
+        self.delegate?.didScroll(x: x, y: y)
+    }
+}
 
 public protocol ImageEditorDelegate: class {
     
     func didRedrawImage()
     func didChangeTool(_ tool: ToolType)
+    func didScroll(x: CGFloat, y: CGFloat)
 }
