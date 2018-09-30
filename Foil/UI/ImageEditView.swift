@@ -166,10 +166,9 @@ extension ToolType {
         case .pan:
             return NSCursor.closedHand
         case .brush:
-            let image = NSImage(name: "paintbrush.png")!
-            return NSCursor(image: image, hotSpot: NSPoint(x: 0, y: image.size.height))
+            return NSCursor.arrow
         case .eraser:
-            return NSCursor.crosshair
+            return NSCursor.arrow
         }
     }
 }
