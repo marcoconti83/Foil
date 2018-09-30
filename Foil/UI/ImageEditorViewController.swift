@@ -62,8 +62,8 @@ public class ImageEditorViewController: NSViewController {
             ClosureButton(
                 image: NSImage(name: "color_wheel.png")!,
                 toolTip: "Change color"
-                ) { [weak self] _ in
-                    self?.selectColor()
+                ) { [weak self] in
+                    self?.selectColor($0)
             },
             ClosureButton(
                 image: NSImage(name: "line_size.png")!,
@@ -111,16 +111,10 @@ public class ImageEditorViewController: NSViewController {
         }
     }
     
-    private func selectColor() {
-        let panel = NSColorPanel.shared
-        panel.setTarget(self)
-        panel.setAction(#selector(colorPicked(_:)))
-        panel.makeKeyAndOrderFront(self)
-    }
-    
-    @objc func colorPicked(_ sender: Any) {
-        if let panel = sender as? NSColorPanel {
-            self.imageEditView.toolSettings.color = panel.color
+    private func selectColor(_ sender: Any) {
+        guard let view = sender as? NSView else { return }
+        ColorSelectionViewController.showInPopup(over: view) { [weak self] value in
+            self?.imageEditView.toolSettings.color = value
         }
     }
 }

@@ -47,7 +47,8 @@
 		A9914FBE2160C6F2007DAE4A /* PanToolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FBD2160C6F2007DAE4A /* PanToolTests.swift */; };
 		A9914FC02160C910007DAE4A /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FBF2160C910007DAE4A /* Mocks.swift */; };
 		A9914FC22160D733007DAE4A /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FC12160D733007DAE4A /* Separator.swift */; };
-		A9914FC42160E090007DAE4A /* LineWidthSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FC32160E090007DAE4A /* LineWidthSelection.swift */; };
+		A9914FC42160E090007DAE4A /* LineWidthSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FC32160E090007DAE4A /* LineWidthSelectionViewController.swift */; };
+		A9914FC6216102A9007DAE4A /* ColorSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FC5216102A9007DAE4A /* ColorSelectionViewController.swift */; };
 		A9B7D421215DF9B9002A95CB /* Foil.h in Headers */ = {isa = PBXBuildFile; fileRef = A9B7D41F215DF9B9002A95CB /* Foil.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9B7D433215DFA15002A95CB /* ImageLayersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7D432215DFA15002A95CB /* ImageLayersTests.swift */; };
 		A9B7D435215DFA15002A95CB /* Foil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9B7D41C215DF9B9002A95CB /* Foil.framework */; };
@@ -152,7 +153,8 @@
 		A9914FBD2160C6F2007DAE4A /* PanToolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanToolTests.swift; sourceTree = "<group>"; };
 		A9914FBF2160C910007DAE4A /* Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
 		A9914FC12160D733007DAE4A /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
-		A9914FC32160E090007DAE4A /* LineWidthSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineWidthSelection.swift; sourceTree = "<group>"; };
+		A9914FC32160E090007DAE4A /* LineWidthSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineWidthSelectionViewController.swift; sourceTree = "<group>"; };
+		A9914FC5216102A9007DAE4A /* ColorSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectionViewController.swift; sourceTree = "<group>"; };
 		A9B7D41C215DF9B9002A95CB /* Foil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Foil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9B7D41F215DF9B9002A95CB /* Foil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Foil.h; sourceTree = "<group>"; };
 		A9B7D420215DF9B9002A95CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -322,7 +324,8 @@
 				A926C34A215FCAD9006B1388 /* ImageEditorViewController.swift */,
 				A9914FB92160A13A007DAE4A /* Scrolling.swift */,
 				A9914FC12160D733007DAE4A /* Separator.swift */,
-				A9914FC32160E090007DAE4A /* LineWidthSelection.swift */,
+				A9914FC32160E090007DAE4A /* LineWidthSelectionViewController.swift */,
+				A9914FC5216102A9007DAE4A /* ColorSelectionViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -547,7 +550,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A926C324215FAE63006B1388 /* SelectionTool.swift in Sources */,
-				A9914FC42160E090007DAE4A /* LineWidthSelection.swift in Sources */,
+				A9914FC42160E090007DAE4A /* LineWidthSelectionViewController.swift in Sources */,
 				A926C31E215F7283006B1388 /* Keycodes.swift in Sources */,
 				A926C314215F5DFB006B1388 /* DrawingUtils.swift in Sources */,
 				A926C34B215FCAD9006B1388 /* ImageEditorViewController.swift in Sources */,
@@ -562,6 +565,7 @@
 				A926C330215FBBCB006B1388 /* BitmapTool.swift in Sources */,
 				A926C31A215F693E006B1388 /* ImageEditor.swift in Sources */,
 				A926C32E215FB97B006B1388 /* Box.swift in Sources */,
+				A9914FC6216102A9007DAE4A /* ColorSelectionViewController.swift in Sources */,
 				A926C322215FAC9E006B1388 /* LineTool.swift in Sources */,
 				A926C30D215F52C8006B1388 /* Math.swift in Sources */,
 			);

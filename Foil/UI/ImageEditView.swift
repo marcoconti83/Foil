@@ -84,7 +84,6 @@ extension ImageEditView {
         return self.convert(event.locationInWindow, from: nil)
     }
     
-    
     public override func updateTrackingAreas() {
         if let area = self.mouseTrackingArea {
             self.removeTrackingArea(area)
@@ -97,7 +96,13 @@ extension ImageEditView {
     }
     
     public override func performKeyEquivalent(with event: NSEvent) -> Bool {
-        return true
+        guard let keycode = Keycode(rawValue: event.keyCode) else { return false }
+        switch keycode {
+        case .delete, .backslash:
+            return true
+        default:
+            return false
+        }
     }
     
     public override func resetCursorRects() {
