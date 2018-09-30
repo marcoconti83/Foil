@@ -84,6 +84,10 @@ public class ImageEditorViewController: NSViewController {
         }
     }
     
+    public override func viewDidAppear() {
+        self.scroll.centerAndZoom()
+    }
+    
     private func selectBitmap() {
         self.imageEditView.tool = .bitmap(NSImage(name: "color_wheel.png")!)
     }

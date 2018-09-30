@@ -46,6 +46,8 @@ class CenteredClipView: NSClipView {
 /// A scroll view that does not allow scrolling with mouse
 class ZoomableScrollView: NSScrollView, ScrollDelegate {
     
+    var lastManualMagnification: CGFloat = 1
+    
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         self.contentView = CenteredClipView()
@@ -58,8 +60,7 @@ class ZoomableScrollView: NSScrollView, ScrollDelegate {
     
     override func scrollWheel(with event: NSEvent) {
         if event.deltaY != 0 {
-            let magnification = clip(self.magnification + (event.deltaY * 0.1), min: 0.1, max: 20)
-            self.magnification = magnification
+            self.setMagnification(unclippedValue: self.magnification + (event.deltaY * 0.1))
             return
         }
         self.nextResponder?.scrollWheel(with: event)
@@ -68,5 +69,29 @@ class ZoomableScrollView: NSScrollView, ScrollDelegate {
     func scroll(x: CGFloat, y: CGFloat) {
         let newOrigin = self.contentView.documentVisibleRect.origin + NSPoint(x: x, y: y)
         self.contentView.scroll(to: newOrigin)
+    }
+    
+    override func resize(withOldSuperviewSize oldSize: NSSize) {
+        if self.contentView.documentVisibleRect.contains(self.documentView!.bounds) {
+            self.setMagnification(unclippedValue: self.magnificationThatWouldFitContent)
+        }
+        super.resize(withOldSuperviewSize: oldSize)
+    }
+    
+    private func setMagnification(unclippedValue: CGFloat) {
+        let clipped = clip(unclippedValue, min: self.magnificationThatWouldFitContent, max: 20)
+        self.lastManualMagnification = clipped
+        self.magnification = clipped
+    }
+    
+    private var magnificationThatWouldFitContent: CGFloat {
+        let docSize = self.documentView!.bounds.size
+        let visibleSize = self.bounds.expand(by: -20)
+        let scale = Swift.min(visibleSize.height / docSize.height, visibleSize.width / docSize.width)
+        return scale
+    }
+    
+    public func centerAndZoom() {
+        self.setMagnification(unclippedValue: self.magnificationThatWouldFitContent)
     }
 }
