@@ -44,6 +44,8 @@
 		A926C361215FE749006B1388 /* ClosureControls.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A926C35E215FE069006B1388 /* ClosureControls.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A976980121613B88006CF0EC /* BrushTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A976980021613B88006CF0EC /* BrushTool.swift */; };
 		A976980321613CC9006CF0EC /* paintbrush.png in Resources */ = {isa = PBXBuildFile; fileRef = A976980221613CC9006CF0EC /* paintbrush.png */; };
+		A9769805216142B1006CF0EC /* EraserTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9769804216142B1006CF0EC /* EraserTool.swift */; };
+		A9769807216143A2006CF0EC /* pill_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = A9769806216143A2006CF0EC /* pill_delete.png */; };
 		A9914FBA2160A13A007DAE4A /* Scrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FB92160A13A007DAE4A /* Scrolling.swift */; };
 		A9914FBC2160A3C7007DAE4A /* PanTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FBB2160A3C7007DAE4A /* PanTool.swift */; };
 		A9914FBE2160C6F2007DAE4A /* PanToolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FBD2160C6F2007DAE4A /* PanToolTests.swift */; };
@@ -152,6 +154,8 @@
 		A926C35E215FE069006B1388 /* ClosureControls.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClosureControls.framework; path = Carthage/Build/Mac/ClosureControls.framework; sourceTree = "<group>"; };
 		A976980021613B88006CF0EC /* BrushTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushTool.swift; sourceTree = "<group>"; };
 		A976980221613CC9006CF0EC /* paintbrush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paintbrush.png; sourceTree = "<group>"; };
+		A9769804216142B1006CF0EC /* EraserTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraserTool.swift; sourceTree = "<group>"; };
+		A9769806216143A2006CF0EC /* pill_delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pill_delete.png; sourceTree = "<group>"; };
 		A9914FB92160A13A007DAE4A /* Scrolling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scrolling.swift; sourceTree = "<group>"; };
 		A9914FBB2160A3C7007DAE4A /* PanTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanTool.swift; sourceTree = "<group>"; };
 		A9914FBD2160C6F2007DAE4A /* PanToolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanToolTests.swift; sourceTree = "<group>"; };
@@ -237,6 +241,7 @@
 		A926C34F215FD75E006B1388 /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				A9769806216143A2006CF0EC /* pill_delete.png */,
 				A976980221613CC9006CF0EC /* paintbrush.png */,
 				A926C35C215FD9F7006B1388 /* line_size.png */,
 				A926C35A215FD827006B1388 /* eye.png */,
@@ -318,6 +323,7 @@
 				A9914FBB2160A3C7007DAE4A /* PanTool.swift */,
 				A926C32F215FBBCB006B1388 /* BitmapTool.swift */,
 				A976980021613B88006CF0EC /* BrushTool.swift */,
+				A9769804216142B1006CF0EC /* EraserTool.swift */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -518,6 +524,7 @@
 				A926C351215FD768006B1388 /* color_wheel.png in Resources */,
 				A976980321613CC9006CF0EC /* paintbrush.png in Resources */,
 				A926C355215FD781006B1388 /* image_add.png in Resources */,
+				A9769807216143A2006CF0EC /* pill_delete.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -573,6 +580,7 @@
 				A926C330215FBBCB006B1388 /* BitmapTool.swift in Sources */,
 				A926C31A215F693E006B1388 /* ImageEditor.swift in Sources */,
 				A926C32E215FB97B006B1388 /* Box.swift in Sources */,
+				A9769805216142B1006CF0EC /* EraserTool.swift in Sources */,
 				A9914FC6216102A9007DAE4A /* ColorSelectionViewController.swift in Sources */,
 				A926C322215FAC9E006B1388 /* LineTool.swift in Sources */,
 				A926C30D215F52C8006B1388 /* Math.swift in Sources */,

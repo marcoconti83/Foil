@@ -31,6 +31,8 @@ public protocol Tool {
     func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool)
     func didDragMouse(_ point: NSPoint)
     func didMoveMouse(_ point: NSPoint)
+    func didExitMouse()
+    func didEnterMouse()
     
     var settings: ToolSettings { get set }
 }
@@ -57,6 +59,8 @@ class ToolMixin {
     func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool) {}
     func didDragMouse(_ point: NSPoint) {}
     func didMoveMouse(_ point: NSPoint) {}
+    func didExitMouse() {}
+    func didEnterMouse() {}
 }
 
 public struct ToolSettings {

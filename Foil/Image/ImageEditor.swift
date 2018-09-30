@@ -30,6 +30,7 @@ public enum ToolType: Equatable {
     case bitmap(NSImage)
     case pan
     case brush
+    case eraser
 }
 
 /// Adds user interaction to image layers
@@ -43,6 +44,7 @@ public class ImageEditor {
     
     public var toolType: ToolType {
         didSet {
+            guard oldValue != self.toolType else { return }
             self.setTool(self.toolType)
             self.delegate?.didChangeTool(self.toolType)
         }
@@ -74,6 +76,7 @@ public class ImageEditor {
     }
     
     private func setTool(_ tool: ToolType) {
+        self.layers.brushPreview = nil
         switch tool {
         case .line:
             self.tool = LineTool(
@@ -102,6 +105,12 @@ public class ImageEditor {
             )
         case .brush:
             self.tool = BrushTool(
+                layers: self.layers,
+                settings: self.toolSettings,
+                delegate: self
+            )
+        case .eraser:
+            self.tool = EraserTool(
                 layers: self.layers,
                 settings: self.toolSettings,
                 delegate: self

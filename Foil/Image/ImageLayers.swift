@@ -71,6 +71,12 @@ public class ImageLayers {
         }
     }
     
+    var brushPreview: (point: NSPoint, width: CGFloat)? = nil {
+        didSet {
+            self.redrawIfNeeded()
+        }
+    }
+    
     /// A layer holding raster data, to be overimposed on background image and color
     let rasterLayer: NSImage
     
@@ -102,6 +108,7 @@ extension ImageLayers {
             self.backgroundImage.draw(in: rect)
             self.rasterLayer.draw(in: rect)
             self.drawTemporaryLine()
+            self.drawTemporaryBrush()
             self.bitmaps.forEach {
                 $0.image.draw(in: $0.drawingRect)
                 if self.selectedBitmaps.contains($0) {
@@ -118,6 +125,21 @@ extension ImageLayers {
         }
         restoringGraphicState {
             temporaryLine.draw()
+        }
+    }
+    
+    private func drawTemporaryBrush() {
+        guard let brush = self.brushPreview else {
+            return
+        }
+        restoringGraphicState {
+            NSColor.white.setStroke()
+            let source = brush.point - NSPoint(x: brush.width/2, y: brush.width/2)
+            let path = NSBezierPath(ovalIn: NSRect(x: source.x, y: source.y,
+                                                   width: brush.width, height: brush.width))
+            path.lineWidth = 1
+            NSGraphicsContext.current!.compositingOperation = NSCompositingOperation.xor
+            path.stroke()
         }
     }
     
@@ -164,6 +186,36 @@ extension ImageLayers {
                 let source = point - NSPoint(x: width/2, y: width/2)
                 let path = NSBezierPath(ovalIn: NSRect(x: source.x, y: source.y, width: width, height: width))
                 path.fill()
+            }
+        }
+        self.redraw()
+    }
+    
+    public func delete(point: NSPoint, width: CGFloat) {
+        self.rasterLayer.lockingFocus {
+            restoringGraphicState {
+                NSColor.black.setFill()
+                let source = point - NSPoint(x: width/2, y: width/2)
+                let path = NSBezierPath(ovalIn: NSRect(x: source.x, y: source.y, width: width, height: width))
+                NSGraphicsContext.current!.compositingOperation = NSCompositingOperation.clear
+                path.fill()
+            }
+        }
+        self.redraw()
+    }
+    
+    public func deleteLine(from p1: NSPoint, to p2: NSPoint, width: CGFloat) {
+        self.rasterLayer.lockingFocus {
+            restoringGraphicState {
+                NSColor.black.setFill()
+                let path = NSBezierPath()
+                path.lineCapStyle = .round
+                path.lineJoinStyle = .round
+                NSGraphicsContext.current!.compositingOperation = NSCompositingOperation.clear
+                path.lineWidth = width
+                path.move(to: p1)
+                path.line(to: p2)
+                path.stroke()
             }
         }
         self.redraw()

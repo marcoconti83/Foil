@@ -76,6 +76,10 @@ extension ImageEditView {
         self.editor.tool.didMoveMouse(self.eventLocation(event))
     }
     
+    public override func mouseExited(with event: NSEvent) {
+        self.editor.tool.didExitMouse()
+    }
+    
     public override func keyUp(with event: NSEvent) {
         guard let code = Keycode(rawValue: event.keyCode) else { return }
         self.editor.tool.didPressKey(key: code)
@@ -164,6 +168,8 @@ extension ToolType {
         case .brush:
             let image = NSImage(name: "paintbrush.png")!
             return NSCursor(image: image, hotSpot: NSPoint(x: 0, y: image.size.height))
+        case .eraser:
+            return NSCursor.crosshair
         }
     }
 }

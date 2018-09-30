@@ -24,37 +24,37 @@
 
 import Foundation
 
-class BrushTool: ToolMixin, Tool {
+class EraserTool: ToolMixin, Tool {
     
     var lastPoint: NSPoint? = nil
     
     override func didMouseDown(_ point: NSPoint, shiftKeyPressed: Bool) {
         self.layers.brushPreview = nil
         self.lastPoint = point
-        self.layers.drawFullCircle(point: point, width: self.settings.lineWidth, color: self.settings.color)
+        self.layers.delete(point: point, width: self.settings.lineWidth)
     }
     
     override func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool) {
         self.layers.brushPreview = (point: point, width: self.settings.lineWidth)
+        self.lastPoint = nil
+    }
+    
+    override func didDragMouse(_ point: NSPoint) {
         self.layers.brushPreview = nil
+        if let lastPoint = self.lastPoint {
+            self.layers.deleteLine(from: lastPoint,
+                                 to: point,
+                                 width: self.settings.lineWidth)
+        }
+        self.lastPoint = point
     }
     
     override func didMoveMouse(_ point: NSPoint) {
         self.layers.brushPreview = (point: point, width: self.settings.lineWidth)
     }
     
-    override func didDragMouse(_ point: NSPoint) {
-        self.layers.brushPreview = nil
-        if let lastPoint = self.lastPoint {
-            self.layers.drawLine(from: lastPoint,
-                                 to: point,
-                                 lineWidth: self.settings.lineWidth,
-                                 color: self.settings.color)
-        }
-        self.lastPoint = point
-    }
-    
     override func didExitMouse() {
         self.layers.brushPreview = nil
     }
 }
+
