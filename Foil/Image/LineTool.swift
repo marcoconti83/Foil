@@ -26,7 +26,6 @@ import Foundation
 
 final class LineTool: ToolMixin, Tool {
     
-    
     override func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool) {
         guard let line = self.layers.lineBeingDrawn else { return }
         self.layers.drawLine(

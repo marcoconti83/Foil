@@ -39,6 +39,7 @@ public class ImageEditView: NSView {
             s.height == self.editor.size.height
         }
         self.editor.toolType = .selection
+        self.toolSettings.lineWidth = 4
         self.editor.delegate = self
     }
     
@@ -160,6 +161,9 @@ extension ToolType {
             return NSCursor.crosshair
         case .pan:
             return NSCursor.closedHand
+        case .brush:
+            let image = NSImage(name: "paintbrush.png")!
+            return NSCursor(image: image, hotSpot: NSPoint(x: 0, y: image.size.height))
         }
     }
 }

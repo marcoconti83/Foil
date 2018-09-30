@@ -29,6 +29,7 @@ public enum ToolType: Equatable {
     case selection
     case bitmap(NSImage)
     case pan
+    case brush
 }
 
 /// Adds user interaction to image layers
@@ -95,6 +96,12 @@ public class ImageEditor {
             )
         case .pan:
             self.tool = PanTool(
+                layers: self.layers,
+                settings: self.toolSettings,
+                delegate: self
+            )
+        case .brush:
+            self.tool = BrushTool(
                 layers: self.layers,
                 settings: self.toolSettings,
                 delegate: self

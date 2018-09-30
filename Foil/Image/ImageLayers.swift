@@ -146,6 +146,8 @@ extension ImageLayers {
             restoringGraphicState {
                 color.setStroke()
                 let path = NSBezierPath()
+                path.lineCapStyle = .round
+                path.lineJoinStyle = .round
                 path.lineWidth = lineWidth
                 path.move(to: p1)
                 path.line(to: p2)
@@ -155,6 +157,18 @@ extension ImageLayers {
         self.redraw()
     }
     
+    public func drawFullCircle(point: NSPoint, width: CGFloat, color: NSColor) {
+        self.rasterLayer.lockingFocus {
+            restoringGraphicState {
+                color.setFill()
+                let source = point - NSPoint(x: width/2, y: width/2)
+                let path = NSBezierPath(ovalIn: NSRect(x: source.x, y: source.y, width: width, height: width))
+                path.fill()
+            }
+        }
+        self.redraw()
+    }
+        
     public func drawRect(_ rect: NSRect, color: NSColor) {
         self.rasterLayer.lockingFocus {
             restoringGraphicState {
@@ -227,6 +241,8 @@ public struct Line: Equatable {
         self.color.setStroke()
         let path = NSBezierPath()
         path.lineWidth = width
+        path.lineCapStyle = .round
+        path.lineJoinStyle = .round
         path.move(to: start)
         path.line(to: end)
         path.stroke()

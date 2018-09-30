@@ -54,6 +54,11 @@ public class ImageEditorViewController: NSViewController {
                     self?.imageEditView!.tool = .line
             },
             ClosureButton(
+                image: NSImage(name: "paintbrush.png")!,
+                toolTip: "Brush") { [weak self] _ in
+                    self?.imageEditView!.tool = .brush
+            },
+            ClosureButton(
                 image: NSImage(name: "image_add.png")!,
                 toolTip: "Add bitmap") { [weak self] _ in
                     self?.selectBitmap()
