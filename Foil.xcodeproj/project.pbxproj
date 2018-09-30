@@ -42,6 +42,7 @@
 		A926C35F215FE069006B1388 /* ClosureControls.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A926C35E215FE069006B1388 /* ClosureControls.framework */; };
 		A926C360215FE06B006B1388 /* ClosureControls.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A926C35E215FE069006B1388 /* ClosureControls.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A926C361215FE749006B1388 /* ClosureControls.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A926C35E215FE069006B1388 /* ClosureControls.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A9914FBA2160A13A007DAE4A /* Scrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FB92160A13A007DAE4A /* Scrolling.swift */; };
 		A9B7D421215DF9B9002A95CB /* Foil.h in Headers */ = {isa = PBXBuildFile; fileRef = A9B7D41F215DF9B9002A95CB /* Foil.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9B7D433215DFA15002A95CB /* ImageLayersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7D432215DFA15002A95CB /* ImageLayersTests.swift */; };
 		A9B7D435215DFA15002A95CB /* Foil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9B7D41C215DF9B9002A95CB /* Foil.framework */; };
@@ -141,6 +142,7 @@
 		A926C35A215FD827006B1388 /* eye.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eye.png; sourceTree = "<group>"; };
 		A926C35C215FD9F7006B1388 /* line_size.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = line_size.png; sourceTree = "<group>"; };
 		A926C35E215FE069006B1388 /* ClosureControls.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClosureControls.framework; path = Carthage/Build/Mac/ClosureControls.framework; sourceTree = "<group>"; };
+		A9914FB92160A13A007DAE4A /* Scrolling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scrolling.swift; sourceTree = "<group>"; };
 		A9B7D41C215DF9B9002A95CB /* Foil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Foil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9B7D41F215DF9B9002A95CB /* Foil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Foil.h; sourceTree = "<group>"; };
 		A9B7D420215DF9B9002A95CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 				A9B7D440215DFA2F002A95CB /* ImageEditView.swift */,
 				A926C313215F5DFB006B1388 /* DrawingUtils.swift */,
 				A926C34A215FCAD9006B1388 /* ImageEditorViewController.swift */,
+				A9914FB92160A13A007DAE4A /* Scrolling.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -533,6 +536,7 @@
 				A926C314215F5DFB006B1388 /* DrawingUtils.swift in Sources */,
 				A926C34B215FCAD9006B1388 /* ImageEditorViewController.swift in Sources */,
 				A926C326215FAFBA006B1388 /* Tool.swift in Sources */,
+				A9914FBA2160A13A007DAE4A /* Scrolling.swift in Sources */,
 				A9B7D446215DFA2F002A95CB /* ImageEditView.swift in Sources */,
 				A9B7D443215DFA2F002A95CB /* ImageLayers.swift in Sources */,
 				A9B7D447215DFA2F002A95CB /* NSImage.swift in Sources */,

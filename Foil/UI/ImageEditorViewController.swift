@@ -37,7 +37,8 @@ public class ImageEditorViewController: NSViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         self.imageEditView = ImageEditView(frame: NSRect.zero)
-        let scroll = NSScrollView(frame: NSRect.zero)
+        let scroll = ZoomableScrollView(frame: NSRect.zero)
+        scroll.contentView = CenteredClipView()
         scroll.documentView = self.imageEditView
         
         let buttons = [
@@ -103,3 +104,4 @@ extension NSImage {
         self.init(contentsOf: url)
     }
 }
+
