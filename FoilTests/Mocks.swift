@@ -23,28 +23,24 @@
     
 
 import Foundation
+import Foil
 
-final class PanTool: ToolMixin, Tool {
+class MockImageEditorDelegate: ImageEditorDelegate {
     
-    private var hasDrag: Bool {
-        return self.lastMousePosition != nil
-    }
-    private var lastMousePosition: NSPoint?
+    var redraw: Int = 0
+    var changeTool: [ToolType] = []
+    var scroll: [(CGFloat, CGFloat)] = []
     
-    override func didDragMouse(_ point: NSPoint) {
-        defer { self.lastMousePosition = point }
-        guard let last = self.lastMousePosition else {
-            return
-        }
-        let diff = last - point
-        self.delegate?.pan(x: diff.x, y: diff.y)
+    func didRedrawImage() {
+        self.redraw += 1
     }
     
-    override func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool) {
-        self.delegate?.selectTool(.selection)
-        if !hasDrag {
-            self.layers.selectedBitmaps = []
-        }
+    func didChangeTool(_ tool: ToolType) {
+        self.changeTool.append(tool)
     }
     
+    func didScroll(x: CGFloat, y: CGFloat) {
+        self.scroll.append((x, y))
+    }
 }
+

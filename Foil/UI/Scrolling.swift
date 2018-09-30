@@ -44,7 +44,7 @@ class CenteredClipView: NSClipView {
 }
 
 /// A scroll view that does not allow scrolling with mouse
-class ZoomableScrollView: NSScrollView {
+class ZoomableScrollView: NSScrollView, ScrollDelegate {
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)

@@ -22,29 +22,45 @@
 //
     
 
-import Foundation
+import XCTest
+@testable import Foil
 
-final class PanTool: ToolMixin, Tool {
+class PanToolTests: XCTestCase {
     
-    private var hasDrag: Bool {
-        return self.lastMousePosition != nil
+    func testThatItSetSelectionTool() {
+        
+        // GIVEN
+        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        editor.toolType = .pan
+        
+        // WHEN
+        editor.tool.didMouseUp(NSPoint(x: 55, y: 55), shiftKeyPressed: false)
+        
+        // THEN
+        XCTAssertEqual(editor.toolType, .selection)
     }
-    private var lastMousePosition: NSPoint?
     
-    override func didDragMouse(_ point: NSPoint) {
-        defer { self.lastMousePosition = point }
-        guard let last = self.lastMousePosition else {
-            return
+    func testThatItPans() {
+        
+        // GIVEN
+        let mockDelegate = MockImageEditorDelegate()
+        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        editor.toolType = .pan
+        editor.delegate = mockDelegate
+        
+        // WHEN
+        let diff = NSPoint(x: 10, y: 10)
+        let initialPoint = NSPoint(x: 0, y: 0)
+        editor.tool.didDragMouse(initialPoint)
+        editor.tool.didDragMouse(initialPoint + diff)
+        
+        // THEN
+        XCTAssertEqual(editor.toolType, .pan)
+        XCTAssertEqual(mockDelegate.scroll.count, 1)
+        guard let last = mockDelegate.scroll.last else {
+            return XCTFail()
         }
-        let diff = last - point
-        self.delegate?.pan(x: diff.x, y: diff.y)
-    }
-    
-    override func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool) {
-        self.delegate?.selectTool(.selection)
-        if !hasDrag {
-            self.layers.selectedBitmaps = []
-        }
+        XCTAssert(last == (-diff.x, -diff.y))
     }
     
 }

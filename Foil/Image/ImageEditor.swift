@@ -24,7 +24,7 @@
 
 import Foundation
 
-public enum ToolType {
+public enum ToolType: Equatable {
     case line
     case selection
     case bitmap(NSImage)

@@ -147,5 +147,45 @@ class SelectionToolTests: XCTestCase {
         XCTAssertEqual(editor.layers.bitmaps, [b2])
         
     }
+    
+    func testThatItStartsPanning() {
+        
+        // GIVEN
+        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        editor.toolType = .selection
+        let b1 = editor.layers.addBitmap(
+            Utils.testImage("moon.jpg")!,
+            centerPosition: NSPoint(x: 50, y: 50),
+            scale: 0.2
+        )
+        editor.layers.selectedBitmaps = Set([b1])
+        
+        // WHEN
+        editor.tool.didMouseDown(NSPoint(x: 0, y: 0), shiftKeyPressed: false)
+        
+        // THEN
+        XCTAssertEqual(editor.toolType, ToolType.pan)
+        XCTAssertEqual(editor.layers.selectedBitmaps, Set([b1]))
+    }
 
+    func testThatItEndsPanningWithSameSelectedBitmaps() {
+        
+        // GIVEN
+        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        editor.toolType = .selection
+        let b1 = editor.layers.addBitmap(
+            Utils.testImage("moon.jpg")!,
+            centerPosition: NSPoint(x: 50, y: 50),
+            scale: 0.2
+        )
+        editor.layers.selectedBitmaps = Set([b1])
+        
+        // WHEN
+        editor.tool.didMouseDown(NSPoint(x: 0, y: 0), shiftKeyPressed: false)
+        editor.tool.didMouseUp(NSPoint(x: 0, y: 0), shiftKeyPressed: false)
+        
+        // THEN
+        XCTAssertEqual(editor.toolType, ToolType.selection)
+        XCTAssert(editor.layers.selectedBitmaps.isEmpty)
+    }
 }
