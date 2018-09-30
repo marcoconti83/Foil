@@ -52,6 +52,7 @@ public class ImageEditorViewController: NSViewController {
             ClosureButton(image: NSImage(name: "image_add.png")!) { [weak self] _ in
                 self?.selectBitmap()
             },
+            NSBox.horizontalLine(),
             ClosureButton(image: NSImage(name: "color_wheel.png")!) { [weak self] _ in
                 self?.selectColor()
             },
@@ -60,7 +61,9 @@ public class ImageEditorViewController: NSViewController {
             }
         ]
         buttons.forEach {
-                $0.bezelStyle = NSButton.BezelStyle.shadowlessSquare
+            if let button = $0 as? NSButton {
+                button.bezelStyle = NSButton.BezelStyle.shadowlessSquare
+            }
         }
         let toolbar = NSStackView(views: buttons)
         toolbar.orientation = .vertical
@@ -97,6 +100,15 @@ public class ImageEditorViewController: NSViewController {
     }
     
     private func selectColor() {
-        
+        let panel = NSColorPanel.shared
+        panel.setTarget(self)
+        panel.setAction(#selector(colorPicked(_:)))
+        panel.makeKeyAndOrderFront(self)
+    }
+    
+    @objc func colorPicked(_ sender: Any) {
+        if let panel = sender as? NSColorPanel {
+            self.imageEditView.toolSettings.color = panel.color
+        }
     }
 }

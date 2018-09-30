@@ -132,6 +132,15 @@ extension ImageEditView: ImageEditorDelegate {
             self.editor.toolType = newValue
         }
     }
+    
+    public var toolSettings: ToolSettings {
+        get {
+            return self.editor.toolSettings
+        }
+        set {
+            self.editor.toolSettings = newValue
+        }
+    }
 }
 
 extension ToolType {
