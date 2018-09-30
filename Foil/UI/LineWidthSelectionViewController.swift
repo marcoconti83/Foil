@@ -26,21 +26,7 @@ import Foundation
 import Cartography
 import ClosureControls
 
-class LineWidthSelectionViewController: NSViewController {
-    
-    private var selectionCallback: ((Int)->())? = nil
-    
-    static func showInPopup(over view: NSView, callback: @escaping (Int)->()) {
-        let popover = NSPopover()
-        let controller = LineWidthSelectionViewController()
-        controller.selectionCallback = callback
-        popover.contentViewController = controller
-        popover.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
-    }
-    
-    override func loadView() {
-        self.view = NSView()
-    }
+class LineWidthSelectionViewController: PopupChoiceViewController<Int> {
     
     override func viewDidLoad() {
         let views = (1...10).map { (x: Int) -> ClosureButton in
@@ -59,10 +45,5 @@ class LineWidthSelectionViewController: NSViewController {
         constrain(self.view, stack) { parent, stack in
             stack.edges == parent.edges.inseted(by: 5)
         }
-    }
-    
-    @objc func didSelect(value: Int) {
-        self.selectionCallback?(value)
-        self.view.window?.close()
     }
 }

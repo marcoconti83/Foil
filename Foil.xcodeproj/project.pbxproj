@@ -46,6 +46,16 @@
 		A976980321613CC9006CF0EC /* paintbrush.png in Resources */ = {isa = PBXBuildFile; fileRef = A976980221613CC9006CF0EC /* paintbrush.png */; };
 		A9769805216142B1006CF0EC /* EraserTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9769804216142B1006CF0EC /* EraserTool.swift */; };
 		A9769807216143A2006CF0EC /* pill_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = A9769806216143A2006CF0EC /* pill_delete.png */; };
+		A9769809216152D3006CF0EC /* PopupChoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9769808216152D3006CF0EC /* PopupChoiceViewController.swift */; };
+		A976980B216154BD006CF0EC /* BitmapSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A976980A216154BD006CF0EC /* BitmapSelectionViewController.swift */; };
+		A976980D216155EB006CF0EC /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = A976980C216155EB006CF0EC /* Array.swift */; };
+		A976980F21615635006CF0EC /* NSStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A976980E21615635006CF0EC /* NSStackView.swift */; };
+		A976981121615A2E006CF0EC /* ImageEditorSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A976981021615A2E006CF0EC /* ImageEditorSettings.swift */; };
+		A976981421615C69006CF0EC /* anchor.png in Resources */ = {isa = PBXBuildFile; fileRef = A976981321615C69006CF0EC /* anchor.png */; };
+		A976982521615CB0006CF0EC /* flag_blue.png in Resources */ = {isa = PBXBuildFile; fileRef = A976981621615CAF006CF0EC /* flag_blue.png */; };
+		A976982C21615CB0006CF0EC /* flag_red.png in Resources */ = {isa = PBXBuildFile; fileRef = A976981D21615CAF006CF0EC /* flag_red.png */; };
+		A976982E21615CB0006CF0EC /* drink.png in Resources */ = {isa = PBXBuildFile; fileRef = A976981F21615CAF006CF0EC /* drink.png */; };
+		A976983021615CB0006CF0EC /* cup.png in Resources */ = {isa = PBXBuildFile; fileRef = A976982121615CB0006CF0EC /* cup.png */; };
 		A9914FBA2160A13A007DAE4A /* Scrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FB92160A13A007DAE4A /* Scrolling.swift */; };
 		A9914FBC2160A3C7007DAE4A /* PanTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FBB2160A3C7007DAE4A /* PanTool.swift */; };
 		A9914FBE2160C6F2007DAE4A /* PanToolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FBD2160C6F2007DAE4A /* PanToolTests.swift */; };
@@ -156,6 +166,16 @@
 		A976980221613CC9006CF0EC /* paintbrush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paintbrush.png; sourceTree = "<group>"; };
 		A9769804216142B1006CF0EC /* EraserTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraserTool.swift; sourceTree = "<group>"; };
 		A9769806216143A2006CF0EC /* pill_delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pill_delete.png; sourceTree = "<group>"; };
+		A9769808216152D3006CF0EC /* PopupChoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupChoiceViewController.swift; sourceTree = "<group>"; };
+		A976980A216154BD006CF0EC /* BitmapSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapSelectionViewController.swift; sourceTree = "<group>"; };
+		A976980C216155EB006CF0EC /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		A976980E21615635006CF0EC /* NSStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSStackView.swift; sourceTree = "<group>"; };
+		A976981021615A2E006CF0EC /* ImageEditorSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditorSettings.swift; sourceTree = "<group>"; };
+		A976981321615C69006CF0EC /* anchor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = anchor.png; sourceTree = "<group>"; };
+		A976981621615CAF006CF0EC /* flag_blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flag_blue.png; sourceTree = "<group>"; };
+		A976981D21615CAF006CF0EC /* flag_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flag_red.png; sourceTree = "<group>"; };
+		A976981F21615CAF006CF0EC /* drink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = drink.png; sourceTree = "<group>"; };
+		A976982121615CB0006CF0EC /* cup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cup.png; sourceTree = "<group>"; };
 		A9914FB92160A13A007DAE4A /* Scrolling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scrolling.swift; sourceTree = "<group>"; };
 		A9914FBB2160A3C7007DAE4A /* PanTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanTool.swift; sourceTree = "<group>"; };
 		A9914FBD2160C6F2007DAE4A /* PanToolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanToolTests.swift; sourceTree = "<group>"; };
@@ -221,6 +241,7 @@
 		A926C338215FC002006B1388 /* FoilUIExample */ = {
 			isa = PBXGroup;
 			children = (
+				A976981221615C49006CF0EC /* Resources */,
 				A926C339215FC002006B1388 /* AppDelegate.swift */,
 				A926C33B215FC004006B1388 /* Assets.xcassets */,
 				A926C33D215FC004006B1388 /* MainMenu.xib */,
@@ -252,6 +273,18 @@
 				A926C350215FD768006B1388 /* color_wheel.png */,
 			);
 			path = Icons;
+			sourceTree = "<group>";
+		};
+		A976981221615C49006CF0EC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A976982121615CB0006CF0EC /* cup.png */,
+				A976981F21615CAF006CF0EC /* drink.png */,
+				A976981621615CAF006CF0EC /* flag_blue.png */,
+				A976981D21615CAF006CF0EC /* flag_red.png */,
+				A976981321615C69006CF0EC /* anchor.png */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		A9B7D412215DF9B9002A95CB = {
@@ -334,10 +367,13 @@
 				A9B7D440215DFA2F002A95CB /* ImageEditView.swift */,
 				A926C313215F5DFB006B1388 /* DrawingUtils.swift */,
 				A926C34A215FCAD9006B1388 /* ImageEditorViewController.swift */,
+				A976981021615A2E006CF0EC /* ImageEditorSettings.swift */,
 				A9914FB92160A13A007DAE4A /* Scrolling.swift */,
 				A9914FC12160D733007DAE4A /* Separator.swift */,
+				A9769808216152D3006CF0EC /* PopupChoiceViewController.swift */,
 				A9914FC32160E090007DAE4A /* LineWidthSelectionViewController.swift */,
 				A9914FC5216102A9007DAE4A /* ColorSelectionViewController.swift */,
+				A976980A216154BD006CF0EC /* BitmapSelectionViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -349,6 +385,8 @@
 				A926C30C215F52C8006B1388 /* Math.swift */,
 				A926C31D215F7283006B1388 /* Keycodes.swift */,
 				A926C32D215FB97B006B1388 /* Box.swift */,
+				A976980C216155EB006CF0EC /* Array.swift */,
+				A976980E21615635006CF0EC /* NSStackView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -506,7 +544,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A976982E21615CB0006CF0EC /* drink.png in Resources */,
 				A926C33C215FC004006B1388 /* Assets.xcassets in Resources */,
+				A976983021615CB0006CF0EC /* cup.png in Resources */,
+				A976981421615C69006CF0EC /* anchor.png in Resources */,
+				A976982521615CB0006CF0EC /* flag_blue.png in Resources */,
+				A976982C21615CB0006CF0EC /* flag_red.png in Resources */,
 				A926C33F215FC004006B1388 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -565,6 +608,8 @@
 			files = (
 				A926C324215FAE63006B1388 /* SelectionTool.swift in Sources */,
 				A9914FC42160E090007DAE4A /* LineWidthSelectionViewController.swift in Sources */,
+				A976980B216154BD006CF0EC /* BitmapSelectionViewController.swift in Sources */,
+				A976980F21615635006CF0EC /* NSStackView.swift in Sources */,
 				A926C31E215F7283006B1388 /* Keycodes.swift in Sources */,
 				A926C314215F5DFB006B1388 /* DrawingUtils.swift in Sources */,
 				A926C34B215FCAD9006B1388 /* ImageEditorViewController.swift in Sources */,
@@ -574,6 +619,7 @@
 				A9B7D446215DFA2F002A95CB /* ImageEditView.swift in Sources */,
 				A9914FC22160D733007DAE4A /* Separator.swift in Sources */,
 				A9B7D443215DFA2F002A95CB /* ImageLayers.swift in Sources */,
+				A9769809216152D3006CF0EC /* PopupChoiceViewController.swift in Sources */,
 				A976980121613B88006CF0EC /* BrushTool.swift in Sources */,
 				A9B7D447215DFA2F002A95CB /* NSImage.swift in Sources */,
 				A9CC23FD215EBB2C00194228 /* Bitmap.swift in Sources */,
@@ -582,6 +628,8 @@
 				A926C32E215FB97B006B1388 /* Box.swift in Sources */,
 				A9769805216142B1006CF0EC /* EraserTool.swift in Sources */,
 				A9914FC6216102A9007DAE4A /* ColorSelectionViewController.swift in Sources */,
+				A976980D216155EB006CF0EC /* Array.swift in Sources */,
+				A976981121615A2E006CF0EC /* ImageEditorSettings.swift in Sources */,
 				A926C322215FAC9E006B1388 /* LineTool.swift in Sources */,
 				A926C30D215F52C8006B1388 /* Math.swift in Sources */,
 			);

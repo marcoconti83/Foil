@@ -26,10 +26,8 @@ import Foundation
 import Cartography
 import ClosureControls
 
-class ColorSelectionViewController: NSViewController {
-    
-    private var selectionCallback: ((NSColor)->())? = nil
-    
+class ColorSelectionViewController: PopupChoiceViewController<NSColor> {
+        
     static let colors: [NSColor] = [
         NSColor(red: 0.902, green: 0.098, blue: 0.294, alpha: 1), // Red
         NSColor(red: 0.235, green: 0.706, blue: 0.294, alpha: 1), // Green
@@ -55,18 +53,6 @@ class ColorSelectionViewController: NSViewController {
         NSColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1), // Black
     ]
     
-    static func showInPopup(over view: NSView, callback: @escaping (NSColor)->()) {
-        let popover = NSPopover()
-        let controller = ColorSelectionViewController()
-        controller.selectionCallback = callback
-        popover.contentViewController = controller
-        popover.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
-    }
-    
-    override func loadView() {
-        self.view = NSView()
-    }
-    
     override func viewDidLoad() {
         let stacks = ColorSelectionViewController
             .colors.group(size: 5).map { (colors: [NSColor]) -> NSStackView in
@@ -86,25 +72,19 @@ class ColorSelectionViewController: NSViewController {
             stack.edges == parent.edges.inseted(by: 5)
         }
     }
-    
-    @objc func didSelect(value: NSColor) {
-        self.selectionCallback?(value)
-        self.view.window?.close()
-    }
 }
 
 
 extension NSColor {
     
-    func sampleButton(_ controller: ColorSelectionViewController) -> ClosureButton {
-        let button = ClosureButton(label: "   ") { [weak controller] _ in
+    fileprivate func sampleButton(_ controller: ColorSelectionViewController) -> ClosureButton {
+        let button = ClosureButton(image: self.sampleImage) { [weak controller] _ in
             controller?.didSelect(value: self)
         }
-        button.image = self.sampleImage
         return button
     }
     
-    var sampleImage: NSImage {
+    private var sampleImage: NSImage {
         let rect = NSRect(x: 0, y: 0, width: 25, height: 25)
         let image = NSImage(size: rect.size)
         image.lockingFocus {
@@ -114,24 +94,6 @@ extension NSColor {
             }
         }
         return image
-    }
-}
-
-extension Array {
-    
-    func group(size: Int) -> [[Element]] {
-        return self.reduce([[Element]]()) { prev, element in
-            var elements = prev
-            guard !elements.isEmpty else {
-                return [[element]]
-            }
-            let last = elements.removeLast()
-            if last.count == size {
-                return elements + [last, [element]]
-            } else {
-                return elements + [last + [element]]
-            }
-        }
     }
 }
 

@@ -22,33 +22,22 @@
 //
     
 
-import Cocoa
-import Foil
+import Foundation
 
-@NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
-
-    @IBOutlet weak var window: NSWindow!
-
-
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        var settings = ImageEditorSettings()
-        settings.possibleBitmaps = [
-            NSImage(name: "cup.png", fromClassBundle: AppDelegate.self),
-            NSImage(name: "drink.png", fromClassBundle: AppDelegate.self),
-            NSImage(name: "flag_blue.png", fromClassBundle: AppDelegate.self),
-            NSImage(name: "flag_red.png", fromClassBundle: AppDelegate.self),
-            NSImage(name: "anchor.png", fromClassBundle: AppDelegate.self),
-            ].compactMap { $0 }
-        window.contentViewController = ImageEditorViewController(settings: settings)
-    }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
-
-    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-        return true
+extension Array {
+    
+    func group(size: Int) -> [[Element]] {
+        return self.reduce([[Element]]()) { prev, element in
+            var elements = prev
+            guard !elements.isEmpty else {
+                return [[element]]
+            }
+            let last = elements.removeLast()
+            if last.count == size {
+                return elements + [last, [element]]
+            } else {
+                return elements + [last + [element]]
+            }
+        }
     }
 }
-

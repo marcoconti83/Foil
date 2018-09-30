@@ -39,7 +39,8 @@ final class BitmapTool: ToolMixin, Tool {
     }
     
     override func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool) {
-        self.layers.addBitmap(image, centerPosition: point, scale: 1)
+        let bitmap = self.layers.addBitmap(image, centerPosition: point, scale: 1)
+        self.layers.selectedBitmaps = [bitmap]
         if !shiftKeyPressed {
             self.delegate?.selectTool(.selection)
         }

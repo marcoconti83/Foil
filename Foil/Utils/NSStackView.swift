@@ -22,33 +22,22 @@
 //
     
 
-import Cocoa
-import Foil
+import Foundation
 
-@NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
-
-    @IBOutlet weak var window: NSWindow!
-
-
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        var settings = ImageEditorSettings()
-        settings.possibleBitmaps = [
-            NSImage(name: "cup.png", fromClassBundle: AppDelegate.self),
-            NSImage(name: "drink.png", fromClassBundle: AppDelegate.self),
-            NSImage(name: "flag_blue.png", fromClassBundle: AppDelegate.self),
-            NSImage(name: "flag_red.png", fromClassBundle: AppDelegate.self),
-            NSImage(name: "anchor.png", fromClassBundle: AppDelegate.self),
-            ].compactMap { $0 }
-        window.contentViewController = ImageEditorViewController(settings: settings)
-    }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
-
-    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-        return true
+extension NSStackView {
+    
+    static func grid(views: [[NSView]]) -> NSStackView {
+        let rows = views.map { (row: [NSView]) -> NSStackView in
+            let stack = NSStackView(views: row)
+            stack.orientation = .horizontal
+            stack.distribution = .fillEqually
+            stack.spacing = 1
+            return stack
+        }
+        let stack = NSStackView(views: rows)
+        stack.orientation = .vertical
+        stack.distribution = .fillEqually
+        stack.spacing = 1
+        return stack
     }
 }
-

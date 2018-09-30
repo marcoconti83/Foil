@@ -30,6 +30,16 @@ public class ImageEditorViewController: NSViewController {
 
     private var imageEditView: ImageEditView!
     private var scroll: ZoomableScrollView!
+    var settings: ImageEditorSettings
+    
+    public init(settings: ImageEditorSettings) {
+        self.settings = settings
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    public required init?(coder: NSCoder) {
+        fatalError()
+    }
     
     override public func loadView() {
         self.view = NSView()
@@ -44,44 +54,45 @@ public class ImageEditorViewController: NSViewController {
         
         let buttons = [
             ClosureButton(
-                image: NSImage(name: "cursor.png")!,
+                image: NSImage(name: "cursor.png", fromClassBundle: ImageEditorViewController.self)!,
                 toolTip: "Select") { [weak self] _ in
                     self?.imageEditView!.tool = .selection
             },
             ClosureButton(
-                image: NSImage(name: "pencil.png")!,
+                image: NSImage(name: "pencil.png", fromClassBundle: ImageEditorViewController.self)!,
                 toolTip: "Draw lines") { [weak self] _ in
                     self?.imageEditView!.tool = .line
             },
             ClosureButton(
-                image: NSImage(name: "paintbrush.png")!,
+                image: NSImage(name: "paintbrush.png", fromClassBundle: ImageEditorViewController.self)!,
                 toolTip: "Brush") { [weak self] _ in
                     self?.imageEditView!.tool = .brush
             },
             ClosureButton(
-                image: NSImage(name: "pill_delete.png")!,
+                image: NSImage(name: "pill_delete.png", fromClassBundle: ImageEditorViewController.self)!,
                 toolTip: "Eraser") { [weak self] _ in
                     self?.imageEditView!.tool = .eraser
             },
+            self.settings.canAddBitmap ?
             ClosureButton(
-                image: NSImage(name: "image_add.png")!,
-                toolTip: "Add bitmap") { [weak self] _ in
-                    self?.selectBitmap()
-            },
+                image: NSImage(name: "image_add.png", fromClassBundle: ImageEditorViewController.self)!,
+                toolTip: "Add bitmap") { [weak self] in
+                    self?.selectBitmap($0)
+            } : nil,
             NSBox.horizontalLine(),
             ClosureButton(
-                image: NSImage(name: "color_wheel.png")!,
+                image: NSImage(name: "color_wheel.png", fromClassBundle: ImageEditorViewController.self)!,
                 toolTip: "Change color"
                 ) { [weak self] in
                     self?.selectColor($0)
             },
             ClosureButton(
-                image: NSImage(name: "line_size.png")!,
+                image: NSImage(name: "line_size.png", fromClassBundle: ImageEditorViewController.self)!,
                 toolTip: "Change line width"
                 ) { [weak self] in
                     self?.selectLineSize($0)
             }
-        ]
+            ].compactMap { $0 }
         let toolbar = NSStackView(views: buttons)
         toolbar.orientation = .vertical
         toolbar.distribution = .gravityAreas
@@ -110,20 +121,26 @@ public class ImageEditorViewController: NSViewController {
         self.scroll.centerAndZoom()
     }
     
-    private func selectBitmap() {
-        self.imageEditView.tool = .bitmap(NSImage(name: "color_wheel.png")!)
+    private func selectBitmap(_ sender: Any) {
+        guard let view = sender as? NSView else { return }
+        BitmapSelectionViewController(
+            images: settings.possibleBitmaps,
+            allowImagesFromFile: settings.allowImagesFromFile)
+            .showInPopup(over: view) { img in
+                self.imageEditView.tool = .bitmap(img)
+        }
     }
     
     private func selectLineSize(_ sender: Any) {
         guard let view = sender as? NSView else { return }
-        LineWidthSelectionViewController.showInPopup(over: view) { [weak self] value in
+        LineWidthSelectionViewController().showInPopup(over: view) { [weak self] value in
             self?.imageEditView.toolSettings.lineWidth = CGFloat(value)
         }
     }
     
     private func selectColor(_ sender: Any) {
         guard let view = sender as? NSView else { return }
-        ColorSelectionViewController.showInPopup(over: view) { [weak self] value in
+        ColorSelectionViewController().showInPopup(over: view) { [weak self] value in
             self?.imageEditView.toolSettings.color = value
         }
     }

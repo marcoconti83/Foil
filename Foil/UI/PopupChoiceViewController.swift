@@ -20,35 +20,33 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 //
+
+
+import Foundation
+import Cartography
+import ClosureControls
+
+class PopupChoiceViewController<Selection>: NSViewController {
     
-
-import Cocoa
-import Foil
-
-@NSApplicationMain
-class AppDelegate: NSObject, NSApplicationDelegate {
-
-    @IBOutlet weak var window: NSWindow!
-
-
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        var settings = ImageEditorSettings()
-        settings.possibleBitmaps = [
-            NSImage(name: "cup.png", fromClassBundle: AppDelegate.self),
-            NSImage(name: "drink.png", fromClassBundle: AppDelegate.self),
-            NSImage(name: "flag_blue.png", fromClassBundle: AppDelegate.self),
-            NSImage(name: "flag_red.png", fromClassBundle: AppDelegate.self),
-            NSImage(name: "anchor.png", fromClassBundle: AppDelegate.self),
-            ].compactMap { $0 }
-        window.contentViewController = ImageEditorViewController(settings: settings)
+    private var selectionCallback: ((Selection)->())? = nil
+    
+    func showInPopup(
+        over view: NSView,
+        callback: @escaping (Selection)->())
+    {
+        let popover = NSPopover()
+        self.selectionCallback = callback
+        popover.contentViewController = self
+        popover.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
     }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
+    
+    override func loadView() {
+        self.view = NSView()
     }
-
-    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-        return true
+    
+    func didSelect(value: Selection) {
+        self.selectionCallback?(value)
+        self.view.window?.close()
     }
 }
 

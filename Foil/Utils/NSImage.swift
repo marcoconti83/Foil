@@ -52,8 +52,8 @@ extension NSImage {
 
 extension NSImage {
     
-    convenience init?(name: String) {
-        guard let url = Bundle(for: ImageEditorViewController.self).urlForImageResource(name)
+    public convenience init?(name: String, fromClassBundle aClass: AnyClass) {
+        guard let url = Bundle(for: aClass).urlForImageResource(name)
             else { return nil }
         self.init(contentsOf: url)
     }
