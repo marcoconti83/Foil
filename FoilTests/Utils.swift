@@ -26,7 +26,7 @@ import XCTest
 
 private let fixtureFolder = "Fixtures/"
 private let testResourcesFolder = "FoilTests/Resources/"
-private let forceFixtureGeneration = false
+private let forceFixtureGeneration = true
 
 class Utils {
     
@@ -38,10 +38,10 @@ class Utils {
         let name = (fileName as NSString).deletingPathExtension
         
         guard let URL = Bundle(for: Utils.self).url(forResource: name, withExtension: ext) else {
-            fatalError("File \(fileName) not found in test bundle")
+            return nil
         }
         guard let image = NSImage(contentsOf: URL) else {
-            fatalError("Can't read image \(fileName) in test bundle")
+            return nil
         }
         return image
     }

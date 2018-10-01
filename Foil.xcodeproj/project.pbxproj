@@ -82,6 +82,12 @@
 		A9CC23FF215EC43F00194228 /* moon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A9CC23FE215EC43E00194228 /* moon.jpg */; };
 		A9CC2403215EC6EF00194228 /* 200x200-green-rect-moon.png in Resources */ = {isa = PBXBuildFile; fileRef = A9CC2402215EC6EF00194228 /* 200x200-green-rect-moon.png */; };
 		A9CC2405215EC79000194228 /* 200x200-red-moons.png in Resources */ = {isa = PBXBuildFile; fileRef = A9CC2404215EC79000194228 /* 200x200-red-moons.png */; };
+		A9E3E0662161F8E70059B0A6 /* BrushToolTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3E0652161F8E70059B0A6 /* BrushToolTest.swift */; };
+		A9E3E0682161F98F0059B0A6 /* 100x100-draw-line-shift.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E3E0672161F98F0059B0A6 /* 100x100-draw-line-shift.png */; };
+		A9E3E06A2161FB1C0059B0A6 /* 100x100-brush.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E3E0692161FB1B0059B0A6 /* 100x100-brush.png */; };
+		A9E3E06C2161FB410059B0A6 /* EraserToolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3E06B2161FB410059B0A6 /* EraserToolTests.swift */; };
+		A9E3E06E2161FC430059B0A6 /* 100x100-eraser.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E3E06D2161FC430059B0A6 /* 100x100-eraser.png */; };
+		A9E3E0702161FD1A0059B0A6 /* 100x100-eraser-outline.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E3E06F2161FD1A0059B0A6 /* 100x100-eraser-outline.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -208,6 +214,12 @@
 		A9CC23FE215EC43E00194228 /* moon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = moon.jpg; sourceTree = "<group>"; };
 		A9CC2402215EC6EF00194228 /* 200x200-green-rect-moon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "200x200-green-rect-moon.png"; sourceTree = "<group>"; };
 		A9CC2404215EC79000194228 /* 200x200-red-moons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "200x200-red-moons.png"; sourceTree = "<group>"; };
+		A9E3E0652161F8E70059B0A6 /* BrushToolTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushToolTest.swift; sourceTree = "<group>"; };
+		A9E3E0672161F98F0059B0A6 /* 100x100-draw-line-shift.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-draw-line-shift.png"; sourceTree = "<group>"; };
+		A9E3E0692161FB1B0059B0A6 /* 100x100-brush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-brush.png"; sourceTree = "<group>"; };
+		A9E3E06B2161FB410059B0A6 /* EraserToolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraserToolTests.swift; sourceTree = "<group>"; };
+		A9E3E06D2161FC430059B0A6 /* 100x100-eraser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-eraser.png"; sourceTree = "<group>"; };
+		A9E3E06F2161FD1A0059B0A6 /* 100x100-eraser-outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-eraser-outline.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -337,6 +349,8 @@
 				A926C32B215FB71A006B1388 /* SelectionToolTests.swift */,
 				A9914FBD2160C6F2007DAE4A /* PanToolTests.swift */,
 				A926C331215FBD6A006B1388 /* BitmapToolTests.swift */,
+				A9E3E0652161F8E70059B0A6 /* BrushToolTest.swift */,
+				A9E3E06B2161FB410059B0A6 /* EraserToolTests.swift */,
 				A926C311215F5550006B1388 /* MathTests.swift */,
 				A9B7D434215DFA15002A95CB /* Info.plist */,
 				A9914FBF2160C910007DAE4A /* Mocks.swift */,
@@ -413,6 +427,10 @@
 		A9B7D44D215DFCAB002A95CB /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
+				A9E3E06F2161FD1A0059B0A6 /* 100x100-eraser-outline.png */,
+				A9E3E06D2161FC430059B0A6 /* 100x100-eraser.png */,
+				A9E3E0692161FB1B0059B0A6 /* 100x100-brush.png */,
+				A9E3E0672161F98F0059B0A6 /* 100x100-draw-line-shift.png */,
 				A926C327215FB4D4006B1388 /* 100x100-draw-line.png */,
 				A926C31F215FA597006B1388 /* 500x500-temporary-line.png */,
 				A926C317215F6555006B1388 /* 200x200-red-moons-selected-large.png */,
@@ -578,6 +596,8 @@
 				A9B7D453215DFCAB002A95CB /* 100x100-black.png in Resources */,
 				A9B7D45C215E0753002A95CB /* 100x100-red-greenline.png in Resources */,
 				A926C318215F6555006B1388 /* 200x200-red-moons-selected-large.png in Resources */,
+				A9E3E0702161FD1A0059B0A6 /* 100x100-eraser-outline.png in Resources */,
+				A9E3E0682161F98F0059B0A6 /* 100x100-draw-line-shift.png in Resources */,
 				A9CC23FF215EC43F00194228 /* moon.jpg in Resources */,
 				A926C320215FA597006B1388 /* 500x500-temporary-line.png in Resources */,
 				A9CC2403215EC6EF00194228 /* 200x200-green-rect-moon.png in Resources */,
@@ -585,8 +605,10 @@
 				A9B7D452215DFCAB002A95CB /* original-5pepper.png in Resources */,
 				A9B7D454215DFCAB002A95CB /* 100x100-red.png in Resources */,
 				A9B7D455215DFCAB002A95CB /* 5pepper.png in Resources */,
+				A9E3E06A2161FB1C0059B0A6 /* 100x100-brush.png in Resources */,
 				A9CC23FB215EB97B00194228 /* 100x100-green-square.png in Resources */,
 				A926C316215F5EB6006B1388 /* 200x200-red-moons-selected.png in Resources */,
+				A9E3E06E2161FC430059B0A6 /* 100x100-eraser.png in Resources */,
 				A9CC2405215EC79000194228 /* 200x200-red-moons.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -641,11 +663,13 @@
 			files = (
 				A926C332215FBD6A006B1388 /* BitmapToolTests.swift in Sources */,
 				A926C312215F5550006B1388 /* MathTests.swift in Sources */,
+				A9E3E06C2161FB410059B0A6 /* EraserToolTests.swift in Sources */,
 				A9B7D433215DFA15002A95CB /* ImageLayersTests.swift in Sources */,
 				A926C32C215FB71A006B1388 /* SelectionToolTests.swift in Sources */,
 				A926C32A215FB70C006B1388 /* LineToolTests.swift in Sources */,
 				A9914FC02160C910007DAE4A /* Mocks.swift in Sources */,
 				A9914FBE2160C6F2007DAE4A /* PanToolTests.swift in Sources */,
+				A9E3E0662161F8E70059B0A6 /* BrushToolTest.swift in Sources */,
 				A926C31C215F6A60006B1388 /* ImageEditorTests.swift in Sources */,
 				A9B7D456215DFCAB002A95CB /* Utils.swift in Sources */,
 			);

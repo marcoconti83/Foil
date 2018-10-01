@@ -96,6 +96,8 @@ class LineToolTests: XCTestCase {
         // GIVEN
         let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .line
+        editor.toolSettings.color = NSColor.blue
+        editor.toolSettings.lineWidth = 20
         
         // WHEN
         let p1 = NSPoint(x: 20, y: 20)
@@ -104,8 +106,8 @@ class LineToolTests: XCTestCase {
         editor.tool.didMouseUp(p2, shiftKeyPressed: true)
         
         // THEN
-        XCTAssertEqual(editor.layers.lineBeingDrawn, Line(start: p2, end: p2, color: .black, width: 2))
-        Utils.compareImage(editor.layers.renderResult, fixtureName: "100x100-draw-line.png")
+        XCTAssertEqual(editor.layers.lineBeingDrawn, Line(start: p2, end: p2, color: .blue, width: 20))
+        Utils.compareImage(editor.layers.renderResult, fixtureName: "100x100-draw-line-shift.png")
         XCTAssertTrue(editor.tool is LineTool)
     }
 
