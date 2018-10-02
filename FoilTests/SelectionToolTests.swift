@@ -44,7 +44,7 @@ class SelectionToolTests: XCTestCase {
         )
         
         // WHEN
-        editor.tool.didMouseUp(NSPoint(x: 55, y: 55), shiftKeyPressed: false)
+        editor.tool.didMouseDown(NSPoint(x: 55, y: 55), shiftKeyPressed: false)
         
         // THEN
         XCTAssertEqual(editor.layers.selectedBitmaps, Set([b1]))
@@ -92,7 +92,7 @@ class SelectionToolTests: XCTestCase {
         editor.layers.selectedBitmaps = Set([b1])
         
         // WHEN
-        editor.tool.didMouseUp(NSPoint(x: 27, y: 55), shiftKeyPressed: true)
+        editor.tool.didMouseDown(NSPoint(x: 27, y: 55), shiftKeyPressed: true)
         
         // THEN
         XCTAssertEqual(editor.layers.selectedBitmaps, Set([b1, b2]))
@@ -116,10 +116,43 @@ class SelectionToolTests: XCTestCase {
         editor.layers.selectedBitmaps = Set([b1, b2])
         
         // WHEN
-        editor.tool.didMouseUp(NSPoint(x: 27, y: 55), shiftKeyPressed: true)
+        editor.tool.didMouseDown(NSPoint(x: 27, y: 55), shiftKeyPressed: true)
         
         // THEN
         XCTAssertEqual(editor.layers.selectedBitmaps, Set([b1]))
+    }
+    
+    func testThatItDragsABitmap() {
+        
+        // GIVEN
+        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        editor.toolType = .selection
+        let b1 = editor.layers.addBitmap(
+            Utils.testImage("moon.jpg")!,
+            centerPosition: NSPoint(x: 50, y: 50),
+            scale: 0.2
+        )
+        let b2point = NSPoint(x: 25, y: 50)
+        _ = editor.layers.addBitmap(
+            Utils.testImage("moon.jpg")!,
+            centerPosition: b2point,
+            scale: 0.2
+        )
+        editor.layers.selectedBitmaps = Set([b1])
+        editor.tool.didMouseDown(NSPoint(x: 50, y: 50), shiftKeyPressed: false)
+        
+        // WHEN
+        let endPoint = NSPoint(x: 20, y: 20)
+        editor.tool.didDragMouse(endPoint)
+        
+        // THEN
+        // by moving, bitmaps are replaced with new instances
+        XCTAssertEqual(editor.layers.selectedBitmaps.first?.centerPosition, endPoint)
+        XCTAssertEqual(
+            editor.layers.bitmaps.symmetricDifference(editor.layers.selectedBitmaps).first!.centerPosition,
+            b2point
+        )
+        
     }
     
     func testThatItDeletesABitmap() {

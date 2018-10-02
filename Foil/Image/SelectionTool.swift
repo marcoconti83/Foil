@@ -25,6 +25,9 @@
 import Foundation
 
 final class SelectionTool: ToolMixin, Tool {
+
+    private var lastDragPoint: NSPoint? = nil
+    private var didDragOnce: Bool = false
     
     private func bitmapAtPoint(_ point: NSPoint) -> Bitmap? {
         return self.layers.bitmaps.first(where: {
@@ -33,29 +36,68 @@ final class SelectionTool: ToolMixin, Tool {
     }
     
     override func didMouseDown(_ point: NSPoint, shiftKeyPressed: Bool) {
-        guard self.bitmapAtPoint(point) == nil else {
-            return
-        }
-        self.delegate?.selectTool(.pan)
-    }
-    
-    override func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool) {
-        guard let selectedBitmap = self.bitmapAtPoint(point) else {
+        self.lastDragPoint = nil
+        self.didDragOnce = false
+        
+        // if there's no bitmap, switch to pan
+        guard let bitmap = self.bitmapAtPoint(point) else {
             if !shiftKeyPressed {
-                self.layers.selectedBitmaps = Set()
+                self.delegate?.selectTool(.pan)
             }
             return
         }
         
+        self.lastDragPoint = point
         if shiftKeyPressed {
-            if self.layers.selectedBitmaps.contains(selectedBitmap) {
-                self.layers.selectedBitmaps.remove(selectedBitmap)
-            } else {
-                self.layers.selectedBitmaps.insert(selectedBitmap)
+            // Shift was pressed: this is a multi-selection operation
+            // either add or remove from the selected set
+            if self.layers.selectedBitmaps.contains(bitmap) { // unselect if selected
+                self.layers.selectedBitmaps.remove(bitmap)
+            } else { // add
+                self.layers.selectedBitmaps.insert(bitmap)
             }
-        } else {
-            self.layers.selectedBitmaps = Set([selectedBitmap])
+        } else if !self.layers.selectedBitmaps.contains(bitmap) {
+            // if it was not already selected, replace entire
+            // selection with it. But if it was, we might need to drag
+            // all bitmaps
+            self.layers.selectedBitmaps = Set([bitmap])
         }
+    }
+    
+    override func didDragMouse(_ point: NSPoint) {
+        defer {
+            self.lastDragPoint = point
+            self.didDragOnce = true
+        }
+        
+        // this should happen only if a bitmap was selected with mouse down,
+        guard let lastPoint = lastDragPoint, !self.layers.selectedBitmaps.isEmpty else {
+            return
+        }
+        let diff = point - lastPoint
+        self.layers.batchOperations {
+            let newBitmaps = self.layers.selectedBitmaps.map {
+                $0.moving(by: diff)
+            }
+            let toRemove = self.layers.selectedBitmaps
+            toRemove.forEach {
+                self.layers.bitmaps.remove($0)
+            }
+            self.layers.bitmaps.formUnion(newBitmaps)
+            self.layers.selectedBitmaps = Set(newBitmaps)
+        }
+    }
+    
+    override func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool) {
+        
+        if self.bitmapAtPoint(point) == nil // did not click bitmap
+            && !self.didDragOnce // there was no drag in between
+            && !shiftKeyPressed
+        {
+            self.layers.selectedBitmaps = Set()
+        }
+        self.lastDragPoint = nil
+        self.didDragOnce = false
     }
     
     

@@ -63,9 +63,25 @@ public final class Bitmap: Equatable, Hashable, CustomDebugStringConvertible {
     public var debugDescription: String {
         return "center: \(self.centerPosition), scale: \(self.scale)"
     }
+    
+    /// Return a bitmap that is moved to the given point
+    public func moving(by: NSPoint) -> Bitmap {
+        return Bitmap(
+            image: self.image,
+            centerPostion: self.centerPosition + by,
+            scale: self.scale)
+    }
 }
 
 public func ==(lhs: Bitmap, rhs: Bitmap) -> Bool {
     return lhs.scale == rhs.scale && lhs.centerPosition == rhs.centerPosition
         && lhs.image === rhs.image
+}
+
+extension ImageLayers {
+    
+    public func replace(originalBitmap: Bitmap, newBitmap: Bitmap) {
+        self.bitmaps.remove(originalBitmap)
+        self.bitmaps.insert(newBitmap)
+    }
 }

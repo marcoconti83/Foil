@@ -52,7 +52,10 @@ public class ImageLayers {
     /// Bitmaps objects
     var bitmaps: Set<Bitmap> = Set() {
         didSet {
-            self.redrawIfNeeded()
+            let newSelection = self.selectedBitmaps.intersection(bitmaps)
+            self.batchOperations {
+                self.selectedBitmaps = newSelection
+            }
         }
     }
     
