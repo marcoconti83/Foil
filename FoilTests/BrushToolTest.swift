@@ -44,6 +44,6 @@ class BrushToolTests: XCTestCase {
         editor.tool.didDragMouse(NSPoint(x: 22, y: 18))
         
         // THEN
-        Utils.compareImage(editor.layers.renderResult, fixtureName: "100x100-brush.png")
+        Utils.compareImage(editor.layers.imageBeingEdited, fixtureName: "100x100-brush.png")
     }
 }

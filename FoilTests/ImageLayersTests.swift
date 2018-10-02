@@ -29,13 +29,13 @@ class ImageLayersTests: XCTestCase {
         
         // GIVEN
         let layers = ImageLayers(emptyImageOfSize: NSSize(width: 50, height: 50))
-        layers.backgroundColor = .black
         
         // WHEN
-        let image = layers.renderResult        
+        layers.backgroundColor = .black
         
         // THEN
-        Utils.compareImage(image, fixtureName: "100x100-black.png")
+        Utils.compareImage(layers.imageBeingEdited, fixtureName: "100x100-black.png")
+        Utils.compareImage(layers.renderedImage, fixtureName: "100x100-black.png")
     }
     
     func testThatItCreatesAnImageWithOnlyBackgroundChangedToRed() {
@@ -45,23 +45,23 @@ class ImageLayersTests: XCTestCase {
         
         // WHEN
         layers.backgroundColor = NSColor.red
-        let image = layers.renderResult
         
         // THEN
-        Utils.compareImage(image, fixtureName: "100x100-red.png")
+        Utils.compareImage(layers.imageBeingEdited, fixtureName: "100x100-red.png")
+        Utils.compareImage(layers.renderedImage, fixtureName: "100x100-red.png")
     }
     
     func testThatItCreatesAnImageFromImageWithTransparency() {
         
         // GIVEN
         let layers = ImageLayers(backgroundImage: Utils.testImage("original-5pepper.png")!)
-        layers.backgroundColor = NSColor.blue
         
         // WHEN
-        let image = layers.renderResult
+        layers.backgroundColor = NSColor.blue
         
         // THEN
-        Utils.compareImage(image, fixtureName: "5pepper.png")
+        Utils.compareImage(layers.imageBeingEdited, fixtureName: "5pepper.png")
+        Utils.compareImage(layers.renderedImage, fixtureName: "5pepper.png")
     }
     
     func testThatItDrawsALine() {
@@ -72,10 +72,10 @@ class ImageLayersTests: XCTestCase {
         
         // WHEN
         layers.drawLine(from: NSPoint(x: 0, y: 0), to: NSPoint(x: 50, y: 50), lineWidth: 5, color: NSColor.green)
-        let image = layers.renderResult
         
         // THEN
-        Utils.compareImage(image, fixtureName: "100x100-red-greenline.png")
+        Utils.compareImage(layers.imageBeingEdited, fixtureName: "100x100-red-greenline.png")
+        Utils.compareImage(layers.renderedImage, fixtureName: "100x100-red-greenline.png")
     }
     
     func testThatItDrawsARect() {
@@ -88,7 +88,8 @@ class ImageLayersTests: XCTestCase {
         layers.drawRect(NSRect(x: 10, y: 10, width: 30, height: 30), color: NSColor.white)
         
         // THEN
-        Utils.compareImage(layers.renderResult, fixtureName: "100x100-green-square.png")
+        Utils.compareImage(layers.imageBeingEdited, fixtureName: "100x100-green-square.png")
+        Utils.compareImage(layers.renderedImage, fixtureName: "100x100-green-square.png")
     }
     
     func testThatItDrawsBitmaps() {
@@ -102,7 +103,8 @@ class ImageLayersTests: XCTestCase {
         _ = layers.addBitmap(Utils.testImage("moon.jpg")!, centerPosition: NSPoint(x: 100, y: 100))
         
         // THEN
-        Utils.compareImage(layers.renderResult, fixtureName: "200x200-green-rect-moon.png")
+        Utils.compareImage(layers.imageBeingEdited, fixtureName: "200x200-green-rect-moon.png")
+        Utils.compareImage(layers.renderedImage, fixtureName: "200x200-green-rect-moon.png")
     }
     
     func testThatItDrawsBitmapsScaled() {
@@ -125,7 +127,8 @@ class ImageLayersTests: XCTestCase {
         )
         
         // THEN
-        Utils.compareImage(layers.renderResult, fixtureName: "200x200-red-moons.png")
+        Utils.compareImage(layers.imageBeingEdited, fixtureName: "200x200-red-moons.png")
+        Utils.compareImage(layers.renderedImage, fixtureName: "200x200-red-moons.png")
     }
     
     func testThatItDrawsBitmapsSelectedSmall() {
@@ -148,7 +151,8 @@ class ImageLayersTests: XCTestCase {
         layers.selectedBitmaps.insert(b2)
         
         // THEN
-        Utils.compareImage(layers.renderResult, fixtureName: "200x200-red-moons-selected.png")
+        Utils.compareImage(layers.imageBeingEdited, fixtureName: "200x200-red-moons-selected.png")
+        Utils.compareImage(layers.renderedImage, fixtureName: "200x200-red-moons-not-selected.png")
     }
     
     func testThatItDrawsBitmapsSelectedLarge() {
@@ -171,24 +175,39 @@ class ImageLayersTests: XCTestCase {
         layers.selectedBitmaps.insert(b2)
         
         // THEN
-        Utils.compareImage(layers.renderResult, fixtureName: "200x200-red-moons-selected-large.png")
+        Utils.compareImage(layers.imageBeingEdited, fixtureName: "200x200-red-moons-selected-large.png")
+        Utils.compareImage(layers.renderedImage, fixtureName: "200x200-red-moons-not-selected-large.png")
     }
     
-    func testThatItDrawsTemporaryLine() {
+    func testThatItDoesDrawTemporaryLine() {
         
         // GIVEN
-        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 500, height: 500))
+        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 50, height: 50))
         layers.backgroundColor = NSColor.white
         
         // WHEN
         layers.lineBeingDrawn = Line(
-            start: NSPoint(x: 130, y: 100),
-            end: NSPoint(x: 330, y: 400),
+            start: NSPoint(x: 13, y: 10),
+            end: NSPoint(x: 33, y: 40),
             color: NSColor.red,
             width: 5)
         
         // THEN
-        Utils.compareImage(layers.renderResult, fixtureName: "500x500-temporary-line.png")
+        Utils.compareImage(layers.imageBeingEdited, fixtureName: "100x100-with-line.png")
+        Utils.compareImage(layers.renderedImage, fixtureName: "100x100-no-line.png")
     }
 
+    func testThatItDrawsBrushPreview() {
+        
+        // GIVEN
+        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 50, height: 50))
+        layers.backgroundColor = NSColor.white
+        
+        // WHEN
+        layers.brushPreview = (point: NSPoint(x: 10, y: 23), width: 5)
+        
+        // THEN
+        Utils.compareImage(layers.imageBeingEdited, fixtureName: "100x100-with-brush.png")
+        Utils.compareImage(layers.renderedImage, fixtureName: "100x100-no-brush.png")
+    }
 }

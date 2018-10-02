@@ -26,7 +26,7 @@ import Cocoa
 /// Layers that compose the image: background, foreground, vector layer and so on
 public class ImageLayers {
     
-    public let renderResult: NSImage
+    public let imageBeingEdited: NSImage
     
     /// How thick is the selection line width
     let selectionLineWidth: CGFloat
@@ -89,7 +89,7 @@ public class ImageLayers {
     }
     
     public init(backgroundImage: NSImage) {
-        self.renderResult = NSImage(size: backgroundImage.size)
+        self.imageBeingEdited = NSImage(size: backgroundImage.size)
         self.rasterLayer = NSImage(size: backgroundImage.size)
         self.backgroundImage = backgroundImage
         self.selectionLineWidth = max(1, backgroundImage.size.max / 200)
@@ -102,24 +102,38 @@ public class ImageLayers {
 extension ImageLayers {
     
     private func redraw(rect: NSRect? = nil) {
+        self.render(target: self.imageBeingEdited, rect: rect, drawGUI: true)
+        self.redrawDelegate?()
+    }
+    
+    private func render(target: NSImage, rect: NSRect?, drawGUI: Bool) {
         let rect = rect ?? NSRect(
             x: 0, y: 0,
-            width: self.renderResult.size.width,
-            height: self.renderResult.size.height)
-        self.renderResult.lockingFocus {
+            width: target.size.width,
+            height: target.size.height)
+        target.lockingFocus {
             self.backgroundColor.drawSwatch(in: rect)
             self.backgroundImage.draw(in: rect)
             self.rasterLayer.draw(in: rect)
-            self.drawTemporaryLine()
-            self.drawTemporaryBrush()
+            if drawGUI {
+                self.drawTemporaryLine()
+                self.drawTemporaryBrush()
+            }
             self.bitmaps.forEach {
                 $0.image.draw(in: $0.drawingRect)
-                if self.selectedBitmaps.contains($0) {
-                    $0.drawSelectionOverlay(lineWidth: self.selectionLineWidth)
+                if drawGUI {
+                    if self.selectedBitmaps.contains($0) {
+                        $0.drawSelectionOverlay(lineWidth: self.selectionLineWidth)
+                    }
                 }
             }
         }
-        self.redrawDelegate?()
+    }
+    
+    var renderedImage: NSImage {
+        let image = NSImage(size: self.imageBeingEdited.size)
+        self.render(target: image, rect: nil, drawGUI: false)
+        return image
     }
     
     private func drawTemporaryLine() {

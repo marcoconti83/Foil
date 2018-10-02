@@ -49,7 +49,7 @@ class EraserToolTests: XCTestCase {
         editor.tool.didMouseUp(NSPoint(x: 1, y: 50), shiftKeyPressed: false)
         
         // THEN
-        Utils.compareImage(editor.layers.renderResult, fixtureName: "100x100-eraser.png")
+        Utils.compareImage(editor.layers.imageBeingEdited, fixtureName: "100x100-eraser.png")
     }
     
     func testThatItShowsTheEraserOutline() {
@@ -63,7 +63,7 @@ class EraserToolTests: XCTestCase {
         editor.tool.didMoveMouse(p)
         
         // THEN
-        Utils.compareImage(editor.layers.renderResult, fixtureName: "100x100-eraser-outline.png")
+        Utils.compareImage(editor.layers.imageBeingEdited, fixtureName: "100x100-eraser-outline.png")
         guard let preview = editor.layers.brushPreview else {
             return XCTFail()
         }

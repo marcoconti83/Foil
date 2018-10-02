@@ -26,7 +26,7 @@ import XCTest
 
 private let fixtureFolder = "Fixtures/"
 private let testResourcesFolder = "FoilTests/Resources/"
-private let forceFixtureGeneration = true
+private let forceFixtureGeneration = false
 
 class Utils {
     

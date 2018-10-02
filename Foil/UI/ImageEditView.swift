@@ -57,7 +57,7 @@ extension ImageEditView {
     }
     
     public override func draw(_ dirtyRect: NSRect) {
-        self.editor.layers.renderResult.draw(in: self.frame)
+        self.editor.layers.imageBeingEdited.draw(in: self.frame)
     }
     
     public override func mouseDown(with event: NSEvent) {

@@ -56,6 +56,12 @@
 		A976982C21615CB0006CF0EC /* flag_red.png in Resources */ = {isa = PBXBuildFile; fileRef = A976981D21615CAF006CF0EC /* flag_red.png */; };
 		A976982E21615CB0006CF0EC /* drink.png in Resources */ = {isa = PBXBuildFile; fileRef = A976981F21615CAF006CF0EC /* drink.png */; };
 		A976983021615CB0006CF0EC /* cup.png in Resources */ = {isa = PBXBuildFile; fileRef = A976982121615CB0006CF0EC /* cup.png */; };
+		A98BC4662163F22400E16215 /* 100x100-no-line.png in Resources */ = {isa = PBXBuildFile; fileRef = A98BC4652163F22400E16215 /* 100x100-no-line.png */; };
+		A98BC4682163F31500E16215 /* 100x100-with-line.png in Resources */ = {isa = PBXBuildFile; fileRef = A98BC4672163F31500E16215 /* 100x100-with-line.png */; };
+		A98BC46A2163F35F00E16215 /* 100x100-with-brush.png in Resources */ = {isa = PBXBuildFile; fileRef = A98BC4692163F35F00E16215 /* 100x100-with-brush.png */; };
+		A98BC46C2163F36500E16215 /* 100x100-no-brush.png in Resources */ = {isa = PBXBuildFile; fileRef = A98BC46B2163F36500E16215 /* 100x100-no-brush.png */; };
+		A98BC46F2163F39B00E16215 /* 200x200-red-moons-not-selected-large.png in Resources */ = {isa = PBXBuildFile; fileRef = A98BC46D2163F39B00E16215 /* 200x200-red-moons-not-selected-large.png */; };
+		A98BC4702163F39B00E16215 /* 200x200-red-moons-not-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = A98BC46E2163F39B00E16215 /* 200x200-red-moons-not-selected.png */; };
 		A9914FBA2160A13A007DAE4A /* Scrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FB92160A13A007DAE4A /* Scrolling.swift */; };
 		A9914FBC2160A3C7007DAE4A /* PanTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FBB2160A3C7007DAE4A /* PanTool.swift */; };
 		A9914FBE2160C6F2007DAE4A /* PanToolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FBD2160C6F2007DAE4A /* PanToolTests.swift */; };
@@ -182,6 +188,12 @@
 		A976981D21615CAF006CF0EC /* flag_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = flag_red.png; sourceTree = "<group>"; };
 		A976981F21615CAF006CF0EC /* drink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = drink.png; sourceTree = "<group>"; };
 		A976982121615CB0006CF0EC /* cup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cup.png; sourceTree = "<group>"; };
+		A98BC4652163F22400E16215 /* 100x100-no-line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-no-line.png"; sourceTree = "<group>"; };
+		A98BC4672163F31500E16215 /* 100x100-with-line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-with-line.png"; sourceTree = "<group>"; };
+		A98BC4692163F35F00E16215 /* 100x100-with-brush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-with-brush.png"; sourceTree = "<group>"; };
+		A98BC46B2163F36500E16215 /* 100x100-no-brush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-no-brush.png"; sourceTree = "<group>"; };
+		A98BC46D2163F39B00E16215 /* 200x200-red-moons-not-selected-large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "200x200-red-moons-not-selected-large.png"; sourceTree = "<group>"; };
+		A98BC46E2163F39B00E16215 /* 200x200-red-moons-not-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "200x200-red-moons-not-selected.png"; sourceTree = "<group>"; };
 		A9914FB92160A13A007DAE4A /* Scrolling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scrolling.swift; sourceTree = "<group>"; };
 		A9914FBB2160A3C7007DAE4A /* PanTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanTool.swift; sourceTree = "<group>"; };
 		A9914FBD2160C6F2007DAE4A /* PanToolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanToolTests.swift; sourceTree = "<group>"; };
@@ -427,6 +439,12 @@
 		A9B7D44D215DFCAB002A95CB /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
+				A98BC46D2163F39B00E16215 /* 200x200-red-moons-not-selected-large.png */,
+				A98BC46E2163F39B00E16215 /* 200x200-red-moons-not-selected.png */,
+				A98BC46B2163F36500E16215 /* 100x100-no-brush.png */,
+				A98BC4692163F35F00E16215 /* 100x100-with-brush.png */,
+				A98BC4672163F31500E16215 /* 100x100-with-line.png */,
+				A98BC4652163F22400E16215 /* 100x100-no-line.png */,
 				A9E3E06F2161FD1A0059B0A6 /* 100x100-eraser-outline.png */,
 				A9E3E06D2161FC430059B0A6 /* 100x100-eraser.png */,
 				A9E3E0692161FB1B0059B0A6 /* 100x100-brush.png */,
@@ -593,22 +611,28 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A98BC46C2163F36500E16215 /* 100x100-no-brush.png in Resources */,
 				A9B7D453215DFCAB002A95CB /* 100x100-black.png in Resources */,
 				A9B7D45C215E0753002A95CB /* 100x100-red-greenline.png in Resources */,
+				A98BC4702163F39B00E16215 /* 200x200-red-moons-not-selected.png in Resources */,
 				A926C318215F6555006B1388 /* 200x200-red-moons-selected-large.png in Resources */,
 				A9E3E0702161FD1A0059B0A6 /* 100x100-eraser-outline.png in Resources */,
 				A9E3E0682161F98F0059B0A6 /* 100x100-draw-line-shift.png in Resources */,
+				A98BC46A2163F35F00E16215 /* 100x100-with-brush.png in Resources */,
 				A9CC23FF215EC43F00194228 /* moon.jpg in Resources */,
 				A926C320215FA597006B1388 /* 500x500-temporary-line.png in Resources */,
 				A9CC2403215EC6EF00194228 /* 200x200-green-rect-moon.png in Resources */,
 				A926C328215FB4D4006B1388 /* 100x100-draw-line.png in Resources */,
 				A9B7D452215DFCAB002A95CB /* original-5pepper.png in Resources */,
 				A9B7D454215DFCAB002A95CB /* 100x100-red.png in Resources */,
+				A98BC4662163F22400E16215 /* 100x100-no-line.png in Resources */,
 				A9B7D455215DFCAB002A95CB /* 5pepper.png in Resources */,
 				A9E3E06A2161FB1C0059B0A6 /* 100x100-brush.png in Resources */,
 				A9CC23FB215EB97B00194228 /* 100x100-green-square.png in Resources */,
+				A98BC4682163F31500E16215 /* 100x100-with-line.png in Resources */,
 				A926C316215F5EB6006B1388 /* 200x200-red-moons-selected.png in Resources */,
 				A9E3E06E2161FC430059B0A6 /* 100x100-eraser.png in Resources */,
+				A98BC46F2163F39B00E16215 /* 200x200-red-moons-not-selected-large.png in Resources */,
 				A9CC2405215EC79000194228 /* 200x200-red-moons.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -87,7 +87,7 @@ class LineToolTests: XCTestCase {
         
         // THEN
         XCTAssertNil(editor.layers.lineBeingDrawn)
-        Utils.compareImage(editor.layers.renderResult, fixtureName: "100x100-draw-line.png")
+        Utils.compareImage(editor.layers.imageBeingEdited, fixtureName: "100x100-draw-line.png")
         XCTAssertTrue(editor.tool is SelectionTool)
     }
     
@@ -107,7 +107,7 @@ class LineToolTests: XCTestCase {
         
         // THEN
         XCTAssertEqual(editor.layers.lineBeingDrawn, Line(start: p2, end: p2, color: .blue, width: 20))
-        Utils.compareImage(editor.layers.renderResult, fixtureName: "100x100-draw-line-shift.png")
+        Utils.compareImage(editor.layers.imageBeingEdited, fixtureName: "100x100-draw-line-shift.png")
         XCTAssertTrue(editor.tool is LineTool)
     }
 
