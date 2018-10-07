@@ -36,7 +36,7 @@ class BitmapToolTests: XCTestCase {
         
         // WHEN
         let p = NSPoint(x: 20, y: 20)
-        editor.tool.didMouseUp(p, shiftKeyPressed: false)
+        editor.tool.didMouseUp(p, modifierKeys: [])
         
         // THEN
         guard let bitmap = editor.layers.bitmaps.first else {
@@ -56,7 +56,7 @@ class BitmapToolTests: XCTestCase {
         
         // WHEN
         let p = NSPoint(x: 20, y: 20)
-        editor.tool.didMouseUp(p, shiftKeyPressed: true)
+        editor.tool.didMouseUp(p, modifierKeys: [.shift])
         
         // THEN
         XCTAssert(editor.tool is BitmapTool)

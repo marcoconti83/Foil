@@ -25,30 +25,77 @@
 import Foundation
 
 final class SelectionTool: ToolMixin, Tool {
-
-    private var lastDragPoint: NSPoint? = nil
-    private var didDragOnce: Bool = false
+    private var currentOperation: SelectionToolOperation? = nil
     
-    private func bitmapAtPoint(_ point: NSPoint) -> Bitmap? {
-        return self.layers.bitmaps.first(where: {
-            $0.drawingRect.contains(point)
-        })
-    }
-    
-    override func didMouseDown(_ point: NSPoint, shiftKeyPressed: Bool) {
-        self.lastDragPoint = nil
-        self.didDragOnce = false
+    override func didMouseDown(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
+        
         
         // if there's no bitmap, switch to pan
         guard let bitmap = self.bitmapAtPoint(point) else {
-            if !shiftKeyPressed {
+            if !modifierKeys.contains(NSEvent.ModifierFlags.shift) {
                 self.delegate?.selectTool(.pan)
             }
             return
         }
         
+        self.currentOperation = MoveOrSelectBitmapOperation(
+            layers: self.layers,
+            settings: self.settings,
+            delegate: self.delegate!
+        )
+        self.currentOperation?.didMouseDownOnBitmap(point, modifierKeys: modifierKeys, bitmap: bitmap)
+    }
+    
+    override func didDragMouse(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
+        self.currentOperation?.didDragMouse(point, modifierKeys: modifierKeys)
+    }
+    
+    override func didMouseUp(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
+        self.currentOperation?.didMouseUp(point, modifierKeys: modifierKeys)
+    }
+    
+    
+    override func didPressKey(key: Keycode) {
+        if key == .delete || key == .forwardDelete {
+            self.layers.bitmaps = self.layers.bitmaps.filter { !self.layers.selectedBitmaps.contains($0) }
+            self.layers.selectedBitmaps = Set()
+        }
+    }
+}
+
+extension ToolMixin {
+    
+    fileprivate func bitmapAtPoint(_ point: NSPoint) -> Bitmap? {
+        return self.layers.bitmaps.first(where: {
+            $0.drawingRect.contains(point)
+        })
+    }
+}
+
+
+class SelectionToolOperation: ToolMixin {
+    
+    func didMouseDownOnBitmap(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags, bitmap: Bitmap) {}
+}
+
+// MARK: - Scale
+class ScaleBitmapOperation: SelectionToolOperation {
+    
+    
+}
+
+// MARK: - Move
+class MoveOrSelectBitmapOperation: SelectionToolOperation {
+    
+    private var lastDragPoint: NSPoint? = nil
+    private var didDragOnce: Bool = false
+    
+    override func didMouseDownOnBitmap(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags, bitmap: Bitmap) {
+        self.lastDragPoint = nil
+        self.didDragOnce = false
+        
         self.lastDragPoint = point
-        if shiftKeyPressed {
+        if modifierKeys.contains(NSEvent.ModifierFlags.shift) {
             // Shift was pressed: this is a multi-selection operation
             // either add or remove from the selected set
             if self.layers.selectedBitmaps.contains(bitmap) { // unselect if selected
@@ -64,7 +111,7 @@ final class SelectionTool: ToolMixin, Tool {
         }
     }
     
-    override func didDragMouse(_ point: NSPoint) {
+    override func didDragMouse(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
         defer {
             self.lastDragPoint = point
             self.didDragOnce = true
@@ -88,11 +135,11 @@ final class SelectionTool: ToolMixin, Tool {
         }
     }
     
-    override func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool) {
+    override func didMouseUp(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
         
         if self.bitmapAtPoint(point) == nil // did not click bitmap
             && !self.didDragOnce // there was no drag in between
-            && !shiftKeyPressed
+            && !modifierKeys.contains(NSEvent.ModifierFlags.shift)
         {
             self.layers.selectedBitmaps = Set()
         }
@@ -100,11 +147,4 @@ final class SelectionTool: ToolMixin, Tool {
         self.didDragOnce = false
     }
     
-    
-    override func didPressKey(key: Keycode) {
-        if key == .delete || key == .forwardDelete {
-            self.layers.bitmaps = self.layers.bitmaps.filter { !self.layers.selectedBitmaps.contains($0) }
-            self.layers.selectedBitmaps = Set()
-        }
-    }
 }

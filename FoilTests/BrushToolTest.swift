@@ -38,10 +38,10 @@ class BrushToolTests: XCTestCase {
         editor.toolSettings.lineWidth = 2
         
         // WHEN
-        editor.tool.didMouseDown(NSPoint(x: 5, y: 5), shiftKeyPressed: false)
-        editor.tool.didDragMouse(NSPoint(x: 5, y: 15))
-        editor.tool.didDragMouse(NSPoint(x: 14, y: 30))
-        editor.tool.didDragMouse(NSPoint(x: 22, y: 18))
+        editor.tool.didMouseDown(NSPoint(x: 5, y: 5), modifierKeys: [])
+        editor.tool.didDragMouse(NSPoint(x: 5, y: 15), modifierKeys: [])
+        editor.tool.didDragMouse(NSPoint(x: 14, y: 30), modifierKeys: [])
+        editor.tool.didDragMouse(NSPoint(x: 22, y: 18), modifierKeys: [])
         
         // THEN
         Utils.compareImage(editor.layers.imageBeingEdited, fixtureName: "100x100-brush.png")

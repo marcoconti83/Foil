@@ -61,19 +61,19 @@ extension ImageEditView {
     }
     
     public override func mouseDown(with event: NSEvent) {
-        self.editor.tool.didMouseDown(self.eventLocation(event), shiftKeyPressed: event.modifierFlags.contains(.shift))
+        self.editor.tool.didMouseDown(self.eventLocation(event), modifierKeys: event.modifierFlags)
     }
     
     public override func mouseUp(with event: NSEvent) {
-        self.editor.tool.didMouseUp(self.eventLocation(event), shiftKeyPressed: event.modifierFlags.contains(.shift))
+        self.editor.tool.didMouseUp(self.eventLocation(event), modifierKeys: event.modifierFlags)
     }
     
     public override func mouseDragged(with event: NSEvent) {
-        self.editor.tool.didDragMouse(self.eventLocation(event))
+        self.editor.tool.didDragMouse(self.eventLocation(event), modifierKeys: event.modifierFlags)
     }
     
     public override func mouseMoved(with event: NSEvent) {
-        self.editor.tool.didMoveMouse(self.eventLocation(event))
+        self.editor.tool.didMoveMouse(self.eventLocation(event), modifierKeys: event.modifierFlags)
     }
     
     public override func mouseExited(with event: NSEvent) {

@@ -35,7 +35,7 @@ class LineToolTests: XCTestCase {
         
         // WHEN
         let p = NSPoint(x: 20, y: 20)
-        editor.tool.didMouseDown(p, shiftKeyPressed: false)
+        editor.tool.didMouseDown(p, modifierKeys: [])
         
         // THEN
         XCTAssertEqual(editor.layers.lineBeingDrawn, Line(start: p, end: p, color: .black, width: 2))
@@ -49,7 +49,7 @@ class LineToolTests: XCTestCase {
         
         // WHEN
         let p = NSPoint(x: 20, y: 20)
-        editor.tool.didMouseDown(p, shiftKeyPressed: false)
+        editor.tool.didMouseDown(p, modifierKeys: [])
         editor.toolSettings.color = .red
         editor.toolSettings.lineWidth = 10
         
@@ -66,8 +66,8 @@ class LineToolTests: XCTestCase {
         // WHEN
         let p1 = NSPoint(x: 20, y: 20)
         let p2 = NSPoint(x: 85, y: 65)
-        editor.tool.didMouseDown(p1, shiftKeyPressed: false)
-        editor.tool.didDragMouse(p2)
+        editor.tool.didMouseDown(p1, modifierKeys: [])
+        editor.tool.didDragMouse(p2, modifierKeys: [])
         
         // THEN
         XCTAssertEqual(editor.layers.lineBeingDrawn, Line(start: p1, end: p2, color: .black, width: 2))
@@ -82,8 +82,8 @@ class LineToolTests: XCTestCase {
         // WHEN
         let p1 = NSPoint(x: 20, y: 20)
         let p2 = NSPoint(x: 85, y: 65)
-        editor.tool.didMouseDown(p1, shiftKeyPressed: false)
-        editor.tool.didMouseUp(p2, shiftKeyPressed: false)
+        editor.tool.didMouseDown(p1, modifierKeys: [])
+        editor.tool.didMouseUp(p2, modifierKeys: [])
         
         // THEN
         XCTAssertNil(editor.layers.lineBeingDrawn)
@@ -102,8 +102,8 @@ class LineToolTests: XCTestCase {
         // WHEN
         let p1 = NSPoint(x: 20, y: 20)
         let p2 = NSPoint(x: 85, y: 65)
-        editor.tool.didMouseDown(p1, shiftKeyPressed: false)
-        editor.tool.didMouseUp(p2, shiftKeyPressed: true)
+        editor.tool.didMouseDown(p1, modifierKeys: [])
+        editor.tool.didMouseUp(p2, modifierKeys: .shift)
         
         // THEN
         XCTAssertEqual(editor.layers.lineBeingDrawn, Line(start: p2, end: p2, color: .blue, width: 20))

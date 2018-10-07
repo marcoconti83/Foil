@@ -26,14 +26,14 @@ import Foundation
 
 final class LineTool: ToolMixin, Tool {
     
-    override func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool) {
+    override func didMouseUp(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
         guard let line = self.layers.lineBeingDrawn else { return }
         self.layers.drawLine(
             from: line.start,
             to: point,
             lineWidth: self.settings.lineWidth,
             color: self.settings.color)
-        if shiftKeyPressed {
+        if modifierKeys.contains(NSEvent.ModifierFlags.shift) {
             self.layers.lineBeingDrawn = Line(
                 start: point,
                 end: point,
@@ -45,7 +45,7 @@ final class LineTool: ToolMixin, Tool {
         }
     }
     
-    override func didMouseDown(_ point: NSPoint, shiftKeyPressed: Bool) {
+    override func didMouseDown(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
         guard self.layers.lineBeingDrawn == nil else { return }
         self.layers.lineBeingDrawn = Line(
             start: point,
@@ -60,13 +60,13 @@ final class LineTool: ToolMixin, Tool {
         }
     }
     
-    override func didDragMouse(_ point: NSPoint) {
+    override func didDragMouse(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
         if let line = self.layers.lineBeingDrawn {
             self.layers.lineBeingDrawn = line.moveEnd(point)
         }
     }
     
-    override func didMoveMouse(_ point: NSPoint) {
+    override func didMoveMouse(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
         if let line = self.layers.lineBeingDrawn {
             self.layers.lineBeingDrawn = line.moveEnd(point)
         }

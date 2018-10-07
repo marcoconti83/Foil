@@ -31,7 +31,7 @@ final class PanTool: ToolMixin, Tool {
     }
     private var lastMousePosition: NSPoint?
     
-    override func didDragMouse(_ point: NSPoint) {
+    override func didDragMouse(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
         defer { self.lastMousePosition = point }
         guard let last = self.lastMousePosition else {
             return
@@ -40,7 +40,7 @@ final class PanTool: ToolMixin, Tool {
         self.delegate?.pan(x: diff.x, y: diff.y)
     }
     
-    override func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool) {
+    override func didMouseUp(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
         self.delegate?.selectTool(.selection)
         if !hasDrag {
             self.layers.selectedBitmaps = []

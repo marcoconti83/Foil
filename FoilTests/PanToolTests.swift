@@ -34,7 +34,7 @@ class PanToolTests: XCTestCase {
         editor.toolType = .pan
         
         // WHEN
-        editor.tool.didMouseUp(NSPoint(x: 55, y: 55), shiftKeyPressed: false)
+        editor.tool.didMouseUp(NSPoint(x: 55, y: 55), modifierKeys: [])
         
         // THEN
         XCTAssertEqual(editor.toolType, .selection)
@@ -51,8 +51,8 @@ class PanToolTests: XCTestCase {
         // WHEN
         let diff = NSPoint(x: 10, y: 10)
         let initialPoint = NSPoint(x: 0, y: 0)
-        editor.tool.didDragMouse(initialPoint)
-        editor.tool.didDragMouse(initialPoint + diff)
+        editor.tool.didDragMouse(initialPoint, modifierKeys: [])
+        editor.tool.didDragMouse(initialPoint + diff, modifierKeys: [])
         
         // THEN
         XCTAssertEqual(editor.toolType, .pan)

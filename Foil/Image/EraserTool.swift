@@ -28,18 +28,18 @@ class EraserTool: ToolMixin, Tool {
     
     var lastPoint: NSPoint? = nil
     
-    override func didMouseDown(_ point: NSPoint, shiftKeyPressed: Bool) {
+    override func didMouseDown(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
         self.layers.brushPreview = nil
         self.lastPoint = point
         self.layers.delete(point: point, width: self.settings.lineWidth)
     }
     
-    override func didMouseUp(_ point: NSPoint, shiftKeyPressed: Bool) {
+    override func didMouseUp(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
         self.layers.brushPreview = (point: point, width: self.settings.lineWidth)
         self.lastPoint = nil
     }
     
-    override func didDragMouse(_ point: NSPoint) {
+    override func didDragMouse(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
         self.layers.brushPreview = nil
         if let lastPoint = self.lastPoint {
             self.layers.deleteLine(from: lastPoint,
@@ -49,7 +49,7 @@ class EraserTool: ToolMixin, Tool {
         self.lastPoint = point
     }
     
-    override func didMoveMouse(_ point: NSPoint) {
+    override func didMoveMouse(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
         self.layers.brushPreview = (point: point, width: self.settings.lineWidth)
     }
     

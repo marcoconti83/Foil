@@ -37,16 +37,16 @@ class EraserToolTests: XCTestCase {
         editor.toolType = .brush
         editor.toolSettings.color = NSColor.red
         editor.toolSettings.lineWidth = 4
-        editor.tool.didMouseDown(NSPoint(x: 1, y: 1), shiftKeyPressed: false)
-        editor.tool.didDragMouse(NSPoint(x: 50, y: 50))
-        editor.tool.didMouseDown(NSPoint(x: 50, y: 50), shiftKeyPressed: false)
+        editor.tool.didMouseDown(NSPoint(x: 1, y: 1), modifierKeys: [])
+        editor.tool.didDragMouse(NSPoint(x: 50, y: 50), modifierKeys: [])
+        editor.tool.didMouseDown(NSPoint(x: 50, y: 50), modifierKeys: [])
         
         // WHEN
         editor.toolType = .eraser
         editor.toolSettings.lineWidth = 20
-        editor.tool.didMouseDown(NSPoint(x: 50, y: 1), shiftKeyPressed: false)
-        editor.tool.didDragMouse(NSPoint(x: 1, y: 50))
-        editor.tool.didMouseUp(NSPoint(x: 1, y: 50), shiftKeyPressed: false)
+        editor.tool.didMouseDown(NSPoint(x: 50, y: 1), modifierKeys: [])
+        editor.tool.didDragMouse(NSPoint(x: 1, y: 50), modifierKeys: [])
+        editor.tool.didMouseUp(NSPoint(x: 1, y: 50), modifierKeys: [])
         
         // THEN
         Utils.compareImage(editor.layers.imageBeingEdited, fixtureName: "100x100-eraser.png")
@@ -60,7 +60,7 @@ class EraserToolTests: XCTestCase {
         
         // WHEN
         let p = NSPoint(x: 30, y: 10)
-        editor.tool.didMoveMouse(p)
+        editor.tool.didMoveMouse(p, modifierKeys: [])
         
         // THEN
         Utils.compareImage(editor.layers.imageBeingEdited, fixtureName: "100x100-eraser-outline.png")

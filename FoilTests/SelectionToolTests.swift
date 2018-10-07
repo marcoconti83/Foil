@@ -44,7 +44,7 @@ class SelectionToolTests: XCTestCase {
         )
         
         // WHEN
-        editor.tool.didMouseDown(NSPoint(x: 55, y: 55), shiftKeyPressed: false)
+        editor.tool.didMouseDown(NSPoint(x: 55, y: 55), modifierKeys: [])
         
         // THEN
         XCTAssertEqual(editor.layers.selectedBitmaps, Set([b1]))
@@ -68,7 +68,8 @@ class SelectionToolTests: XCTestCase {
         editor.layers.selectedBitmaps = Set([b1])
         
         // WHEN
-        editor.tool.didMouseUp(NSPoint(x: 10, y: 80), shiftKeyPressed: false)
+        editor.tool.didMouseDown(NSPoint(x: 10, y: 80), modifierKeys: [])
+        editor.tool.didMouseUp(NSPoint(x: 10, y: 80), modifierKeys: [])
         
         // THEN
         XCTAssert(editor.layers.selectedBitmaps.isEmpty)
@@ -92,7 +93,7 @@ class SelectionToolTests: XCTestCase {
         editor.layers.selectedBitmaps = Set([b1])
         
         // WHEN
-        editor.tool.didMouseDown(NSPoint(x: 27, y: 55), shiftKeyPressed: true)
+        editor.tool.didMouseDown(NSPoint(x: 27, y: 55), modifierKeys: .shift)
         
         // THEN
         XCTAssertEqual(editor.layers.selectedBitmaps, Set([b1, b2]))
@@ -116,7 +117,7 @@ class SelectionToolTests: XCTestCase {
         editor.layers.selectedBitmaps = Set([b1, b2])
         
         // WHEN
-        editor.tool.didMouseDown(NSPoint(x: 27, y: 55), shiftKeyPressed: true)
+        editor.tool.didMouseDown(NSPoint(x: 27, y: 55), modifierKeys: .shift)
         
         // THEN
         XCTAssertEqual(editor.layers.selectedBitmaps, Set([b1]))
@@ -139,11 +140,11 @@ class SelectionToolTests: XCTestCase {
             scale: 0.2
         )
         editor.layers.selectedBitmaps = Set([b1])
-        editor.tool.didMouseDown(NSPoint(x: 50, y: 50), shiftKeyPressed: false)
+        editor.tool.didMouseDown(NSPoint(x: 50, y: 50), modifierKeys: [])
         
         // WHEN
         let endPoint = NSPoint(x: 20, y: 20)
-        editor.tool.didDragMouse(endPoint)
+        editor.tool.didDragMouse(endPoint, modifierKeys: [])
         
         // THEN
         // by moving, bitmaps are replaced with new instances
@@ -194,7 +195,7 @@ class SelectionToolTests: XCTestCase {
         editor.layers.selectedBitmaps = Set([b1])
         
         // WHEN
-        editor.tool.didMouseDown(NSPoint(x: 0, y: 0), shiftKeyPressed: false)
+        editor.tool.didMouseDown(NSPoint(x: 0, y: 0), modifierKeys: [])
         
         // THEN
         XCTAssertEqual(editor.toolType, ToolType.pan)
@@ -214,8 +215,8 @@ class SelectionToolTests: XCTestCase {
         editor.layers.selectedBitmaps = Set([b1])
         
         // WHEN
-        editor.tool.didMouseDown(NSPoint(x: 0, y: 0), shiftKeyPressed: false)
-        editor.tool.didMouseUp(NSPoint(x: 0, y: 0), shiftKeyPressed: false)
+        editor.tool.didMouseDown(NSPoint(x: 0, y: 0), modifierKeys: [])
+        editor.tool.didMouseUp(NSPoint(x: 0, y: 0), modifierKeys: [])
         
         // THEN
         XCTAssertEqual(editor.toolType, ToolType.selection)
