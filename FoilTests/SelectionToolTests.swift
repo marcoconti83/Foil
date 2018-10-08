@@ -222,4 +222,28 @@ class SelectionToolTests: XCTestCase {
         XCTAssertEqual(editor.toolType, ToolType.selection)
         XCTAssert(editor.layers.selectedBitmaps.isEmpty)
     }
+    
+    func testThatItSelectsAll() {
+        
+        // GIVEN
+        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        editor.toolType = .selection
+        let b1 = editor.layers.addBitmap(
+            Utils.testImage("moon.jpg")!,
+            centerPosition: NSPoint(x: 50, y: 50),
+            scale: 0.2
+        )
+        let b2 = editor.layers.addBitmap(
+            Utils.testImage("moon.jpg")!,
+            centerPosition: NSPoint(x: 25, y: 50),
+            scale: 0.2
+        )
+        editor.layers.selectedBitmaps = Set([])
+        
+        // WHEN
+        XCTAssertTrue(editor.tool.didPressKey(key: .a, modifierKeys: .command))
+        
+        // THEN
+        XCTAssertEqual(editor.layers.selectedBitmaps, Set([b1, b2]))
+    }
 }
