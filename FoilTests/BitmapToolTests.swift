@@ -62,4 +62,18 @@ class BitmapToolTests: XCTestCase {
         XCTAssert(editor.tool is BitmapTool)
     }
     
+    func testThatEscapeReturnsToSelection() {
+        
+        // GIVEN
+        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let moon = Utils.testImage("moon.jpg")!
+        editor.toolType = .bitmap(moon)
+        
+        // WHEN
+        XCTAssertTrue(editor.tool.didPressKey(key: .escape, modifierKeys: []))
+        
+        // THEN
+        XCTAssert(editor.tool is SelectionTool)
+    }
+    
 }

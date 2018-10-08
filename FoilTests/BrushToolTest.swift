@@ -46,4 +46,17 @@ class BrushToolTests: XCTestCase {
         // THEN
         Utils.compareImage(editor.layers.imageBeingEdited, fixtureName: "100x100-brush.png")
     }
+    
+    func testThatEscapeReturnsToSelection() {
+        
+        // GIVEN
+        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        editor.toolType = .brush
+        
+        // WHEN
+        XCTAssertTrue(editor.tool.didPressKey(key: .escape, modifierKeys: []))
+        
+        // THEN
+        XCTAssert(editor.tool is SelectionTool)
+    }
 }

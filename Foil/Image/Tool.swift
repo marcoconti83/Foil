@@ -55,13 +55,25 @@ class ToolMixin {
     }
     
     func updateSettings() {}
-    func didPressKey(key: Keycode, modifierKeys: NSEvent.ModifierFlags) -> Bool { return false }
+    func didPressKey(key: Keycode, modifierKeys: NSEvent.ModifierFlags) -> Bool {
+        return false
+    }
     func didMouseDown(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {}
     func didMouseUp(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {}
     func didDragMouse(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {}
     func didMoveMouse(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {}
     func didExitMouse() {}
     func didEnterMouse() {}
+    
+    func abortToolIfEscape(key: Keycode) -> Bool {
+        switch key {
+        case .escape:
+            self.delegate?.selectTool(.selection)
+        default:
+            return false
+        }
+        return true
+    }
 }
 
 public struct ToolSettings {

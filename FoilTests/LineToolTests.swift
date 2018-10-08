@@ -110,5 +110,18 @@ class LineToolTests: XCTestCase {
         Utils.compareImage(editor.layers.imageBeingEdited, fixtureName: "100x100-draw-line-shift.png")
         XCTAssertTrue(editor.tool is LineTool)
     }
+    
+    func testThatEscapeReturnsToSelection() {
+        
+        // GIVEN
+        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        editor.toolType = .line
+        
+        // WHEN
+        XCTAssertTrue(editor.tool.didPressKey(key: .escape, modifierKeys: []))
+        
+        // THEN
+        XCTAssert(editor.tool is SelectionTool)
+    }
 
 }

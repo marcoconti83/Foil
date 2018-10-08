@@ -57,4 +57,8 @@ class BrushTool: ToolMixin, Tool {
     override func didExitMouse() {
         self.layers.brushPreview = nil
     }
+    
+    override func didPressKey(key: Keycode, modifierKeys: NSEvent.ModifierFlags) -> Bool {
+        return self.abortToolIfEscape(key: key)
+    }
 }

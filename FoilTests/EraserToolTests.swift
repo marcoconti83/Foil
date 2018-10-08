@@ -69,4 +69,17 @@ class EraserToolTests: XCTestCase {
         }
         XCTAssert(preview == (point: p, width: 30))
     }
+    
+    func testThatEscapeReturnsToSelection() {
+        
+        // GIVEN
+        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        editor.toolType = .eraser
+        
+        // WHEN
+        XCTAssertTrue(editor.tool.didPressKey(key: .escape, modifierKeys: []))
+        
+        // THEN
+        XCTAssert(editor.tool is SelectionTool)
+    }
 }

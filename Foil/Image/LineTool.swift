@@ -55,11 +55,11 @@ final class LineTool: ToolMixin, Tool {
     }
     
     override func didPressKey(key: Keycode, modifierKeys: NSEvent.ModifierFlags) -> Bool {
-        if key == .escape {
+        if key == .escape, self.layers.lineBeingDrawn != nil {
             self.layers.lineBeingDrawn = nil
             return true
         }
-        return false
+        return self.abortToolIfEscape(key: key)
     }
     
     override func didDragMouse(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {

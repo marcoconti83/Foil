@@ -45,4 +45,8 @@ final class BitmapTool: ToolMixin, Tool {
             self.delegate?.selectTool(.selection)
         }
     }
+    
+    override func didPressKey(key: Keycode, modifierKeys: NSEvent.ModifierFlags) -> Bool {
+        return self.abortToolIfEscape(key: key)
+    }
 }

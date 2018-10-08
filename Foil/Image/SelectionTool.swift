@@ -62,6 +62,8 @@ final class SelectionTool: ToolMixin, Tool {
             self.layers.selectedBitmaps = Set()
         case .a where modifierKeys.contains(.command):
             self.layers.selectedBitmaps = self.layers.bitmaps
+        case .escape:
+            break
         default:
             return false
         }
