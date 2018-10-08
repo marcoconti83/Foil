@@ -174,7 +174,7 @@ class SelectionToolTests: XCTestCase {
         editor.layers.selectedBitmaps = Set([b1])
         
         // WHEN
-        editor.tool.didPressKey(key: .delete)
+        XCTAssertTrue(editor.tool.didPressKey(key: .delete, modifierKeys: []))
         
         // THEN
         XCTAssertEqual(editor.layers.selectedBitmaps, Set())

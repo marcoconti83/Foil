@@ -26,7 +26,8 @@ import Foundation
 
 public protocol Tool {
     
-    func didPressKey(key: Keycode)
+    /// - returns: True if the key was handled
+    func didPressKey(key: Keycode, modifierKeys: NSEvent.ModifierFlags) -> Bool
     func didMouseDown(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags)
     func didMouseUp(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags)
     func didDragMouse(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags)
@@ -54,7 +55,7 @@ class ToolMixin {
     }
     
     func updateSettings() {}
-    func didPressKey(key: Keycode) {}
+    func didPressKey(key: Keycode, modifierKeys: NSEvent.ModifierFlags) -> Bool { return false }
     func didMouseDown(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {}
     func didMouseUp(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {}
     func didDragMouse(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {}

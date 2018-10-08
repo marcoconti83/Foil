@@ -55,11 +55,13 @@ final class SelectionTool: ToolMixin, Tool {
     }
     
     
-    override func didPressKey(key: Keycode) {
+    override func didPressKey(key: Keycode, modifierKeys: NSEvent.ModifierFlags) -> Bool {
         if key == .delete || key == .forwardDelete {
             self.layers.bitmaps = self.layers.bitmaps.filter { !self.layers.selectedBitmaps.contains($0) }
             self.layers.selectedBitmaps = Set()
+            return true
         }
+        return false
     }
 }
 

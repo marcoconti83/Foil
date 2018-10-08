@@ -80,11 +80,6 @@ extension ImageEditView {
         self.editor.tool.didExitMouse()
     }
     
-    public override func keyUp(with event: NSEvent) {
-        guard let code = Keycode(rawValue: event.keyCode) else { return }
-        self.editor.tool.didPressKey(key: code)
-    }
-    
     private func eventLocation(_ event: NSEvent) -> NSPoint {
         return self.convert(event.locationInWindow, from: nil)
     }
@@ -102,12 +97,7 @@ extension ImageEditView {
     
     public override func performKeyEquivalent(with event: NSEvent) -> Bool {
         guard let keycode = Keycode(rawValue: event.keyCode) else { return false }
-        switch keycode {
-        case .delete, .backslash:
-            return true
-        default:
-            return false
-        }
+        return self.editor.tool.didPressKey(key: keycode, modifierKeys: event.modifierFlags)
     }
     
     public override func resetCursorRects() {
