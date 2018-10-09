@@ -13,7 +13,6 @@
 		A926C316215F5EB6006B1388 /* 200x200-red-moons-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = A926C315215F5EB5006B1388 /* 200x200-red-moons-selected.png */; };
 		A926C318215F6555006B1388 /* 200x200-red-moons-selected-large.png in Resources */ = {isa = PBXBuildFile; fileRef = A926C317215F6555006B1388 /* 200x200-red-moons-selected-large.png */; };
 		A926C31A215F693E006B1388 /* ImageEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C319215F693E006B1388 /* ImageEditor.swift */; };
-		A926C31C215F6A60006B1388 /* ImageEditorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C31B215F6A60006B1388 /* ImageEditorTests.swift */; };
 		A926C31E215F7283006B1388 /* Keycodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C31D215F7283006B1388 /* Keycodes.swift */; };
 		A926C320215FA597006B1388 /* 500x500-temporary-line.png in Resources */ = {isa = PBXBuildFile; fileRef = A926C31F215FA597006B1388 /* 500x500-temporary-line.png */; };
 		A926C322215FAC9E006B1388 /* LineTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C321215FAC9E006B1388 /* LineTool.swift */; };
@@ -148,7 +147,6 @@
 		A926C315215F5EB5006B1388 /* 200x200-red-moons-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "200x200-red-moons-selected.png"; sourceTree = "<group>"; };
 		A926C317215F6555006B1388 /* 200x200-red-moons-selected-large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "200x200-red-moons-selected-large.png"; sourceTree = "<group>"; };
 		A926C319215F693E006B1388 /* ImageEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditor.swift; sourceTree = "<group>"; };
-		A926C31B215F6A60006B1388 /* ImageEditorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditorTests.swift; sourceTree = "<group>"; };
 		A926C31D215F7283006B1388 /* Keycodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keycodes.swift; sourceTree = "<group>"; };
 		A926C31F215FA597006B1388 /* 500x500-temporary-line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "500x500-temporary-line.png"; sourceTree = "<group>"; };
 		A926C321215FAC9E006B1388 /* LineTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineTool.swift; sourceTree = "<group>"; };
@@ -361,7 +359,6 @@
 				A9B7D451215DFCAB002A95CB /* Utils.swift */,
 				A9E59EF9216D3A3000C573D9 /* NSRectTests.swift */,
 				A9B7D432215DFA15002A95CB /* ImageLayersTests.swift */,
-				A926C31B215F6A60006B1388 /* ImageEditorTests.swift */,
 				A926C329215FB70C006B1388 /* LineToolTests.swift */,
 				A926C32B215FB71A006B1388 /* SelectionToolTests.swift */,
 				A9914FBD2160C6F2007DAE4A /* PanToolTests.swift */,
@@ -702,7 +699,6 @@
 				A9914FC02160C910007DAE4A /* Mocks.swift in Sources */,
 				A9914FBE2160C6F2007DAE4A /* PanToolTests.swift in Sources */,
 				A9E3E0662161F8E70059B0A6 /* BrushToolTest.swift in Sources */,
-				A926C31C215F6A60006B1388 /* ImageEditorTests.swift in Sources */,
 				A9B7D456215DFCAB002A95CB /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
