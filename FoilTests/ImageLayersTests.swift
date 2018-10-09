@@ -92,6 +92,56 @@ class ImageLayersTests: XCTestCase {
         Utils.compareImage(layers.renderedImage, fixtureName: "100x100-green-square.png")
     }
     
+    func testThatItDrawsTemporaryLine() {
+        
+        // GIVEN
+        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 50, height: 50))
+        layers.backgroundColor = NSColor.white
+        
+        // WHEN
+        layers.lineBeingDrawn = Line(
+            start: NSPoint(x: 13, y: 10),
+            end: NSPoint(x: 33, y: 40),
+            color: NSColor.red,
+            width: 5)
+        
+        // THEN
+        Utils.compareImage(layers.imageBeingEdited, fixtureName: "100x100-with-line.png")
+        Utils.compareImage(layers.renderedImage, fixtureName: "100x100-no-line.png")
+    }
+    
+    func testThatItDrawsBrushPreview() {
+        
+        // GIVEN
+        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 50, height: 50))
+        layers.backgroundColor = NSColor.white
+        
+        // WHEN
+        layers.brushPreview = (point: NSPoint(x: 10, y: 23), width: 5)
+        
+        // THEN
+        Utils.compareImage(layers.imageBeingEdited, fixtureName: "100x100-with-brush.png")
+        Utils.compareImage(layers.renderedImage, fixtureName: "100x100-no-brush.png")
+    }
+    
+    func testThatItReplacesBackgroundImage() {
+        
+        // GIVEN
+        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 50, height: 100))
+        layers.backgroundColor = NSColor.white
+        
+        // WHEN
+        layers.backgroundImage = Utils.testImage("moon.jpg")!
+        
+        // THEN
+        Utils.compareImage(layers.imageBeingEdited, fixtureName: "50x100-moon-bg.png")
+        Utils.compareImage(layers.renderedImage, fixtureName: "50x100-moon-bg.png")
+    }
+}
+
+// MARK: - Bitmaps
+extension ImageLayersTests {
+    
     func testThatItDrawsBitmaps() {
         
         // GIVEN
@@ -177,38 +227,6 @@ class ImageLayersTests: XCTestCase {
         // THEN
         Utils.compareImage(layers.imageBeingEdited, fixtureName: "200x200-red-moons-selected-large.png")
         Utils.compareImage(layers.renderedImage, fixtureName: "200x200-red-moons-not-selected-large.png")
-    }
-    
-    func testThatItDrawsTemporaryLine() {
-        
-        // GIVEN
-        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 50, height: 50))
-        layers.backgroundColor = NSColor.white
-        
-        // WHEN
-        layers.lineBeingDrawn = Line(
-            start: NSPoint(x: 13, y: 10),
-            end: NSPoint(x: 33, y: 40),
-            color: NSColor.red,
-            width: 5)
-        
-        // THEN
-        Utils.compareImage(layers.imageBeingEdited, fixtureName: "100x100-with-line.png")
-        Utils.compareImage(layers.renderedImage, fixtureName: "100x100-no-line.png")
-    }
-
-    func testThatItDrawsBrushPreview() {
-        
-        // GIVEN
-        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 50, height: 50))
-        layers.backgroundColor = NSColor.white
-        
-        // WHEN
-        layers.brushPreview = (point: NSPoint(x: 10, y: 23), width: 5)
-        
-        // THEN
-        Utils.compareImage(layers.imageBeingEdited, fixtureName: "100x100-with-brush.png")
-        Utils.compareImage(layers.renderedImage, fixtureName: "100x100-no-brush.png")
     }
     
     func testThatItReplacesBitmapWhenSelected() {
