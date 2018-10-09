@@ -78,29 +78,3 @@ extension MathTests {
     }
 }
 
-// MARK: - Rectangles
-extension MathTests {
-    
-    func testRectMidPoint() {
-        XCTAssertEqual(NSPoint(x: 0, y: 0).midpoint(to: NSPoint(x: 2, y: 2)), NSPoint(x: 1, y: 1))
-        XCTAssertEqual(NSPoint(x: 0, y: 0).midpoint(to: NSPoint(x: 0, y: 0)), NSPoint(x: 0, y: 0))
-        XCTAssertEqual(NSPoint(x: 0, y: 0).midpoint(to: NSPoint(x: 2, y: -2)), NSPoint(x: 1, y: -1))
-        XCTAssertEqual(NSPoint(x: 10, y: 5).midpoint(to: NSPoint(x: 9, y: 4)), NSPoint(x: 9.5, y: 4.5))
-    }
-    
-    func testRectCenter() {
-        XCTAssertEqual(NSRect(x: 0, y: 0, width: 2, height: 4).center, NSPoint(x: 1, y: 2))
-        XCTAssertEqual(NSRect(x: 1, y: 1, width: 2, height: 4).center, NSPoint(x: 2, y: 3))
-    }
-    
-    func testRectExpansion() {
-        XCTAssertEqual(
-            NSRect(x: 0, y: 0, width: 1, height: 1).expand(by: 1),
-            NSRect(x: -1, y: -1, width: 3, height: 3)
-        )
-        XCTAssertEqual(
-            NSRect(x: 3, y: 10, width: 10, height: 8).expand(by: 3),
-            NSRect(x: 0, y: 7, width: 16, height: 14)
-        )
-    }
-}

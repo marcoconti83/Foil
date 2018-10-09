@@ -179,7 +179,7 @@ class ImageLayersTests: XCTestCase {
         Utils.compareImage(layers.renderedImage, fixtureName: "200x200-red-moons-not-selected-large.png")
     }
     
-    func testThatItDoesDrawTemporaryLine() {
+    func testThatItDrawsTemporaryLine() {
         
         // GIVEN
         let layers = ImageLayers(emptyImageOfSize: NSSize(width: 50, height: 50))
@@ -209,5 +209,24 @@ class ImageLayersTests: XCTestCase {
         // THEN
         Utils.compareImage(layers.imageBeingEdited, fixtureName: "100x100-with-brush.png")
         Utils.compareImage(layers.renderedImage, fixtureName: "100x100-no-brush.png")
+    }
+    
+    func testThatItReplacesBitmapWhenSelected() {
+        
+        // GIVEN
+        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 100, height: 100))
+        layers.backgroundColor = NSColor.white
+        let b1 = layers.addBitmap(
+            Utils.testImage("moon.jpg")!,
+            centerPosition: NSPoint(x: 50, y: 50),
+            scale: 0.2
+        )
+        layers.selectedBitmaps = Set([b1])
+        
+        // WHEN
+        layers.replace(originalBitmap: b1, newBitmap: b1.moving(by: NSPoint.zero))
+        
+        // THEN
+        XCTAssertNotNil(layers.selectedBitmaps.first)
     }
 }

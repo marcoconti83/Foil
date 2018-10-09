@@ -264,6 +264,8 @@ extension ImageLayers {
 
 extension Bitmap {
     
+    static let handleSize: CGFloat = 4.0
+    
     fileprivate func drawSelectionOverlay(lineWidth: CGFloat) {
         let borderCountourSize = Swift.max(lineWidth / 2, 0.5)
         let totalBorderSize = borderCountourSize * 2 + lineWidth
@@ -281,6 +283,16 @@ extension Bitmap {
             
             // border inner contour
             NSBezierPath.stroke(drawRect.expand(by: -borderCountourSize * 1.5))
+            
+            // draw handles
+            NSColor.red.setStroke()
+            NSColor.red.setFill()
+            NSBezierPath.defaultLineWidth = lineWidth
+            self.corners.forEach {
+                let rect = $0.point.asCenterForSquare(size: Bitmap.handleSize)
+                NSBezierPath.fill(rect)
+                NSBezierPath.stroke(rect)
+            }
         }
     }
 }

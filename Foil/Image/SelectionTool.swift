@@ -25,25 +25,34 @@
 import Foundation
 
 final class SelectionTool: ToolMixin, Tool {
-    private var currentOperation: SelectionToolOperation? = nil
+    private var currentOperation: ToolMixin? = nil
     
     override func didMouseDown(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
         
-        
         // if there's no bitmap, switch to pan
-        guard let bitmap = self.bitmapAtPoint(point) else {
+        guard let bitmap = self.bitmapAtPoint(point, considerHandles: true) else {
             if !modifierKeys.contains(NSEvent.ModifierFlags.shift) {
                 self.delegate?.selectTool(.pan)
             }
             return
         }
         
-        self.currentOperation = MoveOrSelectBitmapOperation(
-            layers: self.layers,
-            settings: self.settings,
-            delegate: self.delegate!
-        )
-        self.currentOperation?.didMouseDownOnBitmap(point, modifierKeys: modifierKeys, bitmap: bitmap)
+        // did I pick an handle?
+        if let handle = bitmap.handleForPoint(point) {
+            self.currentOperation = ScaleBitmapOperation(
+                layers: self.layers,
+                settings: self.settings,
+                delegate: self.delegate!,
+                corner: handle,
+                bitmap: bitmap)
+        } else {
+            self.currentOperation = MoveOrSelectBitmapOperation(
+                layers: self.layers,
+                settings: self.settings,
+                delegate: self.delegate!,
+                bitmap: bitmap)
+        }
+        self.currentOperation?.didMouseDown(point, modifierKeys: modifierKeys)
     }
     
     override func didDragMouse(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
@@ -52,6 +61,11 @@ final class SelectionTool: ToolMixin, Tool {
     
     override func didMouseUp(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
         self.currentOperation?.didMouseUp(point, modifierKeys: modifierKeys)
+        if self.currentOperation == nil && !modifierKeys.contains(NSEvent.ModifierFlags.shift)
+        {
+            self.layers.selectedBitmaps = Set()
+        }
+        self.currentOperation = nil
     }
     
     
@@ -73,49 +87,102 @@ final class SelectionTool: ToolMixin, Tool {
 
 extension ToolMixin {
     
-    fileprivate func bitmapAtPoint(_ point: NSPoint) -> Bitmap? {
+    fileprivate func bitmapAtPoint(_ point: NSPoint, considerHandles: Bool) -> Bitmap? {
         return self.layers.bitmaps.first(where: {
-            $0.drawingRect.contains(point)
+            if $0.drawingRect.contains(point) {
+                return true
+            }
+            
+            if $0.drawingRect.expand(by: Bitmap.handleSize / 2.0).contains(point) {
+                let handle = $0.corners
+                    .map { $0.point.asCenterForSquare(size: Bitmap.handleSize)}
+                    .first { $0.contains(point) }
+                return handle != nil
+            }
+            return false
         })
     }
 }
 
-
-class SelectionToolOperation: ToolMixin {
-    
-    func didMouseDownOnBitmap(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags, bitmap: Bitmap) {}
-}
-
 // MARK: - Scale
-class ScaleBitmapOperation: SelectionToolOperation {
+class ScaleBitmapOperation: ToolMixin {
     
+    private var corner: Corner
+    private var lastDragPoint: NSPoint!
+    private var bitmap: Bitmap
+    private var didDragOnce: Bool = false
     
+    init(
+        layers: ImageLayers,
+        settings: ToolSettings,
+        delegate: ToolDelegate,
+        corner: Corner,
+        bitmap: Bitmap)
+    {
+        self.corner = corner
+        self.bitmap = bitmap
+        super.init(layers: layers, settings: settings, delegate: delegate)
+    }
+    
+    override func didMouseDown(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
+        self.lastDragPoint = point
+    }
+    
+    override func didDragMouse(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
+        
+        defer {
+            self.lastDragPoint = point
+            self.didDragOnce = true
+        }
+        
+        let newCorner = Corner(point: point, direction: self.corner.direction)
+        let modifiedRect = self.bitmap.drawingRect.scaleToCorner(newCorner)
+        let newScale = min(modifiedRect.size.width / self.bitmap.image.size.width,
+                           modifiedRect.size.height / self.bitmap.image.size.height)
+        let newRect = NSRect(origin: modifiedRect.origin, size: self.bitmap.image.size * newScale)
+            .move(corner: self.corner.direction.opposite,
+                  to: self.bitmap.drawingRect.corner(self.corner.direction.opposite).point)
+        
+        let newBitmap = Bitmap(image: self.bitmap.image, centerPostion: newRect.center, scale: newScale)
+        self.layers.replace(originalBitmap: self.bitmap, newBitmap: newBitmap)
+        self.bitmap = newBitmap
+        self.corner = newCorner
+    }
 }
 
 // MARK: - Move
-class MoveOrSelectBitmapOperation: SelectionToolOperation {
+class MoveOrSelectBitmapOperation: ToolMixin {
     
     private var lastDragPoint: NSPoint? = nil
     private var didDragOnce: Bool = false
+    private let bitmap: Bitmap
     
-    override func didMouseDownOnBitmap(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags, bitmap: Bitmap) {
-        self.lastDragPoint = nil
+    init(
+        layers: ImageLayers,
+        settings: ToolSettings,
+        delegate: ToolDelegate,
+        bitmap: Bitmap)
+    {
+        self.bitmap = bitmap
+        super.init(layers: layers, settings: settings, delegate: delegate)
+    }
+    
+    override func didMouseDown(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
         self.didDragOnce = false
-        
         self.lastDragPoint = point
         if modifierKeys.contains(NSEvent.ModifierFlags.shift) {
             // Shift was pressed: this is a multi-selection operation
             // either add or remove from the selected set
-            if self.layers.selectedBitmaps.contains(bitmap) { // unselect if selected
-                self.layers.selectedBitmaps.remove(bitmap)
+            if self.layers.selectedBitmaps.contains(self.bitmap) { // unselect if selected
+                self.layers.selectedBitmaps.remove(self.bitmap)
             } else { // add
-                self.layers.selectedBitmaps.insert(bitmap)
+                self.layers.selectedBitmaps.insert(self.bitmap)
             }
-        } else if !self.layers.selectedBitmaps.contains(bitmap) {
+        } else if !self.layers.selectedBitmaps.contains(self.bitmap) {
             // if it was not already selected, replace entire
             // selection with it. But if it was, we might need to drag
             // all bitmaps
-            self.layers.selectedBitmaps = Set([bitmap])
+            self.layers.selectedBitmaps = Set([self.bitmap])
         }
     }
     
@@ -143,16 +210,13 @@ class MoveOrSelectBitmapOperation: SelectionToolOperation {
         }
     }
     
-    override func didMouseUp(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
-        
-        if self.bitmapAtPoint(point) == nil // did not click bitmap
-            && !self.didDragOnce // there was no drag in between
-            && !modifierKeys.contains(NSEvent.ModifierFlags.shift)
-        {
-            self.layers.selectedBitmaps = Set()
-        }
-        self.lastDragPoint = nil
-        self.didDragOnce = false
-    }
+}
+
+extension Bitmap {
     
+    func handleForPoint(_ point: NSPoint) -> Corner? {
+        return self.corners.first { c in
+            c.point.asCenterForSquare(size: Bitmap.handleSize).contains(point)
+        }
+    }
 }

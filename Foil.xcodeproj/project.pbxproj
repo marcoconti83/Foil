@@ -62,6 +62,7 @@
 		A98BC46C2163F36500E16215 /* 100x100-no-brush.png in Resources */ = {isa = PBXBuildFile; fileRef = A98BC46B2163F36500E16215 /* 100x100-no-brush.png */; };
 		A98BC46F2163F39B00E16215 /* 200x200-red-moons-not-selected-large.png in Resources */ = {isa = PBXBuildFile; fileRef = A98BC46D2163F39B00E16215 /* 200x200-red-moons-not-selected-large.png */; };
 		A98BC4702163F39B00E16215 /* 200x200-red-moons-not-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = A98BC46E2163F39B00E16215 /* 200x200-red-moons-not-selected.png */; };
+		A98C3814216CB573007A7911 /* NSRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A98C3813216CB573007A7911 /* NSRect.swift */; };
 		A9914FBA2160A13A007DAE4A /* Scrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FB92160A13A007DAE4A /* Scrolling.swift */; };
 		A9914FBC2160A3C7007DAE4A /* PanTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FBB2160A3C7007DAE4A /* PanTool.swift */; };
 		A9914FBE2160C6F2007DAE4A /* PanToolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FBD2160C6F2007DAE4A /* PanToolTests.swift */; };
@@ -94,6 +95,7 @@
 		A9E3E06C2161FB410059B0A6 /* EraserToolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3E06B2161FB410059B0A6 /* EraserToolTests.swift */; };
 		A9E3E06E2161FC430059B0A6 /* 100x100-eraser.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E3E06D2161FC430059B0A6 /* 100x100-eraser.png */; };
 		A9E3E0702161FD1A0059B0A6 /* 100x100-eraser-outline.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E3E06F2161FD1A0059B0A6 /* 100x100-eraser-outline.png */; };
+		A9E59EFA216D3A3000C573D9 /* NSRectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E59EF9216D3A3000C573D9 /* NSRectTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,6 +196,7 @@
 		A98BC46B2163F36500E16215 /* 100x100-no-brush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-no-brush.png"; sourceTree = "<group>"; };
 		A98BC46D2163F39B00E16215 /* 200x200-red-moons-not-selected-large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "200x200-red-moons-not-selected-large.png"; sourceTree = "<group>"; };
 		A98BC46E2163F39B00E16215 /* 200x200-red-moons-not-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "200x200-red-moons-not-selected.png"; sourceTree = "<group>"; };
+		A98C3813216CB573007A7911 /* NSRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSRect.swift; sourceTree = "<group>"; };
 		A9914FB92160A13A007DAE4A /* Scrolling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scrolling.swift; sourceTree = "<group>"; };
 		A9914FBB2160A3C7007DAE4A /* PanTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanTool.swift; sourceTree = "<group>"; };
 		A9914FBD2160C6F2007DAE4A /* PanToolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanToolTests.swift; sourceTree = "<group>"; };
@@ -232,6 +235,7 @@
 		A9E3E06B2161FB410059B0A6 /* EraserToolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraserToolTests.swift; sourceTree = "<group>"; };
 		A9E3E06D2161FC430059B0A6 /* 100x100-eraser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-eraser.png"; sourceTree = "<group>"; };
 		A9E3E06F2161FD1A0059B0A6 /* 100x100-eraser-outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-eraser-outline.png"; sourceTree = "<group>"; };
+		A9E59EF9216D3A3000C573D9 /* NSRectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSRectTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -355,6 +359,7 @@
 			children = (
 				A9B7D44B215DFCAB002A95CB /* Resources */,
 				A9B7D451215DFCAB002A95CB /* Utils.swift */,
+				A9E59EF9216D3A3000C573D9 /* NSRectTests.swift */,
 				A9B7D432215DFA15002A95CB /* ImageLayersTests.swift */,
 				A926C31B215F6A60006B1388 /* ImageEditorTests.swift */,
 				A926C329215FB70C006B1388 /* LineToolTests.swift */,
@@ -409,6 +414,7 @@
 			children = (
 				A9B7D442215DFA2F002A95CB /* NSImage.swift */,
 				A926C30C215F52C8006B1388 /* Math.swift */,
+				A98C3813216CB573007A7911 /* NSRect.swift */,
 				A926C31D215F7283006B1388 /* Keycodes.swift */,
 				A926C32D215FB97B006B1388 /* Box.swift */,
 				A976980C216155EB006CF0EC /* Array.swift */,
@@ -675,6 +681,7 @@
 				A9769805216142B1006CF0EC /* EraserTool.swift in Sources */,
 				A9914FC6216102A9007DAE4A /* ColorSelectionViewController.swift in Sources */,
 				A976980D216155EB006CF0EC /* Array.swift in Sources */,
+				A98C3814216CB573007A7911 /* NSRect.swift in Sources */,
 				A976981121615A2E006CF0EC /* ImageEditorSettings.swift in Sources */,
 				A926C322215FAC9E006B1388 /* LineTool.swift in Sources */,
 				A926C30D215F52C8006B1388 /* Math.swift in Sources */,
@@ -687,6 +694,7 @@
 			files = (
 				A926C332215FBD6A006B1388 /* BitmapToolTests.swift in Sources */,
 				A926C312215F5550006B1388 /* MathTests.swift in Sources */,
+				A9E59EFA216D3A3000C573D9 /* NSRectTests.swift in Sources */,
 				A9E3E06C2161FB410059B0A6 /* EraserToolTests.swift in Sources */,
 				A9B7D433215DFA15002A95CB /* ImageLayersTests.swift in Sources */,
 				A926C32C215FB71A006B1388 /* SelectionToolTests.swift in Sources */,

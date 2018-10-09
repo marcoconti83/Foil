@@ -61,18 +61,15 @@ extension NSPoint {
     public func distance(to: NSPoint) -> CGFloat {
         return sqrt(self.squareDistance(to: to))
     }
-}
+    
+    public var xProjection: NSPoint {
+        return NSPoint(x: self.x, y: 0)
+    }
+    
+    public var yProjection: NSPoint {
+        return NSPoint(x: 0, y: self.y)
+    }
 
-extension NSRect {
-    
-    public var center: NSPoint {
-        return NSPoint(x: self.midX, y: self.midY)
-    }
-    
-    public func expand(by offset: CGFloat) -> NSRect {
-        return NSRect(x: self.minX - offset, y: self.minY - offset,
-                      width: self.width + offset*2, height: self.height + offset*2)
-    }
 }
 
 extension NSSize {
@@ -94,4 +91,19 @@ func clip<T: Comparable>(_ value: T, min: T, max: T) -> T {
         return max
     }
     return value
+}
+
+public func +(lhs: NSSize, rhs: NSPoint) -> NSSize {
+    return NSSize(width: lhs.width + rhs.x, height: lhs.height + rhs.y)
+}
+
+public func -(lhs: NSSize, rhs: NSPoint) -> NSSize {
+    return NSSize(width: lhs.width - rhs.x, height: lhs.height - rhs.y)
+}
+
+extension NSSize {
+    
+    var toPoint: NSPoint {
+        return NSPoint(x: self.width, y: self.height)
+    }
 }

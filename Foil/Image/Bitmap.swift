@@ -32,10 +32,13 @@ public final class Bitmap: Equatable, Hashable, CustomDebugStringConvertible {
     let centerPosition: NSPoint
     let scale: CGFloat
     
+    // --- The following are cached for efficiency
     let originalSize: NSSize
     let size: NSSize
     let halfSize: NSSize
     let drawingRect: NSRect
+    let corners: [Corner]
+    // --- end of cache
     
     init(
         image: NSImage,
@@ -54,6 +57,7 @@ public final class Bitmap: Equatable, Hashable, CustomDebugStringConvertible {
             width: self.size.width,
             height: self.size.height
         )
+        self.corners = self.drawingRect.corners
     }
     
     public func hash(into hasher: inout Hasher) {
@@ -71,6 +75,10 @@ public final class Bitmap: Equatable, Hashable, CustomDebugStringConvertible {
             centerPostion: self.centerPosition + by,
             scale: self.scale)
     }
+    
+    func corner(_ direction: Corner.Direction) -> Corner {
+        return self.corners.first { $0.direction == direction }!
+    }
 }
 
 public func ==(lhs: Bitmap, rhs: Bitmap) -> Bool {
@@ -81,7 +89,12 @@ public func ==(lhs: Bitmap, rhs: Bitmap) -> Bool {
 extension ImageLayers {
     
     public func replace(originalBitmap: Bitmap, newBitmap: Bitmap) {
+        let wasSelected = self.selectedBitmaps.contains(originalBitmap)
         self.bitmaps.remove(originalBitmap)
         self.bitmaps.insert(newBitmap)
+        if wasSelected {
+            self.selectedBitmaps.insert(newBitmap)
+        }
     }
 }
+
