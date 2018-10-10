@@ -234,6 +234,7 @@
 		A9E59EFF216DD28400C573D9 /* o.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = o.png; sourceTree = "<group>"; };
 		A9E59F00216DD28400C573D9 /* e.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = e.png; sourceTree = "<group>"; };
 		A9E59F01216DD28400C573D9 /* u.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = u.png; sourceTree = "<group>"; };
+		A9E59F06216DD44700C573D9 /* screenshot-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-1.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,6 +316,7 @@
 		A9B7D412215DF9B9002A95CB = {
 			isa = PBXGroup;
 			children = (
+				A9E59F05216DD44700C573D9 /* Docs */,
 				A9B7D428215DF9F0002A95CB /* Cartfile */,
 				A9B7D42B215DF9F0002A95CB /* Cartfile.resolved */,
 				A9B7D42A215DF9F0002A95CB /* LICENSE */,
@@ -465,6 +467,14 @@
 				A9B7D450215DFCAB002A95CB /* 5pepper.png */,
 			);
 			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		A9E59F05216DD44700C573D9 /* Docs */ = {
+			isa = PBXGroup;
+			children = (
+				A9E59F06216DD44700C573D9 /* screenshot-1.png */,
+			);
+			path = Docs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
