@@ -31,9 +31,19 @@ public class ImageEditView: NSView {
     
     weak var scrollDelegate: ScrollDelegate?
     
+    init(backgroundImage: NSImage) {
+        self.editor = ImageEditor(backgroundImage: backgroundImage)
+        super.init(frame: NSRect(origin: NSPoint.zero, size: backgroundImage.size))
+        self.setupToolsAndDelegate()
+    }
+    
     public override init(frame frameRect: NSRect) {
         self.editor = ImageEditor(emptyImageOfSize: NSSize(width: 500, height: 500))
         super.init(frame: frameRect)
+        self.setupToolsAndDelegate()
+    }
+    
+    private func setupToolsAndDelegate() {
         constrain(self) { s in
             s.width == self.editor.size.width
             s.height == self.editor.size.height

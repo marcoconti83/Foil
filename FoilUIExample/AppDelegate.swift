@@ -34,12 +34,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         var settings = ImageEditorSettings()
         settings.possibleBitmaps = [
-            NSImage(name: "cup.png", fromClassBundle: AppDelegate.self),
-            NSImage(name: "drink.png", fromClassBundle: AppDelegate.self),
-            NSImage(name: "flag_blue.png", fromClassBundle: AppDelegate.self),
-            NSImage(name: "flag_red.png", fromClassBundle: AppDelegate.self),
-            NSImage(name: "anchor.png", fromClassBundle: AppDelegate.self),
+            NSImage(name: "e.png", fromClassBundle: AppDelegate.self),
+            NSImage(name: "o.png", fromClassBundle: AppDelegate.self),
+            NSImage(name: "u.png", fromClassBundle: AppDelegate.self)
             ].compactMap { $0 }
+        settings.backgroundImage = NSImage(name: "sky.jpg", fromClassBundle: AppDelegate.self)
         window.contentViewController = ImageEditorViewController(settings: settings)
     }
 
