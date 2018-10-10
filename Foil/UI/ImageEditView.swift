@@ -57,6 +57,10 @@ public class ImageEditView: NSView {
         fatalError()
     }
     
+    public var image: NSImage {
+        return self.editor.layers.renderedImage
+    }
+    
 }
 
 // MARK: - UI events

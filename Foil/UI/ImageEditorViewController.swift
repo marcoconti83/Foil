@@ -148,6 +148,10 @@ public class ImageEditorViewController: NSViewController {
             self?.imageEditView.toolSettings.color = value
         }
     }
+    
+    var image: NSImage {
+        return self.imageEditView.image
+    }
 }
 
 extension ClosureButton {
