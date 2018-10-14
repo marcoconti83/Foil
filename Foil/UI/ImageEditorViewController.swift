@@ -134,7 +134,9 @@ public class ImageEditorViewController: NSViewController {
         guard let view = sender as? NSView else { return }
         BitmapSelectionViewController(
             images: settings.possibleBitmaps,
-            allowImagesFromFile: settings.allowImagesFromFile)
+            allowImagesFromFile: settings.allowImagesFromFile,
+            customBitmapPicker: settings.customBitmapPicker
+        )
             .showInPopup(over: view) { img in
                 self.imageEditView.tool = .bitmap(img)
         }

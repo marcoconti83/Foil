@@ -24,15 +24,28 @@
 
 import Foundation
 
+/// A callback invoked when a bitmap has been selected
+public typealias BitmapPicker = (NSImage?)->()
+
 public struct ImageEditorSettings {
+    
+    /// List of available
     public var possibleBitmaps: [NSImage] = []
+    /// If true, bitmaps can be loaded from image files
     public var allowImagesFromFile: Bool = true
+    /// A function to select a custom bitmap
+    public var customBitmapPicker: ((BitmapPicker)->())? = nil
+    /// Background image
     public var backgroundImage: NSImage? = nil
+    /// Size of the canvas. If the size is not defined, it will use the
+    /// background image size, if any.
     public var size: NSSize? = nil
     
     public init() {}
     
     var canAddBitmap: Bool {
-        return !possibleBitmaps.isEmpty || allowImagesFromFile
+        return !self.possibleBitmaps.isEmpty
+            || self.allowImagesFromFile
+            || self.customBitmapPicker != nil
     }
 }

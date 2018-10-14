@@ -30,10 +30,14 @@ class BitmapSelectionViewController: PopupChoiceViewController<NSImage> {
     
     let images: [NSImage]
     let allowImagesFromFile: Bool
+    let customBitmapPicker: ((BitmapPicker)->())?
     
-    init(images: [NSImage], allowImagesFromFile: Bool) {
+    init(images: [NSImage],
+         allowImagesFromFile: Bool,
+         customBitmapPicker: ((BitmapPicker)->())?) {
         self.images = images
         self.allowImagesFromFile = allowImagesFromFile
+        self.customBitmapPicker = customBitmapPicker
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -43,7 +47,8 @@ class BitmapSelectionViewController: PopupChoiceViewController<NSImage> {
     
     override func viewDidLoad() {
         let topView = NSView()
-        let bottomView = NSView()
+        let bottomView = NSStackView()
+        bottomView.orientation = .vertical
         
         self.view.addSubview(topView)
         self.view.addSubview(bottomView)
@@ -86,10 +91,18 @@ class BitmapSelectionViewController: PopupChoiceViewController<NSImage> {
                     self?.didSelect(value: image)
                 }
             }
-            bottomView.addSubview(button)
-            constrain(button, bottomView) { button, bottom in
-                button.edges == bottom.edges
+            bottomView.addArrangedSubview(button)
+        }
+        
+        if let customBitmapPicker = self.customBitmapPicker {
+            let button = ClosureButton(label: "Pick bitmap...") { [weak self] _ in
+                customBitmapPicker() { image in
+                    if let image = image {
+                        self?.didSelect(value: image)
+                    }
+                }
             }
+            bottomView.addArrangedSubview(button)
         }
     }
 }
