@@ -78,11 +78,12 @@ class BitmapSelectionViewController: PopupChoiceViewController<NSImage> {
                 panel.allowsMultipleSelection = false
                 panel.allowedFileTypes = ["png", "jpg", "jpeg"]
                 panel.beginSheetModal(for: NSApp.keyWindow!) { response in
-                    if response == .OK,
+                    guard response == .OK,
                         let image = panel.url.flatMap({ NSImage(contentsOf: $0)})
-                    {
-                        self?.didSelect(value: image)
+                        else {
+                            return
                     }
+                    self?.didSelect(value: image)
                 }
             }
             bottomView.addSubview(button)

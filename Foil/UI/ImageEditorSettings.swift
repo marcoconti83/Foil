@@ -28,6 +28,7 @@ public struct ImageEditorSettings {
     public var possibleBitmaps: [NSImage] = []
     public var allowImagesFromFile: Bool = true
     public var backgroundImage: NSImage? = nil
+    public var size: NSSize? = nil
     
     public init() {}
     

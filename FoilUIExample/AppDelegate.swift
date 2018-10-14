@@ -30,14 +30,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
 
-
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
+    static var defaultSettings: ImageEditorSettings {
         var settings = ImageEditorSettings()
         settings.possibleBitmaps = [
             NSImage(name: "e.png", fromClassBundle: AppDelegate.self),
             NSImage(name: "o.png", fromClassBundle: AppDelegate.self),
             NSImage(name: "u.png", fromClassBundle: AppDelegate.self)
             ].compactMap { $0 }
+        return settings
+    }
+
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
+        var settings = AppDelegate.defaultSettings
         settings.backgroundImage = NSImage(name: "sky.jpg", fromClassBundle: AppDelegate.self)
         window.contentViewController = ImageEditorViewController(settings: settings)
     }
@@ -49,5 +53,46 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return true
     }
+    
+    @objc func saveDocumentAs(_ sender: Any) {
+        let panel = NSSavePanel()
+        panel.allowedFileTypes = ["jpg"]
+        panel.canCreateDirectories = false
+        panel.beginSheetModal(for: NSApp.keyWindow!) { [weak self] response in
+            guard response == .OK, let url = panel.url,
+                let controller = self?.window.contentViewController as? ImageEditorViewController else {
+                return
+            }
+            do {
+                try controller.image.jpgWrite(to: url)
+            } catch {
+                let alert = NSAlert()
+                alert.messageText = "Can't save to \(url)"
+                alert.runModal()
+            }
+        }
+    }
+
+    @objc func newDocument(_ sender: Any) {
+        let settings = AppDelegate.defaultSettings
+        window.contentViewController = ImageEditorViewController(settings: settings)
+    }
+
+    @objc func openDocument(_ sender: Any) {
+        let panel = NSOpenPanel()
+        panel.allowsMultipleSelection = false
+        panel.canChooseFiles = true
+        panel.canChooseDirectories = false
+        panel.allowedFileTypes = ["jpg", "jpeg", "png"]
+        panel.beginSheetModal(for: NSApp.keyWindow!) { [weak self] response in
+            guard response == .OK, let image = panel.url.flatMap({ NSImage(contentsOf: $0)}) else {
+                return
+            }
+            var settings = AppDelegate.defaultSettings
+            settings.backgroundImage = image
+            self?.window.contentViewController = ImageEditorViewController(settings: settings)
+        }
+    }
+
 }
 

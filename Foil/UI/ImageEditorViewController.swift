@@ -50,8 +50,10 @@ public class ImageEditorViewController: NSViewController {
         self.scroll = ZoomableScrollView(frame: NSRect.zero)
         if let image = self.settings.backgroundImage {
             self.imageEditView = ImageEditView(backgroundImage: image)
+        } else if let size = self.settings.size {
+            self.imageEditView = ImageEditView(frame: size.toRect)
         } else {
-            self.imageEditView = ImageEditView(frame: NSRect.zero)
+            self.imageEditView = ImageEditView(frame: NSRect(x: 0, y: 0, width: 200, height: 200))
         }
         self.imageEditView.scrollDelegate = self.scroll
         self.scroll.documentView = self.imageEditView
@@ -154,7 +156,7 @@ public class ImageEditorViewController: NSViewController {
         }
     }
     
-    var image: NSImage {
+    public var image: NSImage {
         return self.imageEditView.image
     }
 }
