@@ -128,3 +128,10 @@ public struct Corner {
     public let point: NSPoint
     public let direction: Direction
 }
+
+extension NSSize {
+    
+    var toRect: NSRect {
+        return NSRect(origin: NSPoint.zero, size: self)
+    }
+}

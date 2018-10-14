@@ -83,6 +83,9 @@ public class ImageLayers {
     /// A layer holding raster data, to be overimposed on background image and color
     let rasterLayer: NSImage
     
+    /// A mask layer
+    let maskLayer: NSImage
+    
     public convenience init(emptyImageOfSize size: NSSize) {
         let backgroundImage = NSImage(size: size)
         self.init(backgroundImage: backgroundImage)
@@ -92,6 +95,7 @@ public class ImageLayers {
         self.imageBeingEdited = NSImage(size: backgroundImage.size)
         self.rasterLayer = NSImage(size: backgroundImage.size)
         self.backgroundImage = backgroundImage
+        self.maskLayer = NSImage(size: backgroundImage.size)
         self.selectionLineWidth = max(1, backgroundImage.size.max / 200)
         self.redraw()
     }
@@ -102,11 +106,11 @@ public class ImageLayers {
 extension ImageLayers {
     
     private func redraw(rect: NSRect? = nil) {
-        self.render(target: self.imageBeingEdited, rect: rect, drawGUI: true)
+        self.render(target: self.imageBeingEdited, rect: rect, drawForEditing: true)
         self.redrawDelegate?()
     }
     
-    private func render(target: NSImage, rect: NSRect?, drawGUI: Bool) {
+    private func render(target: NSImage, rect: NSRect?, drawForEditing: Bool) {
         let rect = rect ?? NSRect(
             x: 0, y: 0,
             width: target.size.width,
@@ -115,24 +119,30 @@ extension ImageLayers {
             self.backgroundColor.drawSwatch(in: rect)
             self.backgroundImage.draw(in: rect)
             self.rasterLayer.draw(in: rect)
-            if drawGUI {
+            if drawForEditing {
                 self.drawTemporaryLine()
                 self.drawTemporaryBrush()
             }
             self.bitmaps.forEach {
                 $0.image.draw(in: $0.drawingRect)
-                if drawGUI {
+                if drawForEditing {
                     if self.selectedBitmaps.contains($0) {
                         $0.drawSelectionOverlay(lineWidth: self.selectionLineWidth)
                     }
                 }
             }
+            self.maskLayer.draw(
+                in: rect,
+                from: self.maskLayer.size.toRect,
+                operation: NSCompositingOperation.sourceAtop,
+                fraction: drawForEditing ? 0.5 : 1.0
+            )
         }
     }
     
     var renderedImage: NSImage {
         let image = NSImage(size: self.imageBeingEdited.size)
-        self.render(target: image, rect: nil, drawGUI: false)
+        self.render(target: image, rect: nil, drawForEditing: false)
         return image
     }
     
@@ -196,6 +206,23 @@ extension ImageLayers {
         self.redraw()
     }
     
+    public func drawLineMask(from p1: NSPoint, to p2: NSPoint, lineWidth: CGFloat, masked: Bool) {
+        self.maskLayer.lockingFocus {
+            restoringGraphicState {
+                NSColor.black.setStroke()
+                NSGraphicsContext.current!.compositingOperation = masked ? .sourceOver : .clear
+                let path = NSBezierPath()
+                path.lineCapStyle = .round
+                path.lineJoinStyle = .round
+                path.lineWidth = lineWidth
+                path.move(to: p1)
+                path.line(to: p2)
+                path.stroke()
+            }
+        }
+        self.redraw()
+    }
+    
     public func drawFullCircle(point: NSPoint, width: CGFloat, color: NSColor) {
         self.rasterLayer.lockingFocus {
             restoringGraphicState {
@@ -208,7 +235,20 @@ extension ImageLayers {
         self.redraw()
     }
     
-    public func delete(point: NSPoint, width: CGFloat) {
+    public func drawFullCircleMask(point: NSPoint, width: CGFloat, masked: Bool) {
+        self.maskLayer.lockingFocus {
+            restoringGraphicState {
+                NSColor.black.setFill()
+                NSGraphicsContext.current!.compositingOperation = masked ? .sourceOver : .clear
+                let source = point - NSPoint(x: width/2, y: width/2)
+                let path = NSBezierPath(ovalIn: NSRect(x: source.x, y: source.y, width: width, height: width))
+                path.fill()
+            }
+        }
+        self.redraw()
+    }
+    
+    public func deleteRaster(point: NSPoint, width: CGFloat) {
         self.rasterLayer.lockingFocus {
             restoringGraphicState {
                 NSColor.black.setFill()
@@ -221,7 +261,7 @@ extension ImageLayers {
         self.redraw()
     }
     
-    public func deleteLine(from p1: NSPoint, to p2: NSPoint, width: CGFloat) {
+    public func deleteRasterLine(from p1: NSPoint, to p2: NSPoint, width: CGFloat) {
         self.rasterLayer.lockingFocus {
             restoringGraphicState {
                 NSColor.black.setFill()
@@ -247,6 +287,15 @@ extension ImageLayers {
             }
         }
         self.redraw()
+    }
+    
+    public func fillMask(masked: Bool) {
+        self.maskLayer.lockingFocus {
+            restoringGraphicState {
+                NSGraphicsContext.current!.compositingOperation = masked ? .sourceOver : .clear
+                self.maskLayer.size.toRect.fill()
+            }
+        }
     }
     
     @discardableResult public func addBitmap(

@@ -24,33 +24,38 @@
 
 import Foundation
 
-class EraserTool: ToolMixin, Tool {
+class MaskTool: ToolMixin, Tool {
     
     var lastPoint: NSPoint? = nil
     
     override func didMouseDown(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
         self.layers.brushPreview = nil
         self.lastPoint = point
-        self.layers.deleteRaster(point: point, width: self.settings.lineWidth)
+        self.layers.drawFullCircleMask(
+            point: point,
+            width: self.settings.lineWidth,
+            masked: !modifierKeys.contains(.shift)
+        )
     }
     
     override func didMouseUp(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
         self.layers.brushPreview = (point: point, width: self.settings.lineWidth)
-        self.lastPoint = nil
+        self.layers.brushPreview = nil
+    }
+    
+    override func didMoveMouse(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
+        self.layers.brushPreview = (point: point, width: self.settings.lineWidth)
     }
     
     override func didDragMouse(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
         self.layers.brushPreview = nil
         if let lastPoint = self.lastPoint {
-            self.layers.deleteRasterLine(from: lastPoint,
+            self.layers.drawLineMask(from: lastPoint,
                                  to: point,
-                                 width: self.settings.lineWidth)
+                                 lineWidth: self.settings.lineWidth,
+                                 masked: !modifierKeys.contains(.shift))
         }
         self.lastPoint = point
-    }
-    
-    override func didMoveMouse(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
-        self.layers.brushPreview = (point: point, width: self.settings.lineWidth)
     }
     
     override func didExitMouse() {
@@ -61,4 +66,3 @@ class EraserTool: ToolMixin, Tool {
         return self.abortToolIfEscape(key: key)
     }
 }
-

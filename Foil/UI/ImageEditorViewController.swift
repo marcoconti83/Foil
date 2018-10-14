@@ -77,6 +77,11 @@ public class ImageEditorViewController: NSViewController {
                 toolTip: "Eraser") { [weak self] _ in
                     self?.imageEditView!.tool = .eraser
             },
+            ClosureButton(
+                image: NSImage(name: "shading.png", fromClassBundle: ImageEditorViewController.self)!,
+                toolTip: "Mask") { [weak self] _ in
+                    self?.imageEditView!.tool = .mask
+            },
             self.settings.canAddBitmap ?
             ClosureButton(
                 image: NSImage(name: "image_add.png", fromClassBundle: ImageEditorViewController.self)!,

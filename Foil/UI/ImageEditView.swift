@@ -33,7 +33,7 @@ public class ImageEditView: NSView {
     
     init(backgroundImage: NSImage) {
         self.editor = ImageEditor(backgroundImage: backgroundImage)
-        super.init(frame: NSRect(origin: NSPoint.zero, size: backgroundImage.size))
+        super.init(frame: backgroundImage.size.toRect)
         self.setupToolsAndDelegate()
     }
     
@@ -172,7 +172,9 @@ extension ToolType {
         case .brush:
             return NSCursor.arrow
         case .eraser:
-            return NSCursor.arrow
+            return NSCursor.openHand
+        case .mask:
+            return NSCursor.openHand
         }
     }
 }

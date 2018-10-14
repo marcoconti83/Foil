@@ -31,6 +31,7 @@ public enum ToolType: Equatable {
     case pan
     case brush
     case eraser
+    case mask
 }
 
 /// Adds user interaction to image layers
@@ -111,6 +112,12 @@ public class ImageEditor {
             )
         case .eraser:
             self.tool = EraserTool(
+                layers: self.layers,
+                settings: self.toolSettings,
+                delegate: self
+            )
+        case .mask:
+            self.tool = MaskTool(
                 layers: self.layers,
                 settings: self.toolSettings,
                 delegate: self
