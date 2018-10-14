@@ -31,14 +31,12 @@ public class ImageEditView: NSView {
     
     weak var scrollDelegate: ScrollDelegate?
     
-    init(backgroundImage: NSImage) {
-        self.editor = ImageEditor(backgroundImage: backgroundImage)
-        super.init(frame: backgroundImage.size.toRect)
-        self.setupToolsAndDelegate()
+    public func setBackground(_ image: NSImage) {
+        self.editor.layers.backgroundImage = image
     }
     
     public override init(frame frameRect: NSRect) {
-        self.editor = ImageEditor(emptyImageOfSize: NSSize(width: 500, height: 500))
+        self.editor = ImageEditor(emptyImageOfSize: frameRect.size)
         super.init(frame: frameRect)
         self.setupToolsAndDelegate()
     }
