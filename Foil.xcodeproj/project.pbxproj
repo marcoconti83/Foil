@@ -43,6 +43,10 @@
 		A926C361215FE749006B1388 /* ClosureControls.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A926C35E215FE069006B1388 /* ClosureControls.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A928A1512173D68B000C5BD8 /* shading.png in Resources */ = {isa = PBXBuildFile; fileRef = A928A1502173D68B000C5BD8 /* shading.png */; };
 		A928A1532173D6CF000C5BD8 /* contrast_high.png in Resources */ = {isa = PBXBuildFile; fileRef = A928A1522173D6CF000C5BD8 /* contrast_high.png */; };
+		A928A1552173E712000C5BD8 /* MaskToolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A928A1542173E712000C5BD8 /* MaskToolTests.swift */; };
+		A928A1592173E7A4000C5BD8 /* 100x100-mask-outline.png in Resources */ = {isa = PBXBuildFile; fileRef = A928A1562173E7A4000C5BD8 /* 100x100-mask-outline.png */; };
+		A928A15A2173E7A4000C5BD8 /* 100x100-masked.png in Resources */ = {isa = PBXBuildFile; fileRef = A928A1572173E7A4000C5BD8 /* 100x100-masked.png */; };
+		A928A15B2173E7A4000C5BD8 /* 100x100-masked-as-edited.png in Resources */ = {isa = PBXBuildFile; fileRef = A928A1582173E7A4000C5BD8 /* 100x100-masked-as-edited.png */; };
 		A976980121613B88006CF0EC /* BrushTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A976980021613B88006CF0EC /* BrushTool.swift */; };
 		A976980321613CC9006CF0EC /* paintbrush.png in Resources */ = {isa = PBXBuildFile; fileRef = A976980221613CC9006CF0EC /* paintbrush.png */; };
 		A9769805216142B1006CF0EC /* EraserTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9769804216142B1006CF0EC /* EraserTool.swift */; };
@@ -179,6 +183,10 @@
 		A926C35E215FE069006B1388 /* ClosureControls.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClosureControls.framework; path = Carthage/Build/Mac/ClosureControls.framework; sourceTree = "<group>"; };
 		A928A1502173D68B000C5BD8 /* shading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shading.png; sourceTree = "<group>"; };
 		A928A1522173D6CF000C5BD8 /* contrast_high.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = contrast_high.png; sourceTree = "<group>"; };
+		A928A1542173E712000C5BD8 /* MaskToolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskToolTests.swift; sourceTree = "<group>"; };
+		A928A1562173E7A4000C5BD8 /* 100x100-mask-outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-mask-outline.png"; sourceTree = "<group>"; };
+		A928A1572173E7A4000C5BD8 /* 100x100-masked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-masked.png"; sourceTree = "<group>"; };
+		A928A1582173E7A4000C5BD8 /* 100x100-masked-as-edited.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-masked-as-edited.png"; sourceTree = "<group>"; };
 		A976980021613B88006CF0EC /* BrushTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushTool.swift; sourceTree = "<group>"; };
 		A976980221613CC9006CF0EC /* paintbrush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paintbrush.png; sourceTree = "<group>"; };
 		A9769804216142B1006CF0EC /* EraserTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraserTool.swift; sourceTree = "<group>"; };
@@ -374,6 +382,7 @@
 				A926C331215FBD6A006B1388 /* BitmapToolTests.swift */,
 				A9E3E0652161F8E70059B0A6 /* BrushToolTest.swift */,
 				A9E3E06B2161FB410059B0A6 /* EraserToolTests.swift */,
+				A928A1542173E712000C5BD8 /* MaskToolTests.swift */,
 				A926C311215F5550006B1388 /* MathTests.swift */,
 				A9B7D434215DFA15002A95CB /* Info.plist */,
 				A9914FBF2160C910007DAE4A /* Mocks.swift */,
@@ -452,6 +461,9 @@
 		A9B7D44D215DFCAB002A95CB /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
+				A928A1562173E7A4000C5BD8 /* 100x100-mask-outline.png */,
+				A928A1582173E7A4000C5BD8 /* 100x100-masked-as-edited.png */,
+				A928A1572173E7A4000C5BD8 /* 100x100-masked.png */,
 				A9E59EFB216D3DDC00C573D9 /* 50x100-moon-bg.png */,
 				A98BC46D2163F39B00E16215 /* 200x200-red-moons-not-selected-large.png */,
 				A98BC46E2163F39B00E16215 /* 200x200-red-moons-not-selected.png */,
@@ -639,6 +651,7 @@
 				A9B7D45C215E0753002A95CB /* 100x100-red-greenline.png in Resources */,
 				A98BC4702163F39B00E16215 /* 200x200-red-moons-not-selected.png in Resources */,
 				A926C318215F6555006B1388 /* 200x200-red-moons-selected-large.png in Resources */,
+				A928A1592173E7A4000C5BD8 /* 100x100-mask-outline.png in Resources */,
 				A9E3E0702161FD1A0059B0A6 /* 100x100-eraser-outline.png in Resources */,
 				A9E3E0682161F98F0059B0A6 /* 100x100-draw-line-shift.png in Resources */,
 				A98BC46A2163F35F00E16215 /* 100x100-with-brush.png in Resources */,
@@ -654,6 +667,8 @@
 				A9CC23FB215EB97B00194228 /* 100x100-green-square.png in Resources */,
 				A98BC4682163F31500E16215 /* 100x100-with-line.png in Resources */,
 				A926C316215F5EB6006B1388 /* 200x200-red-moons-selected.png in Resources */,
+				A928A15B2173E7A4000C5BD8 /* 100x100-masked-as-edited.png in Resources */,
+				A928A15A2173E7A4000C5BD8 /* 100x100-masked.png in Resources */,
 				A9E3E06E2161FC430059B0A6 /* 100x100-eraser.png in Resources */,
 				A98BC46F2163F39B00E16215 /* 200x200-red-moons-not-selected-large.png in Resources */,
 				A9CC2405215EC79000194228 /* 200x200-red-moons.png in Resources */,
@@ -722,6 +737,7 @@
 				A9914FBE2160C6F2007DAE4A /* PanToolTests.swift in Sources */,
 				A9E3E0662161F8E70059B0A6 /* BrushToolTest.swift in Sources */,
 				A9B7D456215DFCAB002A95CB /* Utils.swift in Sources */,
+				A928A1552173E712000C5BD8 /* MaskToolTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

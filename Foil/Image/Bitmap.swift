@@ -31,6 +31,8 @@ public final class Bitmap: Equatable, Hashable, CustomDebugStringConvertible {
     let image: NSImage
     let centerPosition: NSPoint
     let scale: CGFloat
+    /// A custom data reference
+    let reference: Any?
     
     // --- The following are cached for efficiency
     let originalSize: NSSize
@@ -43,7 +45,8 @@ public final class Bitmap: Equatable, Hashable, CustomDebugStringConvertible {
     init(
         image: NSImage,
         centerPostion: NSPoint = NSPoint(x: 0, y: 0),
-        scale: CGFloat = 1)
+        scale: CGFloat = 1,
+        reference: Any? = nil)
     {
         self.scale = scale
         self.image = image
@@ -51,6 +54,7 @@ public final class Bitmap: Equatable, Hashable, CustomDebugStringConvertible {
         self.originalSize = image.size
         self.size = self.originalSize * scale
         self.halfSize = self.size / 2
+        self.reference = reference
         self.drawingRect = NSRect(
             x: self.centerPosition.x - self.halfSize.width,
             y: self.centerPosition.y - self.halfSize.height,
@@ -73,7 +77,8 @@ public final class Bitmap: Equatable, Hashable, CustomDebugStringConvertible {
         return Bitmap(
             image: self.image,
             centerPostion: self.centerPosition + by,
-            scale: self.scale)
+            scale: self.scale,
+            reference: self.reference)
     }
     
     func corner(_ direction: Corner.Direction) -> Corner {
