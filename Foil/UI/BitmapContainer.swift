@@ -26,8 +26,11 @@ import Foundation
 
 public protocol BitmapContainer {
     
-    /// Place new bitmaps in the canvas, so that they do not overlap
+    /// Place new bitmaps, distributing them in a way that they don't overlap each other and
+    /// tries a best-effort into having them fit the image, but they might overflow the image
     func placeNewBitmaps(_ tokens: [ImageToken])
+    
+    /// Bitmaps in the collection
     var bitmaps: Set<Bitmap> { get set }
     
     /// Select bitmaps by reference
