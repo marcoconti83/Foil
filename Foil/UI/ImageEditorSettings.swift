@@ -40,6 +40,8 @@ public struct ImageEditorSettings {
     /// Size of the canvas. If the size is not defined, it will use the
     /// background image size, if any.
     public var size: NSSize? = nil
+    /// Additional toolbar items
+    public var toolbarItems: [ToolbarItem] = []
     
     public init() {}
     
@@ -47,5 +49,18 @@ public struct ImageEditorSettings {
         return !self.possibleBitmaps.isEmpty
             || self.allowImagesFromFile
             || self.customBitmapPicker != nil
+    }
+}
+
+public struct ToolbarItem {
+    
+    let icon: NSImage
+    let tooltip: String
+    let action: (ImageEditView)->()
+    
+    public init(icon: NSImage, tooltip: String, action: @escaping (ImageEditView)->()) {
+        self.action = action
+        self.icon = icon
+        self.tooltip = tooltip
     }
 }

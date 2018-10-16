@@ -100,9 +100,17 @@ public class ImageEditorViewController: NSViewController {
                 toolTip: "Change line width"
                 ) { [weak self] in
                     self?.selectLineSize($0)
-            }
+            },
+            NSBox.horizontalLine()
             ].compactMap { $0 }
-        let toolbar = NSStackView(views: buttons)
+        
+        let customButton = settings.toolbarItems.map { item in
+            return ClosureButton(image: item.icon, toolTip: item.tooltip) { [weak self] _ in
+                guard let `self` = self else { return }
+                item.action(self.imageEditView)
+            }
+        }
+        let toolbar = NSStackView(views: buttons + customButton)
         toolbar.orientation = .vertical
         toolbar.distribution = .gravityAreas
         toolbar.spacing = 1
