@@ -76,6 +76,10 @@ public class ImageEditor {
         self.setTool(.selection)
     }
     
+    public var bitmapContainer: BitmapContainer {
+        return self.layers
+    }
+    
     private func setTool(_ tool: ToolType) {
         self.layers.brushPreview = nil
         switch tool {

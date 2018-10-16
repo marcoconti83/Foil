@@ -47,6 +47,9 @@
 		A928A1592173E7A4000C5BD8 /* 100x100-mask-outline.png in Resources */ = {isa = PBXBuildFile; fileRef = A928A1562173E7A4000C5BD8 /* 100x100-mask-outline.png */; };
 		A928A15A2173E7A4000C5BD8 /* 100x100-masked.png in Resources */ = {isa = PBXBuildFile; fileRef = A928A1572173E7A4000C5BD8 /* 100x100-masked.png */; };
 		A928A15B2173E7A4000C5BD8 /* 100x100-masked-as-edited.png in Resources */ = {isa = PBXBuildFile; fileRef = A928A1582173E7A4000C5BD8 /* 100x100-masked-as-edited.png */; };
+		A928A15D21746482000C5BD8 /* BitmapContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A928A15C21746482000C5BD8 /* BitmapContainer.swift */; };
+		A928A15F2174656C000C5BD8 /* ImageLayers+Bitmaps.swift in Sources */ = {isa = PBXBuildFile; fileRef = A928A15E2174656C000C5BD8 /* ImageLayers+Bitmaps.swift */; };
+		A928A1612174B6B7000C5BD8 /* ImageLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A928A1602174B6B7000C5BD8 /* ImageLayerTests.swift */; };
 		A976980121613B88006CF0EC /* BrushTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A976980021613B88006CF0EC /* BrushTool.swift */; };
 		A976980321613CC9006CF0EC /* paintbrush.png in Resources */ = {isa = PBXBuildFile; fileRef = A976980221613CC9006CF0EC /* paintbrush.png */; };
 		A9769805216142B1006CF0EC /* EraserTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9769804216142B1006CF0EC /* EraserTool.swift */; };
@@ -187,6 +190,9 @@
 		A928A1562173E7A4000C5BD8 /* 100x100-mask-outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-mask-outline.png"; sourceTree = "<group>"; };
 		A928A1572173E7A4000C5BD8 /* 100x100-masked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-masked.png"; sourceTree = "<group>"; };
 		A928A1582173E7A4000C5BD8 /* 100x100-masked-as-edited.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-masked-as-edited.png"; sourceTree = "<group>"; };
+		A928A15C21746482000C5BD8 /* BitmapContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapContainer.swift; sourceTree = "<group>"; };
+		A928A15E2174656C000C5BD8 /* ImageLayers+Bitmaps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageLayers+Bitmaps.swift"; sourceTree = "<group>"; };
+		A928A1602174B6B7000C5BD8 /* ImageLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLayerTests.swift; sourceTree = "<group>"; };
 		A976980021613B88006CF0EC /* BrushTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushTool.swift; sourceTree = "<group>"; };
 		A976980221613CC9006CF0EC /* paintbrush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paintbrush.png; sourceTree = "<group>"; };
 		A9769804216142B1006CF0EC /* EraserTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraserTool.swift; sourceTree = "<group>"; };
@@ -386,6 +392,7 @@
 				A926C311215F5550006B1388 /* MathTests.swift */,
 				A9B7D434215DFA15002A95CB /* Info.plist */,
 				A9914FBF2160C910007DAE4A /* Mocks.swift */,
+				A928A1602174B6B7000C5BD8 /* ImageLayerTests.swift */,
 			);
 			path = FoilTests;
 			sourceTree = "<group>";
@@ -394,6 +401,7 @@
 			isa = PBXGroup;
 			children = (
 				A9B7D43C215DFA2F002A95CB /* ImageLayers.swift */,
+				A928A15E2174656C000C5BD8 /* ImageLayers+Bitmaps.swift */,
 				A9CC23FC215EBB2C00194228 /* Bitmap.swift */,
 				A926C319215F693E006B1388 /* ImageEditor.swift */,
 				A926C325215FAFBA006B1388 /* Tool.swift */,
@@ -417,6 +425,7 @@
 				A976981021615A2E006CF0EC /* ImageEditorSettings.swift */,
 				A9914FB92160A13A007DAE4A /* Scrolling.swift */,
 				A9914FC12160D733007DAE4A /* Separator.swift */,
+				A928A15C21746482000C5BD8 /* BitmapContainer.swift */,
 				A9769808216152D3006CF0EC /* PopupChoiceViewController.swift */,
 				A9914FC32160E090007DAE4A /* LineWidthSelectionViewController.swift */,
 				A9914FC5216102A9007DAE4A /* ColorSelectionViewController.swift */,
@@ -693,6 +702,7 @@
 			files = (
 				A926C324215FAE63006B1388 /* SelectionTool.swift in Sources */,
 				A9914FC42160E090007DAE4A /* LineWidthSelectionViewController.swift in Sources */,
+				A928A15D21746482000C5BD8 /* BitmapContainer.swift in Sources */,
 				A976980B216154BD006CF0EC /* BitmapSelectionViewController.swift in Sources */,
 				A976980F21615635006CF0EC /* NSStackView.swift in Sources */,
 				A926C31E215F7283006B1388 /* Keycodes.swift in Sources */,
@@ -719,6 +729,7 @@
 				A976981121615A2E006CF0EC /* ImageEditorSettings.swift in Sources */,
 				A926C322215FAC9E006B1388 /* LineTool.swift in Sources */,
 				A926C30D215F52C8006B1388 /* Math.swift in Sources */,
+				A928A15F2174656C000C5BD8 /* ImageLayers+Bitmaps.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -730,6 +741,7 @@
 				A926C312215F5550006B1388 /* MathTests.swift in Sources */,
 				A9E59EFA216D3A3000C573D9 /* NSRectTests.swift in Sources */,
 				A9E3E06C2161FB410059B0A6 /* EraserToolTests.swift in Sources */,
+				A928A1612174B6B7000C5BD8 /* ImageLayerTests.swift in Sources */,
 				A9B7D433215DFA15002A95CB /* ImageLayersTests.swift in Sources */,
 				A926C32C215FB71A006B1388 /* SelectionToolTests.swift in Sources */,
 				A926C32A215FB70C006B1388 /* LineToolTests.swift in Sources */,
@@ -858,7 +870,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -916,7 +928,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;

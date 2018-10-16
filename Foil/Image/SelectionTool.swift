@@ -144,7 +144,7 @@ class ScaleBitmapOperation: ToolMixin {
                   to: self.bitmap.drawingRect.corner(self.corner.direction.opposite).point)
         
         let newBitmap = Bitmap(image: self.bitmap.image,
-                               centerPostion: newRect.center,
+                               centerPosition: newRect.center,
                                scale: newScale,
                                reference: self.bitmap.reference)
         self.layers.replace(originalBitmap: self.bitmap, newBitmap: newBitmap)

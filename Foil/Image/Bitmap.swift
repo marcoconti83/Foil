@@ -32,7 +32,7 @@ public final class Bitmap: Equatable, Hashable, CustomDebugStringConvertible {
     let centerPosition: NSPoint
     let scale: CGFloat
     /// A custom data reference
-    let reference: Any?
+    let reference: AnyHashable?
     
     // --- The following are cached for efficiency
     let originalSize: NSSize
@@ -44,13 +44,13 @@ public final class Bitmap: Equatable, Hashable, CustomDebugStringConvertible {
     
     init(
         image: NSImage,
-        centerPostion: NSPoint = NSPoint(x: 0, y: 0),
+        centerPosition: NSPoint = NSPoint(x: 0, y: 0),
         scale: CGFloat = 1,
-        reference: Any? = nil)
+        reference: AnyHashable? = nil)
     {
         self.scale = scale
         self.image = image
-        self.centerPosition = centerPostion
+        self.centerPosition = centerPosition
         self.originalSize = image.size
         self.size = self.originalSize * scale
         self.halfSize = self.size / 2
@@ -76,7 +76,7 @@ public final class Bitmap: Equatable, Hashable, CustomDebugStringConvertible {
     public func moving(by: NSPoint) -> Bitmap {
         return Bitmap(
             image: self.image,
-            centerPostion: self.centerPosition + by,
+            centerPosition: self.centerPosition + by,
             scale: self.scale,
             reference: self.reference)
     }

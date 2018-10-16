@@ -28,7 +28,7 @@ import ClosureControls
 
 public class ImageEditorViewController: NSViewController {
 
-    private var imageEditView: ImageEditView!
+    public var imageEditView: ImageEditView!
     private var scroll: ZoomableScrollView!
     var settings: ImageEditorSettings
     
@@ -170,3 +170,15 @@ extension ClosureButton {
     }
 }
 
+public struct ImageToken {
+    
+    let reference: AnyHashable?
+    let image: NSImage
+    let maxSize: CGFloat
+    
+    public init(image: NSImage, maxSize: CGFloat, reference: AnyHashable? = nil) {
+        self.image = image
+        self.reference = reference
+        self.maxSize = maxSize
+    }
+}

@@ -50,7 +50,7 @@ public class ImageLayers {
     }
     
     /// Bitmaps objects
-    var bitmaps: Set<Bitmap> = Set() {
+    public var bitmaps: Set<Bitmap> = Set() {
         didSet {
             let newSelection = self.selectedBitmaps.intersection(bitmaps)
             self.batchOperations {
@@ -63,6 +63,9 @@ public class ImageLayers {
     internal(set) public var selectedBitmaps = Set<Bitmap>() {
         didSet {
             self.redrawIfNeeded()
+            if self.selectedBitmaps != oldValue {
+                self.notifySelectionChange()
+            }
         }
     }
     
@@ -304,7 +307,7 @@ extension ImageLayers {
         scale: CGFloat = 1
         ) -> Bitmap
     {
-        let bitmap = Bitmap(image: image, centerPostion: centerPosition, scale: scale)
+        let bitmap = Bitmap(image: image, centerPosition: centerPosition, scale: scale)
         self.bitmaps.insert(bitmap)
         return bitmap
     }

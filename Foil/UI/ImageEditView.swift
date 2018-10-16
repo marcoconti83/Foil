@@ -58,7 +58,6 @@ public class ImageEditView: NSView {
     public var image: NSImage {
         return self.editor.layers.renderedImage
     }
-    
 }
 
 // MARK: - UI events
