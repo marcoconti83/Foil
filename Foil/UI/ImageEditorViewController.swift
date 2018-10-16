@@ -26,7 +26,7 @@ import Cocoa
 import Cartography
 import ClosureControls
 
-public class ImageEditorViewController: NSViewController {
+open class ImageEditorViewController: NSViewController {
 
     public var imageEditView: ImageEditView!
     private var scroll: ZoomableScrollView!
@@ -41,11 +41,11 @@ public class ImageEditorViewController: NSViewController {
         fatalError()
     }
     
-    override public func loadView() {
+    override open func loadView() {
         self.view = NSView()
     }
     
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         self.scroll = ZoomableScrollView(frame: NSRect.zero)
         let size = self.settings.size ?? self.settings.backgroundImage?.size ?? NSSize(width: 300, height: 300)
@@ -134,7 +134,7 @@ public class ImageEditorViewController: NSViewController {
         }
     }
     
-    public override func viewDidAppear() {
+    open override func viewDidAppear() {
         self.scroll.centerAndZoom()
     }
     
