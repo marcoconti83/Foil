@@ -31,11 +31,14 @@ private let bitmapSpacing: CGFloat = 10
 
 extension ImageLayers: BitmapContainer {
     
-    public func placeNewBitmaps(_ tokens: [ImageToken]) {
+    public func placeNewBitmaps(_ definitions: [BitmapDefinition]) {
         let width = self.renderedImage.size.width
-        let bitmaps = tokens.map { (token: ImageToken) -> Bitmap in
-            let scale = token.image.size.max / token.maxSize
-            return Bitmap(image: token.image, centerPosition: NSPoint.zero, scale: scale, reference: token.reference)
+        let bitmaps = definitions.map { (definition: BitmapDefinition) -> Bitmap in
+            return Bitmap(
+                image: definition.image,
+                centerPosition: NSPoint.zero,
+                scale: definition.scale,
+                reference: definition.reference)
         }
         var x: CGFloat = 0
         var rows = [[Bitmap]]()

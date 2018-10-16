@@ -178,15 +178,16 @@ extension ClosureButton {
     }
 }
 
-public struct ImageToken {
+/// A bitmap that is not placed on the image yet
+public struct BitmapDefinition {
     
     let reference: AnyHashable?
     let image: NSImage
-    let maxSize: CGFloat
+    let scale: CGFloat
     
-    public init(image: NSImage, maxSize: CGFloat, reference: AnyHashable? = nil) {
+    public init(image: NSImage, scale: CGFloat, reference: AnyHashable? = nil) {
         self.image = image
         self.reference = reference
-        self.maxSize = maxSize
+        self.scale = scale
     }
 }

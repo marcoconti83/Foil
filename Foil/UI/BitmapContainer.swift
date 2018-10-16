@@ -28,7 +28,7 @@ public protocol BitmapContainer {
     
     /// Place new bitmaps, distributing them in a way that they don't overlap each other and
     /// tries a best-effort into having them fit the image, but they might overflow the image
-    func placeNewBitmaps(_ tokens: [ImageToken])
+    func placeNewBitmaps(_ bitmapDefinitions: [BitmapDefinition])
     
     /// Bitmaps in the collection
     var bitmaps: Set<Bitmap> { get set }
