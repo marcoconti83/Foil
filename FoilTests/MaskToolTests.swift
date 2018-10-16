@@ -32,7 +32,7 @@ class MaskToolTests: XCTestCase {
         guard let image = Utils.testImage("moon.jpg") else {
             return XCTFail()
         }
-        let editor = ImageEditor(backgroundImage: image)
+        let editor = ImageEditor<Int>(backgroundImage: image)
         editor.toolType = .mask
         editor.toolSettings.lineWidth = 4
         editor.tool.didMouseDown(NSPoint(x: 1, y: 1), modifierKeys: [])
@@ -53,7 +53,7 @@ class MaskToolTests: XCTestCase {
     
     func testThatItShowsTheMaskOutline() {
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .mask
         editor.toolSettings.lineWidth = 30
         
@@ -72,13 +72,13 @@ class MaskToolTests: XCTestCase {
     func testThatEscapeReturnsToSelection() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .mask
         
         // WHEN
         XCTAssertTrue(editor.tool.didPressKey(key: .escape, modifierKeys: []))
         
         // THEN
-        XCTAssert(editor.tool is SelectionTool)
+        XCTAssert(editor.tool is SelectionTool<Int>)
     }
 }

@@ -24,7 +24,7 @@
 
 import Foundation
 
-class EraserTool: ToolMixin, Tool {
+class EraserTool<Reference: Hashable>: ToolMixin<Reference>, Tool {
     
     var lastPoint: NSPoint? = nil
     

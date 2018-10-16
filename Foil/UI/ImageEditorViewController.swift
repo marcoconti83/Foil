@@ -179,13 +179,13 @@ extension ClosureButton {
 }
 
 /// A bitmap that is not placed on the image yet
-public struct BitmapDefinition {
+public struct BitmapDefinition<Reference: Hashable> {
     
-    let reference: AnyHashable?
+    let reference: Reference?
     let image: NSImage
     let scale: CGFloat
     
-    public init(image: NSImage, scale: CGFloat, reference: AnyHashable? = nil) {
+    public init(image: NSImage, scale: CGFloat, reference: Reference? = nil) {
         self.image = image
         self.reference = reference
         self.scale = scale

@@ -24,8 +24,8 @@
 
 import Foundation
 
-final class SelectionTool: ToolMixin, Tool {
-    private var currentOperation: ToolMixin? = nil
+final class SelectionTool<Reference: Hashable>: ToolMixin<Reference>, Tool {
+    private var currentOperation: ToolMixin<Reference>? = nil
     
     override func didMouseDown(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
         
@@ -87,15 +87,15 @@ final class SelectionTool: ToolMixin, Tool {
 
 extension ToolMixin {
     
-    fileprivate func bitmapAtPoint(_ point: NSPoint, considerHandles: Bool) -> Bitmap? {
+    fileprivate func bitmapAtPoint(_ point: NSPoint, considerHandles: Bool) -> Bitmap<Reference>? {
         return self.layers.bitmaps.first(where: {
             if $0.drawingRect.contains(point) {
                 return true
             }
             
-            if $0.drawingRect.expand(by: Bitmap.handleSize / 2.0).contains(point) {
+            if $0.drawingRect.expand(by: FoilValues.handleSize / 2.0).contains(point) {
                 let handle = $0.corners
-                    .map { $0.point.asCenterForSquare(size: Bitmap.handleSize)}
+                    .map { $0.point.asCenterForSquare(size: FoilValues.handleSize)}
                     .first { $0.contains(point) }
                 return handle != nil
             }
@@ -105,19 +105,19 @@ extension ToolMixin {
 }
 
 // MARK: - Scale
-class ScaleBitmapOperation: ToolMixin {
+class ScaleBitmapOperation<Reference: Hashable>: ToolMixin<Reference> {
     
     private var corner: Corner
     private var lastDragPoint: NSPoint!
-    private var bitmap: Bitmap
+    private var bitmap: Bitmap<Reference>
     private var didDragOnce: Bool = false
     
     init(
-        layers: ImageLayers,
+        layers: ImageLayers<Reference>,
         settings: ToolSettings,
         delegate: ToolDelegate,
         corner: Corner,
-        bitmap: Bitmap)
+        bitmap: Bitmap<Reference>)
     {
         self.corner = corner
         self.bitmap = bitmap
@@ -154,17 +154,17 @@ class ScaleBitmapOperation: ToolMixin {
 }
 
 // MARK: - Move
-class MoveOrSelectBitmapOperation: ToolMixin {
+class MoveOrSelectBitmapOperation<Reference: Hashable>: ToolMixin<Reference> {
     
     private var lastDragPoint: NSPoint? = nil
     private var didDragOnce: Bool = false
-    private let bitmap: Bitmap
+    private let bitmap: Bitmap<Reference>
     
     init(
-        layers: ImageLayers,
+        layers: ImageLayers<Reference>,
         settings: ToolSettings,
         delegate: ToolDelegate,
-        bitmap: Bitmap)
+        bitmap: Bitmap<Reference>)
     {
         self.bitmap = bitmap
         super.init(layers: layers, settings: settings, delegate: delegate)
@@ -219,7 +219,7 @@ extension Bitmap {
     
     func handleForPoint(_ point: NSPoint) -> Corner? {
         return self.corners.first { c in
-            c.point.asCenterForSquare(size: Bitmap.handleSize).contains(point)
+            c.point.asCenterForSquare(size: FoilValues.handleSize).contains(point)
         }
     }
 }

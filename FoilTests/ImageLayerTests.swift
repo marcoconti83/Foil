@@ -32,14 +32,14 @@ class ImageLayerTests: XCTestCase {
         
         // GIVEN
         let img = Utils.testImage("moon.jpg")!
-        let editor = ImageLayers(emptyImageOfSize: img.size)
+        let editor = ImageLayers<Int>(emptyImageOfSize: img.size)
         let canvasCenter = editor.renderedImage.size.toPoint / 2
         let b1 = editor.addBitmap(
             img,
             centerPosition: canvasCenter,
             scale: 1
         )
-        var recordedNotifications = [Set<Bitmap>]()
+        var recordedNotifications = [Set<Bitmap<Int>>]()
         let observerToken = editor.addBitmapSelectionObserver() { selection in
             recordedNotifications.append(selection)
         }
@@ -59,7 +59,7 @@ class ImageLayerTests: XCTestCase {
         
         // GIVEN
         let img = Utils.testImage("moon.jpg")!
-        let editor = ImageLayers(emptyImageOfSize: img.size)
+        let editor = ImageLayers<UUID>(emptyImageOfSize: img.size)
         let canvasCenter = editor.renderedImage.size.toPoint / 2
         let uuid = UUID()
         let b1 = Bitmap(

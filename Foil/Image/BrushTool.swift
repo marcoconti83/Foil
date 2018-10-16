@@ -24,7 +24,7 @@
 
 import Foundation
 
-class BrushTool: ToolMixin, Tool {
+class BrushTool<Reference: Hashable>: ToolMixin<Reference>, Tool {
     
     var lastPoint: NSPoint? = nil
     

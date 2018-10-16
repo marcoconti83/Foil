@@ -33,7 +33,7 @@ class EraserToolTests: XCTestCase {
         guard let image = Utils.testImage("moon.jpg") else {
             return XCTFail()
         }
-        let editor = ImageEditor(backgroundImage: image)
+        let editor = ImageEditor<Int>(backgroundImage: image)
         editor.toolType = .brush
         editor.toolSettings.color = NSColor.red
         editor.toolSettings.lineWidth = 4
@@ -54,7 +54,7 @@ class EraserToolTests: XCTestCase {
     
     func testThatItShowsTheEraserOutline() {
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .eraser
         editor.toolSettings.lineWidth = 30
         
@@ -73,13 +73,13 @@ class EraserToolTests: XCTestCase {
     func testThatEscapeReturnsToSelection() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .eraser
         
         // WHEN
         XCTAssertTrue(editor.tool.didPressKey(key: .escape, modifierKeys: []))
         
         // THEN
-        XCTAssert(editor.tool is SelectionTool)
+        XCTAssert(editor.tool is SelectionTool<Int>)
     }
 }

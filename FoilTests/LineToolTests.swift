@@ -30,7 +30,7 @@ class LineToolTests: XCTestCase {
     func testThatItStartsLine() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .line
         
         // WHEN
@@ -44,7 +44,7 @@ class LineToolTests: XCTestCase {
     func testThatItChangesLineColorAndWidth() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .line
         
         // WHEN
@@ -60,7 +60,7 @@ class LineToolTests: XCTestCase {
     func testThatItMovesLine() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .line
         
         // WHEN
@@ -76,7 +76,7 @@ class LineToolTests: XCTestCase {
     func testThatItEndsLine() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .line
         
         // WHEN
@@ -88,13 +88,13 @@ class LineToolTests: XCTestCase {
         // THEN
         XCTAssertNil(editor.layers.lineBeingDrawn)
         Utils.compareImage(editor.layers.imageBeingEdited, fixtureName: "100x100-draw-line.png")
-        XCTAssertTrue(editor.tool is SelectionTool)
+        XCTAssertTrue(editor.tool is SelectionTool<Int>)
     }
     
     func testThatItEndsLineAndStartNewOne() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .line
         editor.toolSettings.color = NSColor.blue
         editor.toolSettings.lineWidth = 20
@@ -108,20 +108,20 @@ class LineToolTests: XCTestCase {
         // THEN
         XCTAssertEqual(editor.layers.lineBeingDrawn, Line(start: p2, end: p2, color: .blue, width: 20))
         Utils.compareImage(editor.layers.imageBeingEdited, fixtureName: "100x100-draw-line-shift.png")
-        XCTAssertTrue(editor.tool is LineTool)
+        XCTAssertTrue(editor.tool is LineTool<Int>)
     }
     
     func testThatEscapeReturnsToSelection() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .line
         
         // WHEN
         XCTAssertTrue(editor.tool.didPressKey(key: .escape, modifierKeys: []))
         
         // THEN
-        XCTAssert(editor.tool is SelectionTool)
+        XCTAssert(editor.tool is SelectionTool<Int>)
     }
 
 }

@@ -24,12 +24,12 @@
 
 import Foundation
 
-final class BitmapTool: ToolMixin, Tool {
+final class BitmapTool<Reference: Hashable>: ToolMixin<Reference>, Tool {
     
     let image: NSImage
     
     init(
-        layers: ImageLayers,
+        layers: ImageLayers<Reference>,
         settings: ToolSettings,
         image: NSImage,
         delegate: ToolDelegate)

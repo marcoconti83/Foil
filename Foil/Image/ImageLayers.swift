@@ -24,7 +24,7 @@ import Foundation
 import Cocoa
 
 /// Layers that compose the image: background, foreground, vector layer and so on
-public class ImageLayers {
+public class ImageLayers<Reference: Hashable> {
     
     public let imageBeingEdited: NSImage
     
@@ -50,7 +50,7 @@ public class ImageLayers {
     }
     
     /// Bitmaps objects
-    public var bitmaps: Set<Bitmap> = Set() {
+    public var bitmaps: Set<Bitmap<Reference>> = Set() {
         didSet {
             let newSelection = self.selectedBitmaps.intersection(bitmaps)
             self.batchOperations {
@@ -60,7 +60,7 @@ public class ImageLayers {
     }
     
     /// Bitmaps that are currently selected
-    internal(set) public var selectedBitmaps = Set<Bitmap>() {
+    internal(set) public var selectedBitmaps = Set<Bitmap<Reference>>() {
         didSet {
             self.redrawIfNeeded()
             if self.selectedBitmaps != oldValue {
@@ -305,9 +305,9 @@ extension ImageLayers {
         _ image: NSImage,
         centerPosition: NSPoint,
         scale: CGFloat = 1
-        ) -> Bitmap
+        ) -> Bitmap<Reference>
     {
-        let bitmap = Bitmap(image: image, centerPosition: centerPosition, scale: scale)
+        let bitmap = Bitmap<Reference>(image: image, centerPosition: centerPosition, scale: scale)
         self.bitmaps.insert(bitmap)
         return bitmap
     }
@@ -315,8 +315,6 @@ extension ImageLayers {
 }
 
 extension Bitmap {
-    
-    static let handleSize: CGFloat = 4.0
     
     fileprivate func drawSelectionOverlay(lineWidth: CGFloat) {
         let borderCountourSize = Swift.max(lineWidth / 2, 0.5)
@@ -341,7 +339,7 @@ extension Bitmap {
             NSColor.red.setFill()
             NSBezierPath.defaultLineWidth = lineWidth
             self.corners.forEach {
-                let rect = $0.point.asCenterForSquare(size: Bitmap.handleSize)
+                let rect = $0.point.asCenterForSquare(size: FoilValues.handleSize)
                 NSBezierPath.fill(rect)
                 NSBezierPath.stroke(rect)
             }
@@ -380,4 +378,10 @@ public struct Line: Equatable {
         path.line(to: end)
         path.stroke()
     }
+}
+
+
+public struct FoilValues {
+    static let handleSize: CGFloat = 4.0
+    private init() {}
 }

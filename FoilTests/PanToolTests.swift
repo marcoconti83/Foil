@@ -30,7 +30,7 @@ class PanToolTests: XCTestCase {
     func testThatItSetSelectionTool() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .pan
         
         // WHEN
@@ -44,7 +44,7 @@ class PanToolTests: XCTestCase {
         
         // GIVEN
         let mockDelegate = MockImageEditorDelegate()
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .pan
         editor.delegate = mockDelegate
         

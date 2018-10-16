@@ -24,7 +24,7 @@
 
 import Foundation
 
-public final class Bitmap: Equatable, Hashable, CustomDebugStringConvertible {
+public final class Bitmap<Reference: Hashable>: Equatable, Hashable, CustomDebugStringConvertible {
     
     private let uuid: UUID = UUID()
     
@@ -32,7 +32,7 @@ public final class Bitmap: Equatable, Hashable, CustomDebugStringConvertible {
     let centerPosition: NSPoint
     let scale: CGFloat
     /// A custom data reference
-    let reference: AnyHashable?
+    let reference: Reference?
     
     // --- The following are cached for efficiency
     let originalSize: NSSize
@@ -46,7 +46,7 @@ public final class Bitmap: Equatable, Hashable, CustomDebugStringConvertible {
         image: NSImage,
         centerPosition: NSPoint = NSPoint(x: 0, y: 0),
         scale: CGFloat = 1,
-        reference: AnyHashable? = nil)
+        reference: Reference? = nil)
     {
         self.scale = scale
         self.image = image
@@ -86,14 +86,14 @@ public final class Bitmap: Equatable, Hashable, CustomDebugStringConvertible {
     }
 }
 
-public func ==(lhs: Bitmap, rhs: Bitmap) -> Bool {
+public func ==<T>(lhs: Bitmap<T>, rhs: Bitmap<T>) -> Bool {
     return lhs.scale == rhs.scale && lhs.centerPosition == rhs.centerPosition
-        && lhs.image === rhs.image
+        && lhs.image === rhs.image && lhs.reference == rhs.reference
 }
 
 extension ImageLayers {
     
-    public func replace(originalBitmap: Bitmap, newBitmap: Bitmap) {
+    public func replace(originalBitmap: Bitmap<Reference>, newBitmap: Bitmap<Reference>) {
         let wasSelected = self.selectedBitmaps.contains(originalBitmap)
         self.bitmaps.remove(originalBitmap)
         self.bitmaps.insert(newBitmap)

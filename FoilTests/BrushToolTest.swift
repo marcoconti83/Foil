@@ -32,7 +32,7 @@ class BrushToolTests: XCTestCase {
     func testThatItDrawsWithBrush() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .brush
         editor.toolSettings.color = NSColor.red
         editor.toolSettings.lineWidth = 2
@@ -50,13 +50,13 @@ class BrushToolTests: XCTestCase {
     func testThatEscapeReturnsToSelection() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .brush
         
         // WHEN
         XCTAssertTrue(editor.tool.didPressKey(key: .escape, modifierKeys: []))
         
         // THEN
-        XCTAssert(editor.tool is SelectionTool)
+        XCTAssert(editor.tool is SelectionTool<Int>)
     }
 }

@@ -24,7 +24,7 @@
 
 import Foundation
 
-final class LineTool: ToolMixin, Tool {
+final class LineTool<Reference: Hashable>: ToolMixin<Reference>, Tool {
     
     override func didMouseUp(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
         guard let line = self.layers.lineBeingDrawn else { return }

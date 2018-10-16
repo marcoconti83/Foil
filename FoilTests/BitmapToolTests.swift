@@ -30,7 +30,7 @@ class BitmapToolTests: XCTestCase {
     func testThatItAddsBitmap() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         let moon = Utils.testImage("moon.jpg")!
         editor.toolType = .bitmap(moon)
         
@@ -44,13 +44,13 @@ class BitmapToolTests: XCTestCase {
         }
         XCTAssertEqual(bitmap.centerPosition, p)
         XCTAssertEqual(bitmap.scale, 1)
-        XCTAssert(editor.tool is SelectionTool)
+        XCTAssert(editor.tool is SelectionTool<Int>)
     }
     
     func testThatItAddsMultipleBitmaps() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         let moon = Utils.testImage("moon.jpg")!
         editor.toolType = .bitmap(moon)
         
@@ -59,13 +59,13 @@ class BitmapToolTests: XCTestCase {
         editor.tool.didMouseUp(p, modifierKeys: [.shift])
         
         // THEN
-        XCTAssert(editor.tool is BitmapTool)
+        XCTAssert(editor.tool is BitmapTool<Int>)
     }
     
     func testThatEscapeReturnsToSelection() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         let moon = Utils.testImage("moon.jpg")!
         editor.toolType = .bitmap(moon)
         
@@ -73,7 +73,7 @@ class BitmapToolTests: XCTestCase {
         XCTAssertTrue(editor.tool.didPressKey(key: .escape, modifierKeys: []))
         
         // THEN
-        XCTAssert(editor.tool is SelectionTool)
+        XCTAssert(editor.tool is SelectionTool<Int>)
     }
     
 }

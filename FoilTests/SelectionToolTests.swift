@@ -30,7 +30,7 @@ class SelectionToolTests: XCTestCase {
     func testThatItSelectBitmaps() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .selection
         let b1 = editor.layers.addBitmap(
             Utils.testImage("moon.jpg")!,
@@ -55,7 +55,7 @@ class SelectionToolTests: XCTestCase {
     func testThatItDeselectBitmaps() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .selection
         let b1 = editor.layers.addBitmap(
             Utils.testImage("moon.jpg")!,
@@ -80,7 +80,7 @@ class SelectionToolTests: XCTestCase {
     func testThatItSelectsAnotherBitmap() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .selection
         let b1 = editor.layers.addBitmap(
             Utils.testImage("moon.jpg")!,
@@ -105,7 +105,7 @@ class SelectionToolTests: XCTestCase {
     func testThatItDeselectsABitmap() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .selection
         let b1 = editor.layers.addBitmap(
             Utils.testImage("moon.jpg")!,
@@ -130,7 +130,7 @@ class SelectionToolTests: XCTestCase {
     func testThatItDragsABitmap() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .selection
         let b1 = editor.layers.addBitmap(
             Utils.testImage("moon.jpg")!,
@@ -163,7 +163,7 @@ class SelectionToolTests: XCTestCase {
     func testThatItDeletesABitmap() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .selection
         let b1 = editor.layers.addBitmap(
             Utils.testImage("moon.jpg")!,
@@ -189,7 +189,7 @@ class SelectionToolTests: XCTestCase {
     func testThatItStartsPanning() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .selection
         let b1 = editor.layers.addBitmap(
             Utils.testImage("moon.jpg")!,
@@ -209,7 +209,7 @@ class SelectionToolTests: XCTestCase {
     func testThatItEndsPanningWithSameSelectedBitmaps() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .selection
         let b1 = editor.layers.addBitmap(
             Utils.testImage("moon.jpg")!,
@@ -230,7 +230,7 @@ class SelectionToolTests: XCTestCase {
     func testThatItSelectsAll() {
         
         // GIVEN
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .selection
         let b1 = editor.layers.addBitmap(
             Utils.testImage("moon.jpg")!,
@@ -260,7 +260,7 @@ extension SelectionToolTests {
         // GIVEN
         let img = Utils.testImage("moon.jpg")!
         let imageCenter = img.size.toPoint / 2
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: img.size.width * 2, height: img.size.height * 2))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: img.size.width * 2, height: img.size.height * 2))
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
         let b1 = editor.layers.addBitmap(
@@ -289,7 +289,7 @@ extension SelectionToolTests {
         
         // GIVEN
         let img = Utils.testImage("moon.jpg")!
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: img.size.width * 2, height: img.size.height * 2))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: img.size.width * 2, height: img.size.height * 2))
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
         let imageCenter = img.size.toPoint / 2
@@ -319,7 +319,7 @@ extension SelectionToolTests {
         
         // GIVEN
         let img = Utils.testImage("moon.jpg")!
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: img.size.width * 2, height: img.size.height * 2))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: img.size.width * 2, height: img.size.height * 2))
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
         let imageCenter = img.size.toPoint / 2
@@ -349,7 +349,7 @@ extension SelectionToolTests {
         
         // GIVEN
         let img = Utils.testImage("moon.jpg")!
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: img.size.width * 2, height: img.size.height * 2))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: img.size.width * 2, height: img.size.height * 2))
         editor.toolType = .selection
         let imageCenter = img.size.toPoint / 2
         let b1 = editor.layers.addBitmap(
@@ -378,7 +378,7 @@ extension SelectionToolTests {
         
         // GIVEN
         let img = Utils.testImage("moon.jpg")!
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: img.size.width * 4, height: img.size.height * 4))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: img.size.width * 4, height: img.size.height * 4))
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
         let b1 = editor.layers.addBitmap(
@@ -407,7 +407,7 @@ extension SelectionToolTests {
         
         // GIVEN
         let img = Utils.testImage("moon.jpg")!
-        let editor = ImageEditor(emptyImageOfSize: NSSize(width: img.size.width * 4, height: img.size.height * 4))
+        let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: img.size.width * 4, height: img.size.height * 4))
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
         let b1 = editor.layers.addBitmap(
@@ -431,7 +431,7 @@ extension SelectionToolTests {
         
         // GIVEN
         let img = Utils.testImage("moon.jpg")!
-        let editor = ImageEditor(emptyImageOfSize: img.size)
+        let editor = ImageEditor<Int>(emptyImageOfSize: img.size)
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
         let b1 = editor.layers.addBitmap(
@@ -460,7 +460,7 @@ extension SelectionToolTests {
         
         // GIVEN
         let img = Utils.testImage("moon.jpg")!
-        let editor = ImageEditor(emptyImageOfSize: img.size)
+        let editor = ImageEditor<Int>(emptyImageOfSize: img.size)
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
         let b1 = editor.layers.addBitmap(
@@ -489,7 +489,7 @@ extension SelectionToolTests {
         
         // GIVEN
         let img = Utils.testImage("moon.jpg")!
-        let editor = ImageEditor(emptyImageOfSize: img.size)
+        let editor = ImageEditor<Int>(emptyImageOfSize: img.size)
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
         let b1 = editor.layers.addBitmap(
@@ -518,7 +518,7 @@ extension SelectionToolTests {
         
         // GIVEN
         let img = Utils.testImage("moon.jpg")!
-        let editor = ImageEditor(emptyImageOfSize: img.size)
+        let editor = ImageEditor<Int>(emptyImageOfSize: img.size)
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
         let b1 = editor.layers.addBitmap(
@@ -547,7 +547,7 @@ extension SelectionToolTests {
         
         // GIVEN
         let img = Utils.testImage("moon.jpg")!
-        let editor = ImageEditor(emptyImageOfSize: img.size)
+        let editor = ImageEditor<Int>(emptyImageOfSize: img.size)
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
         let b1 = editor.layers.addBitmap(
@@ -577,7 +577,7 @@ extension SelectionToolTests {
         
         // GIVEN
         let img = Utils.testImage("moon.jpg")!
-        let editor = ImageEditor(emptyImageOfSize: img.size)
+        let editor = ImageEditor<Int>(emptyImageOfSize: img.size)
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
         let b1 = editor.layers.addBitmap(
@@ -607,7 +607,7 @@ extension SelectionToolTests {
         
         // GIVEN
         let img = Utils.testImage("moon.jpg")!
-        let editor = ImageEditor(emptyImageOfSize: img.size)
+        let editor = ImageEditor<Int>(emptyImageOfSize: img.size)
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
         let b1 = editor.layers.addBitmap(
@@ -637,7 +637,7 @@ extension SelectionToolTests {
         
         // GIVEN
         let img = Utils.testImage("moon.jpg")!
-        let editor = ImageEditor(emptyImageOfSize: img.size)
+        let editor = ImageEditor<Int>(emptyImageOfSize: img.size)
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
         let b1 = editor.layers.addBitmap(

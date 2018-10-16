@@ -24,7 +24,7 @@
 
 import Foundation
 
-final class PanTool: ToolMixin, Tool {
+final class PanTool<Reference: Hashable>: ToolMixin<Reference>, Tool {
     
     private var hasDrag: Bool {
         return self.lastMousePosition != nil

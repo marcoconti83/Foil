@@ -26,7 +26,7 @@ import Cartography
 
 public class ImageEditView: NSView {
 
-    private var editor: ImageEditor!
+    private var editor: ImageEditor<AnyHashable>!
     private var mouseTrackingArea: NSTrackingArea? = nil
     
     weak var scrollDelegate: ScrollDelegate?

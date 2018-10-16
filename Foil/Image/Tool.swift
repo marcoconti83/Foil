@@ -38,17 +38,17 @@ public protocol Tool {
     var settings: ToolSettings { get set }
 }
 
-class ToolMixin {
+class ToolMixin<Reference: Hashable> {
     
     weak var delegate: ToolDelegate?
-    let layers: ImageLayers
+    let layers: ImageLayers<Reference>
     var settings: ToolSettings {
         didSet {
             self.updateSettings()
         }
     }
     
-    init(layers: ImageLayers, settings: ToolSettings, delegate: ToolDelegate) {
+    init(layers: ImageLayers<Reference>, settings: ToolSettings, delegate: ToolDelegate) {
         self.layers = layers
         self.settings = settings
         self.delegate = delegate

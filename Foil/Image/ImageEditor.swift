@@ -35,9 +35,9 @@ public enum ToolType: Equatable {
 }
 
 /// Adds user interaction to image layers
-public class ImageEditor {
+public class ImageEditor<Reference: Hashable> {
     
-    public let layers: ImageLayers
+    public let layers: ImageLayers<Reference>
     
     private(set) var tool: Tool!
     
@@ -76,8 +76,8 @@ public class ImageEditor {
         self.setTool(.selection)
     }
     
-    public var bitmapContainer: BitmapContainer {
-        return self.layers
+    public var bitmapContainer: BitmapContainer<Reference> {
+        return BitmapContainer(self.layers)
     }
     
     private func setTool(_ tool: ToolType) {

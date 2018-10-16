@@ -29,11 +29,11 @@ private let selectedBitmapsNotificationKey = "Foil.selectedBitmapsNotificationKe
 
 private let bitmapSpacing: CGFloat = 10
 
-extension ImageLayers: BitmapContainer {
+extension ImageLayers: AbstractBitmapContainer {
     
-    public func placeNewBitmaps(_ definitions: [BitmapDefinition]) {
+    public func placeNewBitmaps(_ definitions: [BitmapDefinition<Reference>]) {
         let width = self.renderedImage.size.width
-        let bitmaps = definitions.map { (definition: BitmapDefinition) -> Bitmap in
+        let bitmaps = definitions.map { (definition: BitmapDefinition<Reference>) -> Bitmap<Reference> in
             return Bitmap(
                 image: definition.image,
                 centerPosition: NSPoint.zero,
@@ -41,8 +41,8 @@ extension ImageLayers: BitmapContainer {
                 reference: definition.reference)
         }
         var x: CGFloat = 0
-        var rows = [[Bitmap]]()
-        var currentRow = [Bitmap]()
+        var rows = [[Bitmap<Reference>]]()
+        var currentRow = [Bitmap<Reference>]()
         
         // line up in rows that are not too wide
         bitmaps.forEach { bmp in
@@ -81,7 +81,7 @@ extension ImageLayers: BitmapContainer {
         }
     }
     
-    public func selectBitmapByReference(_ references: Set<AnyHashable>, extendSelection: Bool) {
+    public func selectBitmapByReference(_ references: Set<Reference>, extendSelection: Bool) {
         let previous = extendSelection ? self.selectedBitmaps : Set()
         let selected = self.bitmaps.filter {
             guard let ref = $0.reference else { return false }
@@ -96,7 +96,7 @@ extension ImageLayers: BitmapContainer {
             object: self,
             queue: nil)
         { notification in
-            guard let bitmaps = notification.userInfo?[selectedBitmapsNotificationKey] as? Set<Bitmap> else {
+            guard let bitmaps = notification.userInfo?[selectedBitmapsNotificationKey] as? Set<Bitmap<Reference>> else {
                 return
             }
             block(bitmaps)

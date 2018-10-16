@@ -28,7 +28,7 @@ class ImageLayersTests: XCTestCase {
     func testThatItCreatesAnImageWithOnlyBackground() {
         
         // GIVEN
-        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 50, height: 50))
+        let layers = ImageLayers<Int>(emptyImageOfSize: NSSize(width: 50, height: 50))
         
         // WHEN
         layers.backgroundColor = .black
@@ -41,7 +41,7 @@ class ImageLayersTests: XCTestCase {
     func testThatItCreatesAnImageWithOnlyBackgroundChangedToRed() {
         
         // GIVEN
-        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 50, height: 50))
+        let layers = ImageLayers<Int>(emptyImageOfSize: NSSize(width: 50, height: 50))
         
         // WHEN
         layers.backgroundColor = NSColor.red
@@ -54,7 +54,7 @@ class ImageLayersTests: XCTestCase {
     func testThatItCreatesAnImageFromImageWithTransparency() {
         
         // GIVEN
-        let layers = ImageLayers(backgroundImage: Utils.testImage("original-5pepper.png")!)
+        let layers = ImageLayers<Int>(backgroundImage: Utils.testImage("original-5pepper.png")!)
         
         // WHEN
         layers.backgroundColor = NSColor.blue
@@ -67,7 +67,7 @@ class ImageLayersTests: XCTestCase {
     func testThatItDrawsALine() {
         
         // GIVEN
-        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 50, height: 50))
+        let layers = ImageLayers<Int>(emptyImageOfSize: NSSize(width: 50, height: 50))
         layers.backgroundColor = NSColor.red
         
         // WHEN
@@ -81,7 +81,7 @@ class ImageLayersTests: XCTestCase {
     func testThatItDrawsARect() {
         
         // GIVEN
-        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 50, height: 50))
+        let layers = ImageLayers<Int>(emptyImageOfSize: NSSize(width: 50, height: 50))
         layers.backgroundColor = NSColor.green
         
         // WHEN
@@ -95,7 +95,7 @@ class ImageLayersTests: XCTestCase {
     func testThatItDrawsTemporaryLine() {
         
         // GIVEN
-        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 50, height: 50))
+        let layers = ImageLayers<Int>(emptyImageOfSize: NSSize(width: 50, height: 50))
         layers.backgroundColor = NSColor.white
         
         // WHEN
@@ -113,7 +113,7 @@ class ImageLayersTests: XCTestCase {
     func testThatItDrawsBrushPreview() {
         
         // GIVEN
-        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 50, height: 50))
+        let layers = ImageLayers<Int>(emptyImageOfSize: NSSize(width: 50, height: 50))
         layers.backgroundColor = NSColor.white
         
         // WHEN
@@ -127,7 +127,7 @@ class ImageLayersTests: XCTestCase {
     func testThatItReplacesBackgroundImage() {
         
         // GIVEN
-        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 50, height: 100))
+        let layers = ImageLayers<Int>(emptyImageOfSize: NSSize(width: 50, height: 100))
         layers.backgroundColor = NSColor.white
         
         // WHEN
@@ -145,7 +145,7 @@ extension ImageLayersTests {
     func testThatItDrawsBitmaps() {
         
         // GIVEN
-        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let layers = ImageLayers<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         layers.backgroundColor = NSColor.green
         
         // WHEN
@@ -160,7 +160,7 @@ extension ImageLayersTests {
     func testThatItDrawsBitmapsScaled() {
         
         // GIVEN
-        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let layers = ImageLayers<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         layers.backgroundColor = NSColor.red
         
         // WHEN
@@ -184,7 +184,7 @@ extension ImageLayersTests {
     func testThatItDrawsBitmapsSelectedSmall() {
         
         // GIVEN
-        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let layers = ImageLayers<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         layers.backgroundColor = NSColor.white
         layers.addBitmap(
             Utils.testImage("moon.jpg")!,
@@ -208,7 +208,7 @@ extension ImageLayersTests {
     func testThatItDrawsBitmapsSelectedLarge() {
         
         // GIVEN
-        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 800, height: 800))
+        let layers = ImageLayers<Int>(emptyImageOfSize: NSSize(width: 800, height: 800))
         layers.backgroundColor = NSColor.white
         layers.addBitmap(
             Utils.testImage("moon.jpg")!,
@@ -232,7 +232,7 @@ extension ImageLayersTests {
     func testThatItReplacesBitmapWhenSelected() {
         
         // GIVEN
-        let layers = ImageLayers(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let layers = ImageLayers<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         layers.backgroundColor = NSColor.white
         let b1 = layers.addBitmap(
             Utils.testImage("moon.jpg")!,
