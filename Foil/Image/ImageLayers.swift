@@ -94,6 +94,22 @@ public class ImageLayers<Reference: Hashable> {
         self.init(backgroundImage: backgroundImage)
     }
     
+    init(backgroundImage: NSImage,
+         backgroundColor: NSColor,
+         rasterLayer: NSImage,
+         maskLayer: NSImage,
+         bitmaps: Set<Bitmap<Reference>>)
+    {
+        self.imageBeingEdited = NSImage(size: backgroundImage.size)
+        self.rasterLayer = rasterLayer
+        self.maskLayer = maskLayer
+        self.backgroundColor = backgroundColor
+        self.backgroundImage = backgroundImage
+        self.selectionLineWidth = max(1, backgroundImage.size.max / 200)
+        self.bitmaps = bitmaps
+        self.redraw()
+    }
+    
     public init(backgroundImage: NSImage) {
         self.imageBeingEdited = NSImage(size: backgroundImage.size)
         self.rasterLayer = NSImage(size: backgroundImage.size)

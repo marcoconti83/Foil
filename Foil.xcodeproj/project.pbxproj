@@ -73,6 +73,7 @@
 		A9914FC22160D733007DAE4A /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FC12160D733007DAE4A /* Separator.swift */; };
 		A9914FC42160E090007DAE4A /* LineWidthSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FC32160E090007DAE4A /* LineWidthSelectionViewController.swift */; };
 		A9914FC6216102A9007DAE4A /* ColorSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9914FC5216102A9007DAE4A /* ColorSelectionViewController.swift */; };
+		A99BFE842177140600CE0318 /* Serialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = A99BFE832177140600CE0318 /* Serialization.swift */; };
 		A9B7D421215DF9B9002A95CB /* Foil.h in Headers */ = {isa = PBXBuildFile; fileRef = A9B7D41F215DF9B9002A95CB /* Foil.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9B7D433215DFA15002A95CB /* ImageLayersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B7D432215DFA15002A95CB /* ImageLayersTests.swift */; };
 		A9B7D435215DFA15002A95CB /* Foil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9B7D41C215DF9B9002A95CB /* Foil.framework */; };
@@ -105,6 +106,7 @@
 		A9E59F02216DD28400C573D9 /* o.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E59EFF216DD28400C573D9 /* o.png */; };
 		A9E59F03216DD28400C573D9 /* e.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E59F00216DD28400C573D9 /* e.png */; };
 		A9E59F04216DD28400C573D9 /* u.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E59F01216DD28400C573D9 /* u.png */; };
+		A9F8F7642177410700A57009 /* SerializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F8F762217740AE00A57009 /* SerializationTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -216,6 +218,7 @@
 		A9914FC12160D733007DAE4A /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
 		A9914FC32160E090007DAE4A /* LineWidthSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineWidthSelectionViewController.swift; sourceTree = "<group>"; };
 		A9914FC5216102A9007DAE4A /* ColorSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectionViewController.swift; sourceTree = "<group>"; };
+		A99BFE832177140600CE0318 /* Serialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Serialization.swift; sourceTree = "<group>"; };
 		A9B7D41C215DF9B9002A95CB /* Foil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Foil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9B7D41F215DF9B9002A95CB /* Foil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Foil.h; sourceTree = "<group>"; };
 		A9B7D420215DF9B9002A95CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -255,6 +258,7 @@
 		A9E59F00216DD28400C573D9 /* e.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = e.png; sourceTree = "<group>"; };
 		A9E59F01216DD28400C573D9 /* u.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = u.png; sourceTree = "<group>"; };
 		A9E59F06216DD44700C573D9 /* screenshot-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-1.png"; sourceTree = "<group>"; };
+		A9F8F762217740AE00A57009 /* SerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerializationTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -393,6 +397,7 @@
 				A9B7D434215DFA15002A95CB /* Info.plist */,
 				A9914FBF2160C910007DAE4A /* Mocks.swift */,
 				A928A1602174B6B7000C5BD8 /* ImageLayerTests.swift */,
+				A9F8F762217740AE00A57009 /* SerializationTests.swift */,
 			);
 			path = FoilTests;
 			sourceTree = "<group>";
@@ -403,6 +408,7 @@
 				A9B7D43C215DFA2F002A95CB /* ImageLayers.swift */,
 				A928A15E2174656C000C5BD8 /* ImageLayers+Bitmaps.swift */,
 				A9CC23FC215EBB2C00194228 /* Bitmap.swift */,
+				A99BFE832177140600CE0318 /* Serialization.swift */,
 				A926C319215F693E006B1388 /* ImageEditor.swift */,
 				A926C325215FAFBA006B1388 /* Tool.swift */,
 				A926C321215FAC9E006B1388 /* LineTool.swift */,
@@ -726,6 +732,7 @@
 				A9914FC6216102A9007DAE4A /* ColorSelectionViewController.swift in Sources */,
 				A976980D216155EB006CF0EC /* Array.swift in Sources */,
 				A98C3814216CB573007A7911 /* NSRect.swift in Sources */,
+				A99BFE842177140600CE0318 /* Serialization.swift in Sources */,
 				A976981121615A2E006CF0EC /* ImageEditorSettings.swift in Sources */,
 				A926C322215FAC9E006B1388 /* LineTool.swift in Sources */,
 				A926C30D215F52C8006B1388 /* Math.swift in Sources */,
@@ -745,6 +752,7 @@
 				A9B7D433215DFA15002A95CB /* ImageLayersTests.swift in Sources */,
 				A926C32C215FB71A006B1388 /* SelectionToolTests.swift in Sources */,
 				A926C32A215FB70C006B1388 /* LineToolTests.swift in Sources */,
+				A9F8F7642177410700A57009 /* SerializationTests.swift in Sources */,
 				A9914FC02160C910007DAE4A /* Mocks.swift in Sources */,
 				A9914FBE2160C6F2007DAE4A /* PanToolTests.swift in Sources */,
 				A9E3E0662161F8E70059B0A6 /* BrushToolTest.swift in Sources */,

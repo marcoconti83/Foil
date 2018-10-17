@@ -24,7 +24,7 @@
 
 import Foundation
 
-public final class Bitmap<Reference: Hashable>: Equatable, Hashable, CustomDebugStringConvertible {
+public class Bitmap<Reference: Hashable>: Equatable, Hashable, CustomDebugStringConvertible {
     
     let image: NSImage
     let centerPosition: NSPoint
@@ -86,7 +86,7 @@ public final class Bitmap<Reference: Hashable>: Equatable, Hashable, CustomDebug
 
 public func ==<T>(lhs: Bitmap<T>, rhs: Bitmap<T>) -> Bool {
     return lhs.scale == rhs.scale && lhs.centerPosition == rhs.centerPosition
-        && lhs.image === rhs.image && lhs.reference == rhs.reference
+        && lhs.image == rhs.image && lhs.reference == rhs.reference
 }
 
 extension ImageLayers {
