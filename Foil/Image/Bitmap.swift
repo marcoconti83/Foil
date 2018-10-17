@@ -26,8 +26,6 @@ import Foundation
 
 public final class Bitmap<Reference: Hashable>: Equatable, Hashable, CustomDebugStringConvertible {
     
-    private let uuid: UUID = UUID()
-    
     let image: NSImage
     let centerPosition: NSPoint
     let scale: CGFloat
@@ -102,4 +100,3 @@ extension ImageLayers {
         }
     }
 }
-
