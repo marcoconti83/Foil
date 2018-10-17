@@ -40,7 +40,7 @@ public final class Bitmap<Reference: Hashable>: Equatable, Hashable, CustomDebug
     let corners: [Corner]
     // --- end of cache
     
-    init(
+    public init(
         image: NSImage,
         centerPosition: NSPoint = NSPoint(x: 0, y: 0),
         scale: CGFloat = 1,
