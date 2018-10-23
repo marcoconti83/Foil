@@ -26,15 +26,16 @@ import Foundation
 
 public class Bitmap<Reference: Hashable>: Equatable, Hashable, CustomDebugStringConvertible {
     
-    let image: NSImage
-    let centerPosition: NSPoint
-    let scale: CGFloat
+    public let image: NSImage
+    public let centerPosition: NSPoint
+    public let scale: CGFloat
+    
     /// A custom data reference
-    let reference: Reference?
+    public let reference: Reference?
     
     // --- The following are cached for efficiency
     let originalSize: NSSize
-    let size: NSSize
+    public let size: NSSize
     let halfSize: NSSize
     let drawingRect: NSRect
     let corners: [Corner]
@@ -71,11 +72,20 @@ public class Bitmap<Reference: Hashable>: Equatable, Hashable, CustomDebugString
     }
     
     /// Return a bitmap that is moved to the given point
-    public func moving(by: NSPoint) -> Bitmap {
+    public func moving(by offset: NSPoint) -> Bitmap {
         return Bitmap(
             image: self.image,
-            centerPosition: self.centerPosition + by,
+            centerPosition: self.centerPosition + offset,
             scale: self.scale,
+            reference: self.reference)
+    }
+    
+    /// Return a bitmap that is scaled by the given factor
+    public func scaling(by factor: CGFloat) -> Bitmap {
+        return Bitmap(
+            image: self.image,
+            centerPosition: self.centerPosition,
+            scale: self.scale * factor,
             reference: self.reference)
     }
     

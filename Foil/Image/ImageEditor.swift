@@ -66,9 +66,13 @@ public class ImageEditor<Reference: Hashable> {
         self.init(backgroundImage: backgroundImage)
     }
     
-    public init(backgroundImage: NSImage) {
-        self.layers = ImageLayers(backgroundImage: backgroundImage)
-        self.toolSettings.lineWidth = Swift.max(2, backgroundImage.size.min / 200)
+    public convenience init(backgroundImage: NSImage) {
+        self.init(layers: ImageLayers(backgroundImage: backgroundImage))
+    }
+    
+    public init(layers: ImageLayers<Reference>) {
+        self.layers = layers
+        self.toolSettings.lineWidth = Swift.max(2, layers.rasterLayer.size.min / 200)
         self.toolType = .selection
         self.layers.redrawDelegate = { [weak self] in
             self?.delegate?.didRedrawImage()

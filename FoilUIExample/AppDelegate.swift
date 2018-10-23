@@ -30,8 +30,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
 
-    static var defaultSettings: ImageEditorSettings {
-        var settings = ImageEditorSettings()
+    static var defaultSettings: ImageEditorSettings<Int> {
+        var settings = ImageEditorSettings<Int>()
         settings.possibleBitmaps = [
             NSImage(name: "e.png", fromClassBundle: AppDelegate.self),
             NSImage(name: "o.png", fromClassBundle: AppDelegate.self),
@@ -43,7 +43,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         var settings = AppDelegate.defaultSettings
         settings.backgroundImage = NSImage(name: "sky.jpg", fromClassBundle: AppDelegate.self)
-        window.contentViewController = ImageEditorViewController(settings: settings)
+        window.contentView = EditorView(settings: settings)
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -60,7 +60,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         panel.canCreateDirectories = false
         panel.beginSheetModal(for: NSApp.keyWindow!) { [weak self] response in
             guard response == .OK, let url = panel.url,
-                let controller = self?.window.contentViewController as? ImageEditorViewController else {
+                let controller = self?.window.contentView as? EditorView<Int> else {
                 return
             }
             do {
@@ -75,7 +75,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @objc func newDocument(_ sender: Any) {
         let settings = AppDelegate.defaultSettings
-        window.contentViewController = ImageEditorViewController(settings: settings)
+        window.contentView = EditorView(settings: settings)
     }
 
     @objc func openDocument(_ sender: Any) {
@@ -90,7 +90,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
             var settings = AppDelegate.defaultSettings
             settings.backgroundImage = image
-            self?.window.contentViewController = ImageEditorViewController(settings: settings)
+            self?.window.contentView = EditorView(settings: settings)
         }
     }
 

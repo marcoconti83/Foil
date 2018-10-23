@@ -12,11 +12,11 @@ Using [Carthage](https://github.com/Carthage/Carthage), add the following to you
 
 ## How to use
 
-Use `ImageEditorViewController`, a `NSViewController`, to display the canvas and a toolbar. If you want more control, you can instead use `ImageEditView`, a `NSView`, but you have to handle tool selection and zoom/panning on your own.
+Use `EditorView`, a `NSView`, to display the canvas and a toolbar. If you want more control, you can instead use `ImageEditView`, a `NSView`, but you have to handle tool selection and zoom/panning on your own.
 
-To get the resulting image, use the `image` property of either the `ImageEditorViewController` or the `ImageEditView` you are using.
+To get the resulting image, use the `image` property of either the `EditorView` or the `ImageEditView` you are using.
 
-When creating an `ImageEditorViewController`, you should use `init(settings:)`. The settings can be used to controll which predefined bitmaps are available, and whether the user is allowed to pick more bitmaps from the filesystem. 
+When creating an `EditorView`, you should use `init(settings:)`. The settings can be used to controll which predefined bitmaps are available, and whether the user is allowed to pick more bitmaps from the filesystem. 
 
 ### Layers
 

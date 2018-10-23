@@ -46,7 +46,7 @@ extension ImageLayers: AbstractBitmapContainer {
         
         // line up in rows that are not too wide
         bitmaps.forEach { bmp in
-            x += bmp.size.width + bitmapSpacing
+            x += bmp.size.width / 2
             if x > width {
                 if !currentRow.isEmpty {
                     rows.append(currentRow)
@@ -55,6 +55,8 @@ extension ImageLayers: AbstractBitmapContainer {
                 }
             }
             currentRow.append(bmp.moving(by: NSPoint(x: x, y: 0)))
+            x += (bmp.size.width / 2) + bitmapSpacing
+
         }
         
         if !currentRow.isEmpty {
@@ -63,15 +65,16 @@ extension ImageLayers: AbstractBitmapContainer {
         }
         
         // decide row height
-        var y: CGFloat = 0
+        var y: CGFloat = self.renderedImage.size.height
         rows = rows.map { row in
             let maxHeight = row.reduce(CGFloat(0)) { max, bmp in
                 return Swift.max(CGFloat(bmp.size.height), max)
             }
+            y -= maxHeight / 2
             let moved = row.map { bmp in
                 bmp.moving(by: NSPoint(x: 0, y: y))
             }
-            y = y + maxHeight + 10
+            y -= (maxHeight / 2)  - bitmapSpacing
             return moved
         }
         
@@ -81,7 +84,7 @@ extension ImageLayers: AbstractBitmapContainer {
         }
     }
     
-    public func selectBitmapByReference(_ references: Set<Reference>, extendSelection: Bool) {
+    public func selectBitmapsByReference(_ references: Set<Reference>, extendSelection: Bool) {
         let previous = extendSelection ? self.selectedBitmaps : Set()
         let selected = self.bitmaps.filter {
             guard let ref = $0.reference else { return false }

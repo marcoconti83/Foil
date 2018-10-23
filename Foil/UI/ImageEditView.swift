@@ -24,9 +24,10 @@ import Foundation
 import Cocoa
 import Cartography
 
-public class ImageEditView: NSView {
+public class ImageEditView<Reference: Hashable>: NSView {
 
-    private var editor: ImageEditor<AnyHashable>!
+    public var editor: ImageEditor<Reference>!
+    
     private var mouseTrackingArea: NSTrackingArea? = nil
     
     weak var scrollDelegate: ScrollDelegate?
@@ -35,9 +36,20 @@ public class ImageEditView: NSView {
         self.editor.layers.backgroundImage = image
     }
     
+    public convenience init(layers: ImageLayers<Reference>) {
+        let editor = ImageEditor(layers: layers)
+        self.init(editor: editor)
+    }
+    
     public override init(frame frameRect: NSRect) {
-        self.editor = ImageEditor(emptyImageOfSize: frameRect.size)
-        super.init(frame: frameRect)
+        self.editor = ImageEditor<Reference>(emptyImageOfSize: frameRect.size)
+        super.init(frame: NSRect.zero)
+        self.setupToolsAndDelegate()
+    }
+    
+    public init(editor: ImageEditor<Reference>) {
+        self.editor = editor
+        super.init(frame: NSRect.zero)
         self.setupToolsAndDelegate()
     }
     
@@ -58,10 +70,6 @@ public class ImageEditView: NSView {
     public var image: NSImage {
         return self.editor.layers.renderedImage
     }
-}
-
-// MARK: - UI events
-extension ImageEditView {
     
     public override var acceptsFirstResponder: Bool {
         return true

@@ -27,7 +27,7 @@ import Foundation
 /// A callback invoked when a bitmap has been selected
 public typealias BitmapPicker = (NSImage?)->()
 
-public struct ImageEditorSettings {
+public struct ImageEditorSettings<Reference: Hashable> {
     
     /// List of available
     public var possibleBitmaps: [NSImage] = []
@@ -41,7 +41,7 @@ public struct ImageEditorSettings {
     /// background image size, if any.
     public var size: NSSize? = nil
     /// Additional toolbar items
-    public var toolbarItems: [ToolbarItem] = []
+    public var toolbarItems: [ToolbarItem<Reference>] = []
     
     public init() {}
     
@@ -52,13 +52,13 @@ public struct ImageEditorSettings {
     }
 }
 
-public struct ToolbarItem {
+public struct ToolbarItem<Reference: Hashable> {
     
     let icon: NSImage
     let tooltip: String
-    let action: (ImageEditView)->()
+    let action: (ImageEditView<Reference>)->()
     
-    public init(icon: NSImage, tooltip: String, action: @escaping (ImageEditView)->()) {
+    public init(icon: NSImage, tooltip: String, action: @escaping (ImageEditView<Reference>)->()) {
         self.action = action
         self.icon = icon
         self.tooltip = tooltip

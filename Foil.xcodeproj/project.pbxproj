@@ -29,7 +29,7 @@
 		A926C33F215FC004006B1388 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A926C33D215FC004006B1388 /* MainMenu.xib */; };
 		A926C348215FC07E006B1388 /* Cartography.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A9B7D449215DFC7B002A95CB /* Cartography.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A926C349215FC085006B1388 /* Foil.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A9B7D41C215DF9B9002A95CB /* Foil.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A926C34B215FCAD9006B1388 /* ImageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C34A215FCAD9006B1388 /* ImageEditorViewController.swift */; };
+		A926C34B215FCAD9006B1388 /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A926C34A215FCAD9006B1388 /* EditorView.swift */; };
 		A926C34D215FD56F006B1388 /* THIRD_PARTY_LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A926C34C215FD56F006B1388 /* THIRD_PARTY_LICENSE */; };
 		A926C351215FD768006B1388 /* color_wheel.png in Resources */ = {isa = PBXBuildFile; fileRef = A926C350215FD768006B1388 /* color_wheel.png */; };
 		A926C353215FD774006B1388 /* cursor.png in Resources */ = {isa = PBXBuildFile; fileRef = A926C352215FD774006B1388 /* cursor.png */; };
@@ -176,7 +176,7 @@
 		A926C33E215FC004006B1388 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		A926C340215FC004006B1388 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A926C341215FC004006B1388 /* FoilUIExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FoilUIExample.entitlements; sourceTree = "<group>"; };
-		A926C34A215FCAD9006B1388 /* ImageEditorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditorViewController.swift; sourceTree = "<group>"; };
+		A926C34A215FCAD9006B1388 /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
 		A926C34C215FD56F006B1388 /* THIRD_PARTY_LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = THIRD_PARTY_LICENSE; sourceTree = "<group>"; };
 		A926C350215FD768006B1388 /* color_wheel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = color_wheel.png; sourceTree = "<group>"; };
 		A926C352215FD774006B1388 /* cursor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cursor.png; sourceTree = "<group>"; };
@@ -427,7 +427,7 @@
 			children = (
 				A9B7D440215DFA2F002A95CB /* ImageEditView.swift */,
 				A926C313215F5DFB006B1388 /* DrawingUtils.swift */,
-				A926C34A215FCAD9006B1388 /* ImageEditorViewController.swift */,
+				A926C34A215FCAD9006B1388 /* EditorView.swift */,
 				A976981021615A2E006CF0EC /* ImageEditorSettings.swift */,
 				A9914FB92160A13A007DAE4A /* Scrolling.swift */,
 				A9914FC12160D733007DAE4A /* Separator.swift */,
@@ -713,7 +713,7 @@
 				A976980F21615635006CF0EC /* NSStackView.swift in Sources */,
 				A926C31E215F7283006B1388 /* Keycodes.swift in Sources */,
 				A926C314215F5DFB006B1388 /* DrawingUtils.swift in Sources */,
-				A926C34B215FCAD9006B1388 /* ImageEditorViewController.swift in Sources */,
+				A926C34B215FCAD9006B1388 /* EditorView.swift in Sources */,
 				A9BD9F1D2173D39400FC4CB4 /* MaskTool.swift in Sources */,
 				A926C326215FAFBA006B1388 /* Tool.swift in Sources */,
 				A9914FBC2160A3C7007DAE4A /* PanTool.swift in Sources */,

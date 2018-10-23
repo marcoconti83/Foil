@@ -36,7 +36,7 @@ public protocol AbstractBitmapContainer: AnyObject {
     var bitmaps: Set<Bitmap<Reference>> { get set }
     
     /// Select bitmaps by reference
-    func selectBitmapByReference(_ references: Set<Reference>, extendSelection: Bool)
+    func selectBitmapsByReference(_ references: Set<Reference>, extendSelection: Bool)
     
     typealias BitmapSelectionObserver = (Set<Bitmap<Reference>>) -> ()
     
@@ -45,20 +45,31 @@ public protocol AbstractBitmapContainer: AnyObject {
     func addBitmapSelectionObserver(block: @escaping BitmapSelectionObserver) -> Any
 }
 
+extension AbstractBitmapContainer {
+    
+    /// Remove bitmaps by reference
+    public func removeBitmapsByReference(_ references: Set<Reference>) {
+        let filtered = self.bitmaps.filter {
+            $0.reference != nil && !references.contains($0.reference!)
+        }
+        self.bitmaps = filtered
+    }
+}
+
 /// Type erasure on BitmapContainer to bypass PAT restrictions. This is horrible :(
 public class BitmapContainer<Reference: Hashable>: AbstractBitmapContainer {
     
     private let _placeNewBitmaps: ([BitmapDefinition<Reference>])->()
     private let _getBitmaps: ()->Set<Bitmap<Reference>>
     private let _setBitmaps: (Set<Bitmap<Reference>>)->()
-    private let _selectBitmapByReference: (Set<Reference>, Bool)->()
+    private let _selectBitmapsByReference: (Set<Reference>, Bool)->()
     private let _addBitmapSelectionObserver: (@escaping (Set<Bitmap<Reference>>) -> ())->Any
     
     init<T: AbstractBitmapContainer>(_ container: T) where T.Reference == Reference {
         self._placeNewBitmaps = container.placeNewBitmaps
         self._getBitmaps = { container.bitmaps }
         self._setBitmaps = { container.bitmaps = $0 }
-        self._selectBitmapByReference = container.selectBitmapByReference
+        self._selectBitmapsByReference = container.selectBitmapsByReference
         self._addBitmapSelectionObserver = container.addBitmapSelectionObserver
     }
     
@@ -75,8 +86,8 @@ public class BitmapContainer<Reference: Hashable>: AbstractBitmapContainer {
         }
     }
     
-    public func selectBitmapByReference(_ references: Set<Reference>, extendSelection: Bool) {
-        self._selectBitmapByReference(references, extendSelection)
+    public func selectBitmapsByReference(_ references: Set<Reference>, extendSelection: Bool) {
+        self._selectBitmapsByReference(references, extendSelection)
     }
     
     public func addBitmapSelectionObserver(block: @escaping (Set<Bitmap<Reference>>) -> ()) -> Any {

@@ -26,30 +26,48 @@ import Cocoa
 import Cartography
 import ClosureControls
 
-open class ImageEditorViewController: NSViewController {
-
-    public var imageEditView: ImageEditView!
-    private var scroll: ZoomableScrollView!
-    var settings: ImageEditorSettings
+open class EditorView<Reference: Hashable>: NSView {
     
-    public init(settings: ImageEditorSettings) {
+    public var imageEditView: ImageEditView<Reference>
+    
+    // Scroll view
+    private var scroll: ZoomableScrollView!
+    
+    var settings: ImageEditorSettings<Reference>
+    private var frameChangedNotificationsToken: Any!
+    
+    public init(settings: ImageEditorSettings<Reference>, layers: ImageLayers<Reference>? = nil) {
         self.settings = settings
-        super.init(nibName: nil, bundle: nil)
+        if let layers = layers {
+            self.imageEditView = ImageEditView(layers: layers)
+        } else {
+            let size = settings.size ?? settings.backgroundImage?.size ?? NSSize(width: 300, height: 300)
+            self.imageEditView = ImageEditView(frame: size.toRect)
+        }
+        super.init(frame: NSRect.zero)
+        
+        self.populateView()
+        self.postsFrameChangedNotifications = true
+        self.frameChangedNotificationsToken =
+            NotificationCenter.default.addObserver(forName: NSView.frameDidChangeNotification,
+                                                   object: self,
+                                                   queue: nil)
+        { [weak self] _ in
+            self?.scroll.centerAndZoom()
+        }
+        self.scroll.centerAndZoom()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self.frameChangedNotificationsToken)
     }
     
     public required init?(coder: NSCoder) {
         fatalError()
     }
     
-    override open func loadView() {
-        self.view = NSView()
-    }
-    
-    override open func viewDidLoad() {
-        super.viewDidLoad()
+    private func populateView() {
         self.scroll = ZoomableScrollView(frame: NSRect.zero)
-        let size = self.settings.size ?? self.settings.backgroundImage?.size ?? NSSize(width: 300, height: 300)
-        self.imageEditView = ImageEditView(frame: size.toRect)
         self.imageEditView.scrollDelegate = self.scroll
         if let background = self.settings.backgroundImage {
             self.imageEditView.setBackground(background)
@@ -58,45 +76,45 @@ open class ImageEditorViewController: NSViewController {
         
         let buttons = [
             ClosureButton(
-                image: NSImage(name: "cursor.png", fromClassBundle: ImageEditorViewController.self)!,
+                image: NSImage(name: "cursor.png", fromClassBundle: EditorView.self)!,
                 toolTip: "Select") { [weak self] _ in
-                    self?.imageEditView!.tool = .selection
+                    self?.imageEditView.tool = .selection
             },
             ClosureButton(
-                image: NSImage(name: "pencil.png", fromClassBundle: ImageEditorViewController.self)!,
+                image: NSImage(name: "pencil.png", fromClassBundle: EditorView.self)!,
                 toolTip: "Draw lines") { [weak self] _ in
-                    self?.imageEditView!.tool = .line
+                    self?.imageEditView.tool = .line
             },
             ClosureButton(
-                image: NSImage(name: "paintbrush.png", fromClassBundle: ImageEditorViewController.self)!,
+                image: NSImage(name: "paintbrush.png", fromClassBundle: EditorView.self)!,
                 toolTip: "Brush") { [weak self] _ in
-                    self?.imageEditView!.tool = .brush
+                    self?.imageEditView.tool = .brush
             },
             ClosureButton(
-                image: NSImage(name: "pill_delete.png", fromClassBundle: ImageEditorViewController.self)!,
+                image: NSImage(name: "pill_delete.png", fromClassBundle: EditorView.self)!,
                 toolTip: "Eraser") { [weak self] _ in
-                    self?.imageEditView!.tool = .eraser
+                    self?.imageEditView.tool = .eraser
             },
             ClosureButton(
-                image: NSImage(name: "shading.png", fromClassBundle: ImageEditorViewController.self)!,
+                image: NSImage(name: "shading.png", fromClassBundle: EditorView.self)!,
                 toolTip: "Mask") { [weak self] _ in
-                    self?.imageEditView!.tool = .mask
+                    self?.imageEditView.tool = .mask
             },
             self.settings.canAddBitmap ?
             ClosureButton(
-                image: NSImage(name: "image_add.png", fromClassBundle: ImageEditorViewController.self)!,
+                image: NSImage(name: "image_add.png", fromClassBundle: EditorView.self)!,
                 toolTip: "Add bitmap") { [weak self] in
                     self?.selectBitmap($0)
             } : nil,
             NSBox.horizontalLine(),
             ClosureButton(
-                image: NSImage(name: "color_wheel.png", fromClassBundle: ImageEditorViewController.self)!,
+                image: NSImage(name: "color_wheel.png", fromClassBundle: EditorView.self)!,
                 toolTip: "Change color"
                 ) { [weak self] in
                     self?.selectColor($0)
             },
             ClosureButton(
-                image: NSImage(name: "line_size.png", fromClassBundle: ImageEditorViewController.self)!,
+                image: NSImage(name: "line_size.png", fromClassBundle: EditorView.self)!,
                 toolTip: "Change line width"
                 ) { [weak self] in
                     self?.selectLineSize($0)
@@ -115,10 +133,10 @@ open class ImageEditorViewController: NSViewController {
         toolbar.distribution = .gravityAreas
         toolbar.spacing = 1
         
-        self.view.addSubview(self.scroll)
-        self.view.addSubview(toolbar)
+        self.addSubview(self.scroll)
+        self.addSubview(toolbar)
         
-        constrain(self.view, self.scroll, toolbar) { parent, scroll, toolbar in
+        constrain(self, self.scroll, toolbar) { parent, scroll, toolbar in
             toolbar.width == 30
             toolbar.top == parent.top
             toolbar.left == parent.left
@@ -132,10 +150,6 @@ open class ImageEditorViewController: NSViewController {
             scroll.height >= 200
             scroll.width >= 200
         }
-    }
-    
-    open override func viewDidAppear() {
-        self.scroll.centerAndZoom()
     }
     
     private func selectBitmap(_ sender: Any) {
