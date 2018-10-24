@@ -39,7 +39,8 @@ final class BitmapTool<Reference: Hashable>: ToolMixin<Reference>, Tool {
     }
     
     override func didMouseUp(_ point: NSPoint, modifierKeys: NSEvent.ModifierFlags) {
-        let bitmap = self.layers.addBitmap(image, centerPosition: point, scale: 1)
+        let bitmap = Bitmap<Reference>(image: image, centerPosition: point, scale: 1)
+        self.layers.bitmaps.insert(bitmap)
         self.layers.selectedBitmaps = [bitmap]
         if !modifierKeys.contains(NSEvent.ModifierFlags.shift) {
             self.delegate?.selectTool(.selection)

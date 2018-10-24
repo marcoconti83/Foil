@@ -150,11 +150,35 @@ extension ImageLayersTests {
         
         // WHEN
         layers.drawRect(NSRect(x: 10, y: 10, width: 30, height: 30), color: NSColor.white)
-        _ = layers.addBitmap(Utils.testImage("moon.jpg")!, centerPosition: NSPoint(x: 100, y: 100))
+        let bitmap = Bitmap<Int>(image: Utils.testImage("moon.jpg")!, centerPosition: NSPoint(x: 100, y: 100))
+        layers.bitmaps.insert(bitmap)
         
         // THEN
         Utils.compareImage(layers.imageBeingEdited, fixtureName: "200x200-green-rect-moon.png")
         Utils.compareImage(layers.renderedImage, fixtureName: "200x200-green-rect-moon.png")
+    }
+    
+    func testThatItDrawsBitmapsWithLabel() {
+        
+        // GIVEN
+        let layers = ImageLayers<Int>(emptyImageOfSize: NSSize(width: 500, height: 500))
+        layers.backgroundColor = NSColor.green
+        
+        // WHEN
+        layers.drawRect(NSRect(x: 10, y: 10, width: 30, height: 30), color: NSColor.white)
+        let bitmap1 = Bitmap<Int>(image: Utils.testImage("moon.jpg")!,
+                            centerPosition: NSPoint(x: 100, y: 300),
+                            scale: 1,
+                            label: "Test is a very long label!")
+        let bitmap2 = Bitmap<Int>(image: Utils.testImage("original-5pepper.png")!,
+                                 centerPosition: NSPoint(x: 300, y: 300),
+                                 scale: 0.2,
+                                 label: "Also a long label for peppers!")
+        layers.bitmaps = Set([bitmap1, bitmap2])
+        
+        // THEN
+        Utils.compareImage(layers.imageBeingEdited, fixtureName: "1000x1000-green-rect-moon-label.png")
+        Utils.compareImage(layers.renderedImage, fixtureName: "1000x1000-green-rect-moon-label.png")
     }
     
     func testThatItDrawsBitmapsScaled() {
@@ -165,16 +189,16 @@ extension ImageLayersTests {
         
         // WHEN
         layers.drawLine(from: NSPoint(x: 0, y: 0), to: NSPoint(x: 100, y: 100), lineWidth: 5, color: NSColor.green)
-        layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        layers.bitmaps.insert(Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 50, y: 50),
             scale: 0.2
-        )
-        layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        ))
+        layers.bitmaps.insert(Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 25, y: 50),
             scale: 0.2
-        )
+        ))
         
         // THEN
         Utils.compareImage(layers.imageBeingEdited, fixtureName: "200x200-red-moons.png")
@@ -186,16 +210,17 @@ extension ImageLayersTests {
         // GIVEN
         let layers = ImageLayers<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         layers.backgroundColor = NSColor.white
-        layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        layers.bitmaps.insert(Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 50, y: 50),
             scale: 0.2
-        )
-        let b2 = layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        ))
+        let b2 = Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 25, y: 50),
             scale: 0.2
         )
+        layers.bitmaps.insert(b2)
         
         // WHEN
         layers.selectedBitmaps.insert(b2)
@@ -210,16 +235,17 @@ extension ImageLayersTests {
         // GIVEN
         let layers = ImageLayers<Int>(emptyImageOfSize: NSSize(width: 800, height: 800))
         layers.backgroundColor = NSColor.white
-        layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        layers.bitmaps.insert(Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 400, y: 400),
             scale: 0.5
-        )
-        let b2 = layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        ))
+        let b2 = Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 100, y: 400),
             scale: 0.5
         )
+        layers.bitmaps.insert(b2)
         
         // WHEN
         layers.selectedBitmaps.insert(b2)
@@ -234,12 +260,13 @@ extension ImageLayersTests {
         // GIVEN
         let layers = ImageLayers<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         layers.backgroundColor = NSColor.white
-        let b1 = layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        let b1 = Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 50, y: 50),
             scale: 0.2
         )
-        layers.selectedBitmaps = Set([b1])
+        layers.bitmaps.insert(b1)
+        layers.selectedBitmaps.insert(b1)
         
         // WHEN
         layers.replace(originalBitmap: b1, newBitmap: b1.moving(by: NSPoint.zero))

@@ -49,7 +49,10 @@
 		A928A15B2173E7A4000C5BD8 /* 100x100-masked-as-edited.png in Resources */ = {isa = PBXBuildFile; fileRef = A928A1582173E7A4000C5BD8 /* 100x100-masked-as-edited.png */; };
 		A928A15D21746482000C5BD8 /* BitmapContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A928A15C21746482000C5BD8 /* BitmapContainer.swift */; };
 		A928A15F2174656C000C5BD8 /* ImageLayers+Bitmaps.swift in Sources */ = {isa = PBXBuildFile; fileRef = A928A15E2174656C000C5BD8 /* ImageLayers+Bitmaps.swift */; };
-		A928A1612174B6B7000C5BD8 /* ImageLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A928A1602174B6B7000C5BD8 /* ImageLayerTests.swift */; };
+		A928A1612174B6B7000C5BD8 /* BitmapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A928A1602174B6B7000C5BD8 /* BitmapTests.swift */; };
+		A93DC5AF21804827004ECDF1 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93DC5AE21804827004ECDF1 /* String.swift */; };
+		A93DC5B121804C54004ECDF1 /* StringTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93DC5B021804C54004ECDF1 /* StringTests.swift */; };
+		A96132B5217EF1BF00602FA3 /* Bitmap+Rendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = A96132B4217EF1BF00602FA3 /* Bitmap+Rendering.swift */; };
 		A976980121613B88006CF0EC /* BrushTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A976980021613B88006CF0EC /* BrushTool.swift */; };
 		A976980321613CC9006CF0EC /* paintbrush.png in Resources */ = {isa = PBXBuildFile; fileRef = A976980221613CC9006CF0EC /* paintbrush.png */; };
 		A9769805216142B1006CF0EC /* EraserTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9769804216142B1006CF0EC /* EraserTool.swift */; };
@@ -89,6 +92,7 @@
 		A9B7D458215DFDB6002A95CB /* Cartography.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = A9B7D449215DFC7B002A95CB /* Cartography.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A9B7D45C215E0753002A95CB /* 100x100-red-greenline.png in Resources */ = {isa = PBXBuildFile; fileRef = A9B7D45B215E0753002A95CB /* 100x100-red-greenline.png */; };
 		A9BD9F1D2173D39400FC4CB4 /* MaskTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9BD9F1C2173D39400FC4CB4 /* MaskTool.swift */; };
+		A9C5C416217EF7C4009F595F /* 1000x1000-green-rect-moon-label.png in Resources */ = {isa = PBXBuildFile; fileRef = A9C5C415217EF7C4009F595F /* 1000x1000-green-rect-moon-label.png */; };
 		A9CC23FB215EB97B00194228 /* 100x100-green-square.png in Resources */ = {isa = PBXBuildFile; fileRef = A9CC23FA215EB97B00194228 /* 100x100-green-square.png */; };
 		A9CC23FD215EBB2C00194228 /* Bitmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9CC23FC215EBB2C00194228 /* Bitmap.swift */; };
 		A9CC23FF215EC43F00194228 /* moon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A9CC23FE215EC43E00194228 /* moon.jpg */; };
@@ -194,7 +198,10 @@
 		A928A1582173E7A4000C5BD8 /* 100x100-masked-as-edited.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-masked-as-edited.png"; sourceTree = "<group>"; };
 		A928A15C21746482000C5BD8 /* BitmapContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapContainer.swift; sourceTree = "<group>"; };
 		A928A15E2174656C000C5BD8 /* ImageLayers+Bitmaps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageLayers+Bitmaps.swift"; sourceTree = "<group>"; };
-		A928A1602174B6B7000C5BD8 /* ImageLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLayerTests.swift; sourceTree = "<group>"; };
+		A928A1602174B6B7000C5BD8 /* BitmapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitmapTests.swift; sourceTree = "<group>"; };
+		A93DC5AE21804827004ECDF1 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		A93DC5B021804C54004ECDF1 /* StringTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringTests.swift; sourceTree = "<group>"; };
+		A96132B4217EF1BF00602FA3 /* Bitmap+Rendering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bitmap+Rendering.swift"; sourceTree = "<group>"; };
 		A976980021613B88006CF0EC /* BrushTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushTool.swift; sourceTree = "<group>"; };
 		A976980221613CC9006CF0EC /* paintbrush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paintbrush.png; sourceTree = "<group>"; };
 		A9769804216142B1006CF0EC /* EraserTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EraserTool.swift; sourceTree = "<group>"; };
@@ -240,6 +247,7 @@
 		A9B7D451215DFCAB002A95CB /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		A9B7D45B215E0753002A95CB /* 100x100-red-greenline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-red-greenline.png"; sourceTree = "<group>"; };
 		A9BD9F1C2173D39400FC4CB4 /* MaskTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskTool.swift; sourceTree = "<group>"; };
+		A9C5C415217EF7C4009F595F /* 1000x1000-green-rect-moon-label.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "1000x1000-green-rect-moon-label.png"; sourceTree = "<group>"; };
 		A9CC23FA215EB97B00194228 /* 100x100-green-square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-green-square.png"; sourceTree = "<group>"; };
 		A9CC23FC215EBB2C00194228 /* Bitmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bitmap.swift; sourceTree = "<group>"; };
 		A9CC23FE215EC43E00194228 /* moon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = moon.jpg; sourceTree = "<group>"; };
@@ -396,8 +404,9 @@
 				A926C311215F5550006B1388 /* MathTests.swift */,
 				A9B7D434215DFA15002A95CB /* Info.plist */,
 				A9914FBF2160C910007DAE4A /* Mocks.swift */,
-				A928A1602174B6B7000C5BD8 /* ImageLayerTests.swift */,
+				A928A1602174B6B7000C5BD8 /* BitmapTests.swift */,
 				A9F8F762217740AE00A57009 /* SerializationTests.swift */,
+				A93DC5B021804C54004ECDF1 /* StringTests.swift */,
 			);
 			path = FoilTests;
 			sourceTree = "<group>";
@@ -408,6 +417,7 @@
 				A9B7D43C215DFA2F002A95CB /* ImageLayers.swift */,
 				A928A15E2174656C000C5BD8 /* ImageLayers+Bitmaps.swift */,
 				A9CC23FC215EBB2C00194228 /* Bitmap.swift */,
+				A96132B4217EF1BF00602FA3 /* Bitmap+Rendering.swift */,
 				A99BFE832177140600CE0318 /* Serialization.swift */,
 				A926C319215F693E006B1388 /* ImageEditor.swift */,
 				A926C325215FAFBA006B1388 /* Tool.swift */,
@@ -450,6 +460,7 @@
 				A926C32D215FB97B006B1388 /* Box.swift */,
 				A976980C216155EB006CF0EC /* Array.swift */,
 				A976980E21615635006CF0EC /* NSStackView.swift */,
+				A93DC5AE21804827004ECDF1 /* String.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -476,6 +487,7 @@
 		A9B7D44D215DFCAB002A95CB /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
+				A9C5C415217EF7C4009F595F /* 1000x1000-green-rect-moon-label.png */,
 				A928A1562173E7A4000C5BD8 /* 100x100-mask-outline.png */,
 				A928A1582173E7A4000C5BD8 /* 100x100-masked-as-edited.png */,
 				A928A1572173E7A4000C5BD8 /* 100x100-masked.png */,
@@ -681,6 +693,7 @@
 				A9E3E06A2161FB1C0059B0A6 /* 100x100-brush.png in Resources */,
 				A9CC23FB215EB97B00194228 /* 100x100-green-square.png in Resources */,
 				A98BC4682163F31500E16215 /* 100x100-with-line.png in Resources */,
+				A9C5C416217EF7C4009F595F /* 1000x1000-green-rect-moon-label.png in Resources */,
 				A926C316215F5EB6006B1388 /* 200x200-red-moons-selected.png in Resources */,
 				A928A15B2173E7A4000C5BD8 /* 100x100-masked-as-edited.png in Resources */,
 				A928A15A2173E7A4000C5BD8 /* 100x100-masked.png in Resources */,
@@ -718,6 +731,7 @@
 				A926C326215FAFBA006B1388 /* Tool.swift in Sources */,
 				A9914FBC2160A3C7007DAE4A /* PanTool.swift in Sources */,
 				A9914FBA2160A13A007DAE4A /* Scrolling.swift in Sources */,
+				A93DC5AF21804827004ECDF1 /* String.swift in Sources */,
 				A9B7D446215DFA2F002A95CB /* ImageEditView.swift in Sources */,
 				A9914FC22160D733007DAE4A /* Separator.swift in Sources */,
 				A9B7D443215DFA2F002A95CB /* ImageLayers.swift in Sources */,
@@ -729,6 +743,7 @@
 				A926C31A215F693E006B1388 /* ImageEditor.swift in Sources */,
 				A926C32E215FB97B006B1388 /* Box.swift in Sources */,
 				A9769805216142B1006CF0EC /* EraserTool.swift in Sources */,
+				A96132B5217EF1BF00602FA3 /* Bitmap+Rendering.swift in Sources */,
 				A9914FC6216102A9007DAE4A /* ColorSelectionViewController.swift in Sources */,
 				A976980D216155EB006CF0EC /* Array.swift in Sources */,
 				A98C3814216CB573007A7911 /* NSRect.swift in Sources */,
@@ -745,10 +760,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				A926C332215FBD6A006B1388 /* BitmapToolTests.swift in Sources */,
+				A93DC5B121804C54004ECDF1 /* StringTests.swift in Sources */,
 				A926C312215F5550006B1388 /* MathTests.swift in Sources */,
 				A9E59EFA216D3A3000C573D9 /* NSRectTests.swift in Sources */,
 				A9E3E06C2161FB410059B0A6 /* EraserToolTests.swift in Sources */,
-				A928A1612174B6B7000C5BD8 /* ImageLayerTests.swift in Sources */,
+				A928A1612174B6B7000C5BD8 /* BitmapTests.swift in Sources */,
 				A9B7D433215DFA15002A95CB /* ImageLayersTests.swift in Sources */,
 				A926C32C215FB71A006B1388 /* SelectionToolTests.swift in Sources */,
 				A926C32A215FB70C006B1388 /* LineToolTests.swift in Sources */,

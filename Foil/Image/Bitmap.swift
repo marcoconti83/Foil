@@ -23,12 +23,14 @@
     
 
 import Foundation
+import Cocoa
 
 public class Bitmap<Reference: Hashable>: Equatable, Hashable, CustomDebugStringConvertible {
     
     public let image: NSImage
     public let centerPosition: NSPoint
     public let scale: CGFloat
+    public let label: String?
     
     /// A custom data reference
     public let reference: Reference?
@@ -39,16 +41,19 @@ public class Bitmap<Reference: Hashable>: Equatable, Hashable, CustomDebugString
     let halfSize: NSSize
     let drawingRect: NSRect
     let corners: [Corner]
+    let labelImage: ImagePosition?
     // --- end of cache
     
     public init(
         image: NSImage,
         centerPosition: NSPoint = NSPoint(x: 0, y: 0),
         scale: CGFloat = 1,
+        label: String? = nil,
         reference: Reference? = nil)
     {
         self.scale = scale
         self.image = image
+        self.label = label
         self.centerPosition = centerPosition
         self.originalSize = image.size
         self.size = self.originalSize * scale
@@ -61,6 +66,11 @@ public class Bitmap<Reference: Hashable>: Equatable, Hashable, CustomDebugString
             height: self.size.height
         )
         self.corners = self.drawingRect.corners
+        if let label = label {
+            self.labelImage = drawLabel(label: label, bitmapDrawingRect: self.drawingRect)
+        } else {
+            self.labelImage = nil
+        }
     }
     
     public func hash(into hasher: inout Hasher) {
@@ -77,6 +87,7 @@ public class Bitmap<Reference: Hashable>: Equatable, Hashable, CustomDebugString
             image: self.image,
             centerPosition: self.centerPosition + offset,
             scale: self.scale,
+            label: self.label,
             reference: self.reference)
     }
     
@@ -86,6 +97,7 @@ public class Bitmap<Reference: Hashable>: Equatable, Hashable, CustomDebugString
             image: self.image,
             centerPosition: self.centerPosition,
             scale: self.scale * factor,
+            label: self.label,
             reference: self.reference)
     }
     
@@ -109,4 +121,43 @@ extension ImageLayers {
             self.selectedBitmaps.insert(newBitmap)
         }
     }
+}
+
+private let paragraphStyle: NSParagraphStyle = {
+    let p = NSMutableParagraphStyle()
+    p.alignment = .center
+    return p
+}()
+
+private let stringDrawAttributes = [
+    NSAttributedString.Key.foregroundColor: NSColor.black,
+    NSAttributedString.Key.backgroundColor: NSColor.white,
+    NSAttributedString.Key.font: NSFont.boldSystemFont(ofSize: 20),
+    NSAttributedString.Key.paragraphStyle: paragraphStyle
+]
+
+private func drawLabel(label: String, bitmapDrawingRect: NSRect) -> ImagePosition {
+    let string = label.multilineWithMaxCharactersPerLine(characters: 10) as NSString
+    let size = string.size(withAttributes: stringDrawAttributes)
+    let image = NSImage(size: NSSize(width: ceil(size.width), height: ceil(size.height)))
+    image.lockingFocus {
+        string.draw(at: NSPoint.zero, withAttributes: stringDrawAttributes)
+    }
+    
+    let scale = bitmapDrawingRect.size.width / 100
+    let finalSize = image.size * scale
+    let origin = NSPoint(
+        x: bitmapDrawingRect.center.x - finalSize.width / 2,
+        y: bitmapDrawingRect.origin.y - finalSize.height
+    )
+    let belowBitmap = NSRect(origin: origin, size: finalSize)
+    
+    return ImagePosition(image: image, rectangle: belowBitmap)
+}
+
+
+struct ImagePosition {
+    
+    let image: NSImage
+    let rectangle: NSRect
 }

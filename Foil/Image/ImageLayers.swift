@@ -142,12 +142,10 @@ extension ImageLayers {
                 self.drawTemporaryLine()
                 self.drawTemporaryBrush()
             }
-            self.bitmaps.forEach {
-                $0.image.draw(in: $0.drawingRect)
-                if drawForEditing {
-                    if self.selectedBitmaps.contains($0) {
-                        $0.drawSelectionOverlay(lineWidth: self.selectionLineWidth)
-                    }
+            self.bitmaps.forEach { bmp in
+                bmp.draw()
+                if drawForEditing && self.selectedBitmaps.contains(bmp) {
+                    bmp.drawSelectionOverlay(lineWidth: self.selectionLineWidth)
                 }
             }
             self.maskLayer.draw(
@@ -313,51 +311,6 @@ extension ImageLayers {
             restoringGraphicState {
                 NSGraphicsContext.current!.compositingOperation = masked ? .sourceOver : .clear
                 self.maskLayer.size.toRect.fill()
-            }
-        }
-    }
-    
-    @discardableResult public func addBitmap(
-        _ image: NSImage,
-        centerPosition: NSPoint,
-        scale: CGFloat = 1
-        ) -> Bitmap<Reference>
-    {
-        let bitmap = Bitmap<Reference>(image: image, centerPosition: centerPosition, scale: scale)
-        self.bitmaps.insert(bitmap)
-        return bitmap
-    }
-
-}
-
-extension Bitmap {
-    
-    fileprivate func drawSelectionOverlay(lineWidth: CGFloat) {
-        let borderCountourSize = Swift.max(lineWidth / 2, 0.5)
-        let totalBorderSize = borderCountourSize * 2 + lineWidth
-        let drawRect = self.drawingRect.expand(by: totalBorderSize / 2)
-        restoringGraphicState {
-            // main border
-            NSColor.red.setStroke()
-            NSBezierPath.defaultLineWidth = lineWidth
-            NSBezierPath.stroke(drawRect)
-            
-            // border outer contour
-            NSBezierPath.defaultLineWidth = borderCountourSize
-            NSColor.white.setStroke()
-            NSBezierPath.stroke(drawRect.expand(by: borderCountourSize * 1.5))
-            
-            // border inner contour
-            NSBezierPath.stroke(drawRect.expand(by: -borderCountourSize * 1.5))
-            
-            // draw handles
-            NSColor.red.setStroke()
-            NSColor.red.setFill()
-            NSBezierPath.defaultLineWidth = lineWidth
-            self.corners.forEach {
-                let rect = $0.point.asCenterForSquare(size: FoilValues.handleSize)
-                NSBezierPath.fill(rect)
-                NSBezierPath.stroke(rect)
             }
         }
     }

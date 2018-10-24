@@ -34,6 +34,7 @@ private class BitmapSerializableWrapper<T: Hashable & Codable>: Codable {
         case centerPosition
         case scale
         case reference
+        case label
     }
     
     let bitmap: Bitmap<T>
@@ -48,7 +49,13 @@ private class BitmapSerializableWrapper<T: Hashable & Codable>: Codable {
         let centerPosition = try container.decode(NSPoint.self, forKey: CodingKeys.centerPosition)
         let scale = try container.decode(CGFloat.self, forKey: CodingKeys.scale)
         let reference = try container.decodeIfPresent(T.self, forKey: CodingKeys.reference)
-        self.bitmap = Bitmap(image: image, centerPosition: centerPosition, scale: scale, reference: reference)
+        let label = try container.decodeIfPresent(String.self, forKey: CodingKeys.label)
+        self.bitmap = Bitmap(
+            image: image,
+            centerPosition: centerPosition,
+            scale: scale,
+            label: label,
+            reference: reference)
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -56,7 +63,8 @@ private class BitmapSerializableWrapper<T: Hashable & Codable>: Codable {
         try container.encode(self.bitmap.image, forKey: CodingKeys.image)
         try container.encode(self.bitmap.scale, forKey: CodingKeys.scale)
         try container.encode(self.bitmap.centerPosition, forKey: CodingKeys.centerPosition)
-        try container.encode(self.bitmap.reference, forKey: CodingKeys.reference)
+        try container.encodeIfPresent(self.bitmap.reference, forKey: CodingKeys.reference)
+        try container.encodeIfPresent(self.bitmap.label, forKey: CodingKeys.label)
     }
 }
 

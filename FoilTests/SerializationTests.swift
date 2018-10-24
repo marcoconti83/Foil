@@ -36,6 +36,7 @@ class SerializationTests: XCTestCase {
             image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 400, y: 234),
             scale: 0.45,
+            label: "Jonny",
             reference: "Foobar")
         layers.bitmaps = Set([bitmap])
         layers.drawLine(
@@ -70,5 +71,6 @@ extension Bitmap {
             && bitmap.scale == self.scale
             && (try! bitmap.image.pngData()) == (try! self.image.pngData())
             && bitmap.reference == self.reference
+            && bitmap.label == self.label
     }
 }

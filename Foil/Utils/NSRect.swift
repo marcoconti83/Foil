@@ -78,6 +78,11 @@ extension NSRect {
     }
 }
 
+/// Translate origin
+public func+(lhs: NSRect, rhs: NSPoint) -> NSRect {
+    return NSRect(origin: lhs.origin + rhs, size: lhs.size)
+}
+
 extension NSPoint {
     
     /// Creates a square of the given size centered on this point

@@ -198,10 +198,16 @@ public struct BitmapDefinition<Reference: Hashable> {
     let reference: Reference?
     let image: NSImage
     let scale: CGFloat
+    let label: String?
     
-    public init(image: NSImage, scale: CGFloat, reference: Reference? = nil) {
+    public init(
+        image: NSImage,
+        scale: CGFloat,
+        label: String? = nil,
+        reference: Reference? = nil) {
         self.image = image
         self.reference = reference
         self.scale = scale
+        self.label = label
     }
 }

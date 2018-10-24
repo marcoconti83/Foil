@@ -38,6 +38,7 @@ extension ImageLayers: AbstractBitmapContainer {
                 image: definition.image,
                 centerPosition: NSPoint.zero,
                 scale: definition.scale,
+                label: definition.label,
                 reference: definition.reference)
         }
         var x: CGFloat = 0
@@ -80,7 +81,7 @@ extension ImageLayers: AbstractBitmapContainer {
         
         // add bitmaps
         rows.flatMap { $0 }.forEach {
-            self.addBitmap($0.image, centerPosition: $0.centerPosition, scale: $0.scale)
+            self.bitmaps.insert($0)
         }
     }
     

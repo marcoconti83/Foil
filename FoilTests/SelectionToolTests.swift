@@ -32,16 +32,17 @@ class SelectionToolTests: XCTestCase {
         // GIVEN
         let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .selection
-        let b1 = editor.layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        let b1 = Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 50, y: 50),
             scale: 0.2
         )
-        editor.layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        editor.layers.bitmaps.insert(b1)
+        editor.layers.bitmaps.insert(Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 25, y: 50),
             scale: 0.2
-        )
+        ))
         
         // WHEN
         editor.tool.didMouseDown(NSPoint(x: 55, y: 55), modifierKeys: [])
@@ -57,16 +58,17 @@ class SelectionToolTests: XCTestCase {
         // GIVEN
         let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .selection
-        let b1 = editor.layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        let b1 = Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 50, y: 50),
             scale: 0.2
         )
-        editor.layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        editor.layers.bitmaps.insert(b1)
+        editor.layers.bitmaps.insert(Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 25, y: 50),
             scale: 0.2
-        )
+        ))
         editor.layers.selectedBitmaps = Set([b1])
         
         // WHEN
@@ -82,16 +84,18 @@ class SelectionToolTests: XCTestCase {
         // GIVEN
         let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .selection
-        let b1 = editor.layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        let b1 = Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 50, y: 50),
             scale: 0.2
         )
-        let b2 = editor.layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        editor.layers.bitmaps.insert(b1)
+        let b2 = Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 25, y: 50),
             scale: 0.2
         )
+        editor.layers.bitmaps.insert(b2)
         editor.layers.selectedBitmaps = Set([b1])
         
         // WHEN
@@ -107,16 +111,18 @@ class SelectionToolTests: XCTestCase {
         // GIVEN
         let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .selection
-        let b1 = editor.layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        let b1 = Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 50, y: 50),
             scale: 0.2
         )
-        let b2 = editor.layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        editor.layers.bitmaps.insert(b1)
+        let b2 = Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 25, y: 50),
             scale: 0.2
         )
+        editor.layers.bitmaps.insert(b2)
         editor.layers.selectedBitmaps = Set([b1, b2])
         
         // WHEN
@@ -132,17 +138,18 @@ class SelectionToolTests: XCTestCase {
         // GIVEN
         let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .selection
-        let b1 = editor.layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        let b1 = Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 50, y: 50),
             scale: 0.2
         )
+        editor.layers.bitmaps.insert(b1)
         let b2point = NSPoint(x: 25, y: 50)
-        _ = editor.layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        editor.layers.bitmaps.insert(Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: b2point,
             scale: 0.2
-        )
+        ))
         editor.layers.selectedBitmaps = Set([b1])
         let clickOffset = NSPoint(x: 5, y: 5)
         editor.tool.didMouseDown(NSPoint(x: 50, y: 50) + clickOffset, modifierKeys: [])
@@ -165,16 +172,17 @@ class SelectionToolTests: XCTestCase {
         // GIVEN
         let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .selection
-        let b1 = editor.layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        let b1 = Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 50, y: 50),
             scale: 0.2
         )
-        let b2 = editor.layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        let b2 = Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 25, y: 50),
             scale: 0.2
         )
+        editor.layers.bitmaps = Set([b1, b2])
         editor.layers.selectedBitmaps = Set([b1])
         
         // WHEN
@@ -191,11 +199,12 @@ class SelectionToolTests: XCTestCase {
         // GIVEN
         let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .selection
-        let b1 = editor.layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        let b1 = Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 50, y: 50),
             scale: 0.2
         )
+        editor.layers.bitmaps.insert(b1)
         editor.layers.selectedBitmaps = Set([b1])
         
         // WHEN
@@ -211,11 +220,12 @@ class SelectionToolTests: XCTestCase {
         // GIVEN
         let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .selection
-        let b1 = editor.layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        let b1 = Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 50, y: 50),
             scale: 0.2
         )
+        editor.layers.bitmaps = Set([b1])
         editor.layers.selectedBitmaps = Set([b1])
         
         // WHEN
@@ -232,16 +242,17 @@ class SelectionToolTests: XCTestCase {
         // GIVEN
         let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
         editor.toolType = .selection
-        let b1 = editor.layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        let b1 = Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 50, y: 50),
             scale: 0.2
         )
-        let b2 = editor.layers.addBitmap(
-            Utils.testImage("moon.jpg")!,
+        let b2 = Bitmap<Int>(
+            image: Utils.testImage("moon.jpg")!,
             centerPosition: NSPoint(x: 25, y: 50),
             scale: 0.2
         )
+        editor.layers.bitmaps = Set([b1, b2])
         editor.layers.selectedBitmaps = Set([])
         
         // WHEN
@@ -263,11 +274,12 @@ extension SelectionToolTests {
         let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: img.size.width * 2, height: img.size.height * 2))
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
-        let b1 = editor.layers.addBitmap(
-            img,
+        let b1 = Bitmap<Int>(
+            image: img,
             centerPosition: canvasCenter + imageCenter, // top right quadrant
             scale: 1
         )
+        editor.layers.bitmaps.insert(b1)
         
         // WHEN
         let corner = b1.corner(.bottomLeft)
@@ -293,11 +305,12 @@ extension SelectionToolTests {
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
         let imageCenter = img.size.toPoint / 2
-        let b1 = editor.layers.addBitmap(
-            img,
+        let b1 = Bitmap<Int>(
+            image: img,
             centerPosition: canvasCenter.yProjection + imageCenter, // top left quadrant
             scale: 1
         )
+        editor.layers.bitmaps.insert(b1)
         
         // WHEN
         let corner = b1.corner(.bottomRight)
@@ -323,11 +336,12 @@ extension SelectionToolTests {
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
         let imageCenter = img.size.toPoint / 2
-        let b1 = editor.layers.addBitmap(
-            img,
+        let b1 = Bitmap<Int>(
+            image: img,
             centerPosition: canvasCenter.xProjection + imageCenter, // bottom right quadrant
             scale: 1
         )
+        editor.layers.bitmaps.insert(b1)
         
         // WHEN
         let corner = b1.corner(.topLeft)
@@ -352,11 +366,12 @@ extension SelectionToolTests {
         let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: img.size.width * 2, height: img.size.height * 2))
         editor.toolType = .selection
         let imageCenter = img.size.toPoint / 2
-        let b1 = editor.layers.addBitmap(
-            img,
+        let b1 = Bitmap<Int>(
+            image: img,
             centerPosition: imageCenter, // bottom left quadrant
             scale: 1
         )
+        editor.layers.bitmaps.insert(b1)
         
         // WHEN
         let corner = b1.corner(.topRight)
@@ -381,11 +396,12 @@ extension SelectionToolTests {
         let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: img.size.width * 4, height: img.size.height * 4))
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
-        let b1 = editor.layers.addBitmap(
-            img,
+        let b1 = Bitmap<Int>(
+            image: img,
             centerPosition: (img.size / 2).toPoint,
             scale: 1
         )
+        editor.layers.bitmaps.insert(b1)
         
         // WHEN
         let corner = b1.corner(.topRight)
@@ -410,11 +426,12 @@ extension SelectionToolTests {
         let editor = ImageEditor<Int>(emptyImageOfSize: NSSize(width: img.size.width * 4, height: img.size.height * 4))
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
-        let b1 = editor.layers.addBitmap(
-            img,
+        let b1 = Bitmap<Int>(
+            image: img,
             centerPosition: (img.size / 2).toPoint,
             scale: 1
         )
+        editor.layers.bitmaps.insert(b1)
         editor.layers.selectedBitmaps = Set([b1])
         
         // WHEN
@@ -434,11 +451,12 @@ extension SelectionToolTests {
         let editor = ImageEditor<Int>(emptyImageOfSize: img.size)
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
-        let b1 = editor.layers.addBitmap(
-            img,
+        let b1 = Bitmap<Int>(
+            image: img,
             centerPosition: canvasCenter,
             scale: 1
         )
+        editor.layers.bitmaps.insert(b1)
         
         // WHEN
         let corner = b1.corner(.bottomLeft)
@@ -463,11 +481,12 @@ extension SelectionToolTests {
         let editor = ImageEditor<Int>(emptyImageOfSize: img.size)
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
-        let b1 = editor.layers.addBitmap(
-            img,
+        let b1 = Bitmap<Int>(
+            image: img,
             centerPosition: canvasCenter,
             scale: 1
         )
+        editor.layers.bitmaps.insert(b1)
         
         // WHEN
         let corner = b1.corner(.bottomRight)
@@ -492,11 +511,12 @@ extension SelectionToolTests {
         let editor = ImageEditor<Int>(emptyImageOfSize: img.size)
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
-        let b1 = editor.layers.addBitmap(
-            img,
+        let b1 = Bitmap<Int>(
+            image: img,
             centerPosition: canvasCenter,
             scale: 1
         )
+        editor.layers.bitmaps.insert(b1)
         
         // WHEN
         let corner = b1.corner(.topLeft)
@@ -521,11 +541,12 @@ extension SelectionToolTests {
         let editor = ImageEditor<Int>(emptyImageOfSize: img.size)
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
-        let b1 = editor.layers.addBitmap(
-            img,
+        let b1 = Bitmap<Int>(
+            image: img,
             centerPosition: canvasCenter,
             scale: 1
         )
+        editor.layers.bitmaps.insert(b1)
         
         // WHEN
         let corner = b1.corner(.topRight)
@@ -550,11 +571,12 @@ extension SelectionToolTests {
         let editor = ImageEditor<Int>(emptyImageOfSize: img.size)
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
-        let b1 = editor.layers.addBitmap(
-            img,
+        let b1 = Bitmap<Int>(
+            image: img,
             centerPosition: canvasCenter,
             scale: 1
         )
+        editor.layers.bitmaps.insert(b1)
         
         // WHEN
         let corner = b1.corner(.topRight)
@@ -580,11 +602,12 @@ extension SelectionToolTests {
         let editor = ImageEditor<Int>(emptyImageOfSize: img.size)
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
-        let b1 = editor.layers.addBitmap(
-            img,
+        let b1 = Bitmap<Int>(
+            image: img,
             centerPosition: canvasCenter,
             scale: 1
         )
+        editor.layers.bitmaps.insert(b1)
         
         // WHEN
         let corner = b1.corner(.topLeft)
@@ -610,11 +633,12 @@ extension SelectionToolTests {
         let editor = ImageEditor<Int>(emptyImageOfSize: img.size)
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
-        let b1 = editor.layers.addBitmap(
-            img,
+        let b1 = Bitmap<Int>(
+            image: img,
             centerPosition: canvasCenter,
             scale: 1
         )
+        editor.layers.bitmaps.insert(b1)
         
         // WHEN
         let corner = b1.corner(.bottomLeft)
@@ -640,11 +664,12 @@ extension SelectionToolTests {
         let editor = ImageEditor<Int>(emptyImageOfSize: img.size)
         editor.toolType = .selection
         let canvasCenter = editor.size.toPoint / 2
-        let b1 = editor.layers.addBitmap(
-            img,
+        let b1 = Bitmap<Int>(
+            image: img,
             centerPosition: canvasCenter,
             scale: 1
         )
+        editor.layers.bitmaps.insert(b1)
         
         // WHEN
         let corner = b1.corner(.bottomRight)

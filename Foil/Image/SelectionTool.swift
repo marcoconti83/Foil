@@ -146,6 +146,7 @@ class ScaleBitmapOperation<Reference: Hashable>: ToolMixin<Reference> {
         let newBitmap = Bitmap(image: self.bitmap.image,
                                centerPosition: newRect.center,
                                scale: newScale,
+                               label: self.bitmap.label,
                                reference: self.bitmap.reference)
         self.layers.replace(originalBitmap: self.bitmap, newBitmap: newBitmap)
         self.bitmap = newBitmap

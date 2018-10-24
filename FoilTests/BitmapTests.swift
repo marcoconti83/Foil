@@ -26,7 +26,7 @@ import Foundation
 import XCTest
 @testable import Foil
 
-class ImageLayerTests: XCTestCase {
+class BitmapTests: XCTestCase {
     
     func testThatItNotifiesOfBitmapSelection() {
         
@@ -34,11 +34,12 @@ class ImageLayerTests: XCTestCase {
         let img = Utils.testImage("moon.jpg")!
         let editor = ImageLayers<Int>(emptyImageOfSize: img.size)
         let canvasCenter = editor.renderedImage.size.toPoint / 2
-        let b1 = editor.addBitmap(
-            img,
+        let b1 = Bitmap<Int>(
+            image: img,
             centerPosition: canvasCenter,
             scale: 1
         )
+        editor.bitmaps.insert(b1)
         var recordedNotifications = [Set<Bitmap<Int>>]()
         let observerToken = editor.addBitmapSelectionObserver() { selection in
             recordedNotifications.append(selection)
@@ -117,8 +118,8 @@ class ImageLayerTests: XCTestCase {
         let img = Utils.testImage("moon.jpg")!
         let editor = ImageLayers<UUID>(emptyImageOfSize: NSSize(width: 500, height: 500))
         
-        let definitions = (0..<5).map { _ in
-            BitmapDefinition<UUID>(image: img, scale: 1)
+        let definitions = (0..<5).map { i in
+            BitmapDefinition<UUID>(image: img, scale: 1, label: "Bitmap \(i + 1)")
         }
         
         // WHEN
