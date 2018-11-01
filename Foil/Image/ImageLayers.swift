@@ -38,14 +38,14 @@ public class ImageLayers<Reference: Hashable> {
     /// An image to be used as background
     public var backgroundImage: NSImage {
         didSet {
-            self.redrawIfNeeded()
+            self.redrawIfNeeded(rects: [self.rasterLayer.size.toRect])
         }
     }
     
     /// Background color drawn below the rest
     public var backgroundColor: NSColor = NSColor.white {
         didSet {
-            self.redrawIfNeeded()
+            self.redrawIfNeeded(rects: [self.rasterLayer.size.toRect])
         }
     }
     
@@ -62,7 +62,7 @@ public class ImageLayers<Reference: Hashable> {
     /// Bitmaps that are currently selected
     internal(set) public var selectedBitmaps = Set<Bitmap<Reference>>() {
         didSet {
-            self.redrawIfNeeded()
+            self.redrawIfNeeded(rect: self.rasterLayer.size.toRect)
             if self.selectedBitmaps != oldValue {
                 self.notifySelectionChange()
             }
@@ -73,12 +73,14 @@ public class ImageLayers<Reference: Hashable> {
     /// This is a temporary line until it gets confirmed
     var lineBeingDrawn: Line? = nil {
         didSet {
+            // TODO: old line, new line
             self.redrawIfNeeded()
         }
     }
     
     var brushPreview: (point: NSPoint, width: CGFloat)? = nil {
         didSet {
+            // TODO: old selected, new selected
             self.redrawIfNeeded()
         }
     }
@@ -90,7 +92,7 @@ public class ImageLayers<Reference: Hashable> {
     let maskLayer: NSImage
     
     public convenience init(emptyImageOfSize size: NSSize) {
-        let backgroundImage = NSImage(size: size)
+        let backgroundImage = NSImage(emptyClearImageWithSize: size)
         self.init(backgroundImage: backgroundImage)
     }
     
@@ -100,23 +102,23 @@ public class ImageLayers<Reference: Hashable> {
          maskLayer: NSImage,
          bitmaps: Set<Bitmap<Reference>>)
     {
-        self.imageBeingEdited = NSImage(size: backgroundImage.size)
+        self.imageBeingEdited = NSImage(emptyClearImageWithSize: backgroundImage.size)
         self.rasterLayer = rasterLayer
         self.maskLayer = maskLayer
         self.backgroundColor = backgroundColor
         self.backgroundImage = backgroundImage
         self.selectionLineWidth = max(1, backgroundImage.size.max / 200)
         self.bitmaps = bitmaps
-        self.redraw()
+        self.redraw(rect: [self.rasterLayer.size.toRect])
     }
     
     public init(backgroundImage: NSImage) {
-        self.imageBeingEdited = NSImage(size: backgroundImage.size)
-        self.rasterLayer = NSImage(size: backgroundImage.size)
+        self.imageBeingEdited = NSImage(emptyClearImageWithSize: backgroundImage.size)
+        self.rasterLayer = NSImage(emptyClearImageWithSize: backgroundImage.size)
         self.backgroundImage = backgroundImage
-        self.maskLayer = NSImage(size: backgroundImage.size)
+        self.maskLayer = NSImage(emptyClearImageWithSize: backgroundImage.size)
         self.selectionLineWidth = max(1, backgroundImage.size.max / 200)
-        self.redraw()
+        self.redraw(rect: [self.rasterLayer.size.toRect])
     }
     
 }
@@ -124,33 +126,31 @@ public class ImageLayers<Reference: Hashable> {
 // MARK: - Redraw
 extension ImageLayers {
     
-    private func redraw(rect: NSRect? = nil) {
-        self.render(target: self.imageBeingEdited, rect: rect, drawForEditing: true)
+    private func redraw(rects: [NSRect]) {
+        rects.forEach { rect in
+            self.render(target: self.imageBeingEdited, rect: rect, drawForEditing: true)
+        }
         self.redrawDelegate?()
     }
     
-    private func render(target: NSImage, rect: NSRect?, drawForEditing: Bool) {
-        let rect = rect ?? NSRect(
-            x: 0, y: 0,
-            width: target.size.width,
-            height: target.size.height)
+    private func render(target: NSImage, rect: NSRect, drawForEditing: Bool) {
         target.lockingFocus {
             self.backgroundColor.drawSwatch(in: rect)
-            self.backgroundImage.draw(in: rect)
-            self.rasterLayer.draw(in: rect)
+            self.backgroundImage.draw(in: rect, from: rect, operation: .sourceOver, fraction: 1)
+            self.rasterLayer.draw(in: rect, from: rect, operation: .sourceOver, fraction: 1)
             if drawForEditing {
-                self.drawTemporaryLine()
-                self.drawTemporaryBrush()
+                self.drawTemporaryLine() // TODO
+                self.drawTemporaryBrush() // TODO
             }
             self.bitmaps.forEach { bmp in
-                bmp.draw()
+                bmp.draw() // TODO only if in rect
                 if drawForEditing && self.selectedBitmaps.contains(bmp) {
                     bmp.drawSelectionOverlay(lineWidth: self.selectionLineWidth)
                 }
             }
             self.maskLayer.draw(
                 in: rect,
-                from: self.maskLayer.size.toRect,
+                from: self.maskLayer.size.toRect, // TODO only matching rect
                 operation: NSCompositingOperation.sourceAtop,
                 fraction: drawForEditing ? 0.5 : 1.0
             )
@@ -159,7 +159,7 @@ extension ImageLayers {
     
     var renderedImage: NSImage {
         let image = NSImage(size: self.imageBeingEdited.size)
-        self.render(target: image, rect: nil, drawForEditing: false)
+        self.render(target: image, rect: self.imageBeingEdited.size.toRect, drawForEditing: false)
         return image
     }
     
@@ -187,9 +187,11 @@ extension ImageLayers {
         }
     }
     
-    private func redrawIfNeeded() {
+    private func redrawIfNeeded(rects: [NSRect]) {
         if self.shouldRedraw {
-            redraw()
+            redraw(rects: rects)
+        } else {
+            // TODO: remember which rects to draw for later
         }
     }
     
@@ -220,7 +222,7 @@ extension ImageLayers {
                 path.stroke()
             }
         }
-        self.redraw()
+        self.redraw(rects: [NSRect(includingLineFromPoint: p1, toPoint: p2, width: lineWidth)])
     }
     
     public func drawLineMask(from p1: NSPoint, to p2: NSPoint, lineWidth: CGFloat, masked: Bool) {
@@ -237,7 +239,7 @@ extension ImageLayers {
                 path.stroke()
             }
         }
-        self.redraw()
+        self.redraw(rects: [NSRect(includingLineFromPoint: p1, toPoint: p2, width: lineWidth)])
     }
     
     public func drawFullCircle(point: NSPoint, width: CGFloat, color: NSColor) {
@@ -249,7 +251,7 @@ extension ImageLayers {
                 path.fill()
             }
         }
-        self.redraw()
+        self.redraw(rects: [NSRect(squareCenteredOnPoint: point, width: width)])
     }
     
     public func drawFullCircleMask(point: NSPoint, width: CGFloat, masked: Bool) {
@@ -262,7 +264,7 @@ extension ImageLayers {
                 path.fill()
             }
         }
-        self.redraw()
+        self.redraw(rects: [NSRect(squareCenteredOnPoint: point, width: width)])
     }
     
     public func deleteRaster(point: NSPoint, width: CGFloat) {
@@ -275,7 +277,7 @@ extension ImageLayers {
                 path.fill()
             }
         }
-        self.redraw()
+        self.redraw(rects: [NSRect(squareCenteredOnPoint: point, width: width)])
     }
     
     public func deleteRasterLine(from p1: NSPoint, to p2: NSPoint, width: CGFloat) {
@@ -292,7 +294,7 @@ extension ImageLayers {
                 path.stroke()
             }
         }
-        self.redraw()
+        self.redraw(rects: [NSRect(includingLineFromPoint: p1, toPoint: p2, width: lineWidth)])
     }
         
     public func drawRect(_ rect: NSRect, color: NSColor) {
@@ -303,7 +305,7 @@ extension ImageLayers {
                 path.fill()
             }
         }
-        self.redraw()
+        self.redraw(rects: [rect])
     }
     
     public func fillMask(masked: Bool) {
@@ -353,4 +355,24 @@ public struct Line: Equatable {
 public struct FoilValues {
     static let handleSize: CGFloat = 4.0
     private init() {}
+}
+
+extension NSRect {
+    
+    init(squareCenteredOnPoint center: NSPoint, width: CGFloat) {
+        let offset = NSPoint(x: width, y: width)
+        self.init(corner: center - offset, oppositeCorner: center + offset)
+    }
+    
+    init(includingLineFromPoint p1: NSPoint, toPoint p2: NSPoint, width: CGFloat) {
+        let r1 = NSRect(squareCenteredOnPoint: p1, width: width)
+        let r2 = NSRect(squareCenteredOnPoint: p2, width: width)
+        
+        let maxX = max(r1.maxX, r2.maxX)
+        let minX = min(r1.minX, r2.minX)
+        let maxY = max(r1.maxY, r2.minY)
+        let minY = min(r1.minY, r2.minY)
+        
+        self.init(corner: NSPoint(x: minX, y: minY), oppositeCorner: NSPoint(x: maxX, y: maxY))
+    }
 }
