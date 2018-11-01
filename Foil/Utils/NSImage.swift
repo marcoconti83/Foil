@@ -28,13 +28,17 @@ extension NSImage {
     
     /// Returns a JPEG reprentation of self
     public func jpgData() throws -> Data {
-        guard let tiffRepresentation = tiffRepresentation, let bitmapImage = NSBitmapImageRep(data: tiffRepresentation) else { throw ImageConversionError() }
-        return bitmapImage.representation(using: .jpeg, properties: [:])!
+        let cgref = self.cgImage(forProposedRect: nil, context: nil, hints: nil)!
+        let rep = NSBitmapImageRep(cgImage: cgref)
+        rep.size = self.size
+        return rep.representation(using: NSBitmapImageRep.FileType.jpeg, properties: [:])!
     }
     
     public func pngData() throws -> Data {
-        guard let tiffRepresentation = tiffRepresentation, let bitmapImage = NSBitmapImageRep(data: tiffRepresentation) else { throw ImageConversionError() }
-        return bitmapImage.representation(using: .png, properties: [:])!
+        let cgref = self.cgImage(forProposedRect: nil, context: nil, hints: nil)!
+        let rep = NSBitmapImageRep(cgImage: cgref)
+        rep.size = self.size
+        return rep.representation(using: NSBitmapImageRep.FileType.png, properties: [:])!
     }
     
     /// Writes a JPEG representation of self to a URL
@@ -56,5 +60,15 @@ extension NSImage {
         guard let url = Bundle(for: aClass).urlForImageResource(name)
             else { return nil }
         self.init(contentsOf: url)
+    }
+}
+
+extension NSImage {
+    
+    convenience init(emptyClearImageWithSize size: NSSize) {
+        self.init(size: size)
+        self.lockingFocus {
+            size.toRect.fill(using: .clear)
+        }
     }
 }
