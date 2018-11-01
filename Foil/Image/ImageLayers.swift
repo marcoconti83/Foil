@@ -89,8 +89,11 @@ public class ImageLayers<Reference: Hashable> {
     /// A mask layer
     let maskLayer: NSImage
     
+    /// Size
+    let size: NSSize
+    
     public convenience init(emptyImageOfSize size: NSSize) {
-        let backgroundImage = NSImage(size: size)
+        let backgroundImage = NSImage(emptyClearImageWithSize: size)
         self.init(backgroundImage: backgroundImage)
     }
     
@@ -100,22 +103,24 @@ public class ImageLayers<Reference: Hashable> {
          maskLayer: NSImage,
          bitmaps: Set<Bitmap<Reference>>)
     {
-        self.imageBeingEdited = NSImage(size: backgroundImage.size)
+        self.imageBeingEdited = NSImage(emptyClearImageWithSize: backgroundImage.size)
         self.rasterLayer = rasterLayer
         self.maskLayer = maskLayer
         self.backgroundColor = backgroundColor
         self.backgroundImage = backgroundImage
         self.selectionLineWidth = max(1, backgroundImage.size.max / 200)
         self.bitmaps = bitmaps
+        self.size = backgroundImage.size
         self.redraw()
     }
     
     public init(backgroundImage: NSImage) {
-        self.imageBeingEdited = NSImage(size: backgroundImage.size)
-        self.rasterLayer = NSImage(size: backgroundImage.size)
+        self.imageBeingEdited = NSImage(emptyClearImageWithSize: backgroundImage.size)
+        self.rasterLayer = NSImage(emptyClearImageWithSize: backgroundImage.size)
         self.backgroundImage = backgroundImage
-        self.maskLayer = NSImage(size: backgroundImage.size)
+        self.maskLayer = NSImage(emptyClearImageWithSize: backgroundImage.size)
         self.selectionLineWidth = max(1, backgroundImage.size.max / 200)
+        self.size = backgroundImage.size
         self.redraw()
     }
     
