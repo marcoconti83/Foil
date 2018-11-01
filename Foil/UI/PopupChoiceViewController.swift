@@ -36,6 +36,7 @@ class PopupChoiceViewController<Selection>: NSViewController {
     {
         let popover = NSPopover()
         self.selectionCallback = callback
+        popover.behavior = .transient
         popover.contentViewController = self
         popover.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
     }

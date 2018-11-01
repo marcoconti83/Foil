@@ -77,6 +77,7 @@ class BitmapSelectionViewController: PopupChoiceViewController<NSImage> {
         
         if self.allowImagesFromFile {
             let button = ClosureButton(label: "Pick from file...") { [weak self] _ in
+                self?.view.window?.close()
                 let panel = NSOpenPanel()
                 panel.canChooseDirectories = false
                 panel.canChooseFiles = true
@@ -96,6 +97,7 @@ class BitmapSelectionViewController: PopupChoiceViewController<NSImage> {
         
         if let customBitmapPicker = self.customBitmapPicker {
             let button = ClosureButton(label: "Pick bitmap...") { [weak self] _ in
+                self?.view.window?.close()
                 customBitmapPicker() { image in
                     if let image = image {
                         self?.didSelect(value: image)
