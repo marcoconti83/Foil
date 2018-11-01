@@ -181,6 +181,10 @@ open class EditorView<Reference: Hashable>: NSView {
     public var image: NSImage {
         return self.imageEditView.image
     }
+    
+    public func centerAndZoom() {
+        self.scroll.centerAndZoom()
+    }
 }
 
 extension ClosureButton {
