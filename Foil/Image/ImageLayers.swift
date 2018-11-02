@@ -162,7 +162,7 @@ extension ImageLayers {
         }
     }
     
-    var renderedImage: NSImage {
+    public var renderedImage: NSImage {
         let image = NSImage(size: self.imageBeingEdited.size)
         self.render(target: image, rect: nil, drawForEditing: false)
         return image
