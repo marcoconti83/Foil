@@ -123,9 +123,9 @@ open class EditorView<Reference: Hashable>: NSView {
             ].compactMap { $0 }
         
         let customButton = settings.toolbarItems.map { item in
-            return ClosureButton(image: item.icon, toolTip: item.tooltip) { [weak self] _ in
+            return ClosureButton(image: item.icon, toolTip: item.tooltip) { [weak self] btn in
                 guard let `self` = self else { return }
-                item.action(self.imageEditView)
+                item.action(self.imageEditView, btn as! NSButton)
             }
         }
         let toolbar = NSStackView(views: buttons + customButton)
