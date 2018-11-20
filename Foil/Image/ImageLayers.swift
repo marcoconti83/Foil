@@ -38,6 +38,7 @@ public class ImageLayers<Reference: Hashable> {
     /// An image to be used as background
     public var backgroundImage: NSImage {
         didSet {
+            guard oldValue != self.backgroundImage else { return }
             self.redrawIfNeeded()
         }
     }
@@ -45,6 +46,7 @@ public class ImageLayers<Reference: Hashable> {
     /// Background color drawn below the rest
     public var backgroundColor: NSColor = NSColor.white {
         didSet {
+            guard oldValue != backgroundColor else { return }
             self.redrawIfNeeded()
         }
     }
@@ -52,6 +54,7 @@ public class ImageLayers<Reference: Hashable> {
     /// Bitmaps objects
     public var bitmaps: Set<Bitmap<Reference>> = Set() {
         didSet {
+            guard oldValue != self.bitmaps else { return }
             let newSelection = self.selectedBitmaps.intersection(bitmaps)
             self.batchOperations {
                 self.selectedBitmaps = newSelection
@@ -62,10 +65,9 @@ public class ImageLayers<Reference: Hashable> {
     /// Bitmaps that are currently selected
     internal(set) public var selectedBitmaps = Set<Bitmap<Reference>>() {
         didSet {
+            guard self.selectedBitmaps != oldValue else { return }
             self.redrawIfNeeded()
-            if self.selectedBitmaps != oldValue {
-                self.notifySelectionChange()
-            }
+            self.notifySelectionChange()
         }
     }
     
@@ -73,12 +75,16 @@ public class ImageLayers<Reference: Hashable> {
     /// This is a temporary line until it gets confirmed
     var lineBeingDrawn: Line? = nil {
         didSet {
+            guard oldValue != self.lineBeingDrawn else { return }
             self.redrawIfNeeded()
         }
     }
     
     var brushPreview: (point: NSPoint, width: CGFloat)? = nil {
         didSet {
+            guard oldValue?.point != self.brushPreview?.point
+                || oldValue?.width != self.brushPreview?.width
+                else { return }
             self.redrawIfNeeded()
         }
     }
