@@ -167,7 +167,15 @@ open class EditorView<Reference: Hashable>: NSView {
     private func selectLineSize(_ sender: Any) {
         guard let view = sender as? NSView else { return }
         LineWidthSelectionViewController().showInPopup(over: view) { [weak self] value in
-            self?.imageEditView.toolSettings.lineWidth = CGFloat(value)
+            guard let `self` = self else { return }
+            switch value {
+            case .absolute(let width):
+                self.imageEditView.toolSettings.lineWidth = CGFloat(width)
+            case .relative(let percent):
+                let width = self.imageEditView.editor.size.max * CGFloat(percent)
+                self.imageEditView.toolSettings.lineWidth = width
+            }
+            
         }
     }
     

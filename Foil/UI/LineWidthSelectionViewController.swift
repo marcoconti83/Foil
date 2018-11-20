@@ -26,13 +26,24 @@ import Foundation
 import Cartography
 import ClosureControls
 
-class LineWidthSelectionViewController: PopupChoiceViewController<Int> {
+enum Width {
+    case absolute(Int)
+    case relative(Double)
+}
+
+class LineWidthSelectionViewController: PopupChoiceViewController<Width> {
     
     override func viewDidLoad() {
-        let views = (1...10).map { (x: Int) -> ClosureButton in
-            let width = x * x
-            let button = ClosureButton(label: "\(width)") { [weak self] _ in
-                self?.didSelect(value: width)
+        let views = (0...5).map { (x: Int) -> ClosureButton in
+            let width = pow(Double(2.0), Double(x))
+            let button = ClosureButton(label: "\(width) pt") { [weak self] _ in
+                self?.didSelect(value: Width.absolute(Int(width)))
+            }
+            button.bezelStyle = NSButton.BezelStyle.inline
+            return button
+        } + [0.1, 0.5, 0.8].map { (x: Double) -> ClosureButton in
+            let button = ClosureButton(label: "\(Int(x*100)) %") { [weak self] _ in
+                self?.didSelect(value: Width.relative(x))
             }
             button.bezelStyle = NSButton.BezelStyle.inline
             return button
