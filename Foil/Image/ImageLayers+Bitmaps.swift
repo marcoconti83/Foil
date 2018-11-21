@@ -94,7 +94,7 @@ extension ImageLayers: AbstractBitmapContainer {
         self.selectedBitmaps = previous.union(selected)
     }
     
-    public func addBitmapSelectionObserver(block: @escaping BitmapSelectionObserver) -> Any {
+    public func addBitmapSelectionObserver(block: @escaping (Set<Bitmap<Reference>>) -> ()) -> Any {
         return NotificationCenter.default.addObserver(
             forName: bitmapSelectionNotificationName,
             object: self,

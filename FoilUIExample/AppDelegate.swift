@@ -43,7 +43,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         var settings = AppDelegate.defaultSettings
         settings.backgroundImage = NSImage(name: "sky.jpg", fromClassBundle: AppDelegate.self)
-        window.contentView = EditorView(settings: settings)
+        let editor = EditorView(settings: settings)
+        window.contentView = editor
+        DispatchQueue.main.async {
+            editor.centerAndZoom()
+        }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

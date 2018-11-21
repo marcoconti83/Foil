@@ -28,6 +28,22 @@ import XCTest
 
 class SerializationTests: XCTestCase {
     
+    func testThatItSerializesImage() throws {
+        
+        // GIVEN
+        let size = NSSize(width: 200, height: 200)
+        let layers = ImageLayers<UUID>(backgroundImage: NSImage(emptyClearImageWithSize: size))
+        layers.backgroundColor = .white // use grayscale color, known to cause problem when extracting RGB
+        
+        // WHEN
+        let data = try layers.encode()
+        let decoded = try ImageLayers<UUID>.decodingData(data: data)
+        
+        // THEN
+        XCTAssertEqual(decoded.size, layers.size)
+        
+    }
+    
     func testThatItSerializesBitmap() throws {
         
         // GIVEN

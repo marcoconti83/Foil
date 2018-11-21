@@ -161,7 +161,8 @@ extension KeyedEncodingContainer {
     }
     
     mutating func encode(_ value: NSColor, forKey key: KeyedEncodingContainer<K>.Key) throws {
-        let rgba = [value.redComponent, value.greenComponent, value.blueComponent, value.alphaComponent]
+        let color = value.usingColorSpace(NSColorSpace.deviceRGB)!
+        let rgba = [color.redComponent, color.greenComponent, color.blueComponent, color.alphaComponent]
         try self.encode(rgba, forKey: key)
     }
 }

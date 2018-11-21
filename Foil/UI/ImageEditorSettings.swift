@@ -54,11 +54,13 @@ public struct ImageEditorSettings<Reference: Hashable> {
 
 public struct ToolbarItem<Reference: Hashable> {
     
+    public typealias buttonCallback = (_ editView: ImageEditView<Reference>, _ button: NSButton)->()
+
     let icon: NSImage
     let tooltip: String
-    let action: (ImageEditView<Reference>)->()
+    let action: buttonCallback
     
-    public init(icon: NSImage, tooltip: String, action: @escaping (ImageEditView<Reference>)->()) {
+    public init(icon: NSImage, tooltip: String, action: @escaping buttonCallback) {
         self.action = action
         self.icon = icon
         self.tooltip = tooltip

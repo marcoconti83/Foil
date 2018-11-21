@@ -110,22 +110,22 @@ open class EditorView<Reference: Hashable>: NSView {
             ClosureButton(
                 image: NSImage(name: "color_wheel.png", fromClassBundle: EditorView.self)!,
                 toolTip: "Change color"
-                ) { [weak self] in
-                    self?.selectColor($0)
+                ) { [weak self] view in
+                    self?.selectColor(view)
             },
             ClosureButton(
                 image: NSImage(name: "line_size.png", fromClassBundle: EditorView.self)!,
                 toolTip: "Change line width"
-                ) { [weak self] in
-                    self?.selectLineSize($0)
+                ) { [weak self] view in
+                    self?.selectLineSize(view)
             },
             NSBox.horizontalLine()
             ].compactMap { $0 }
         
         let customButton = settings.toolbarItems.map { item in
-            return ClosureButton(image: item.icon, toolTip: item.tooltip) { [weak self] _ in
+            return ClosureButton(image: item.icon, toolTip: item.tooltip) { [weak self] btn in
                 guard let `self` = self else { return }
-                item.action(self.imageEditView)
+                item.action(self.imageEditView, btn as! NSButton)
             }
         }
         let toolbar = NSStackView(views: buttons + customButton)
@@ -167,7 +167,15 @@ open class EditorView<Reference: Hashable>: NSView {
     private func selectLineSize(_ sender: Any) {
         guard let view = sender as? NSView else { return }
         LineWidthSelectionViewController().showInPopup(over: view) { [weak self] value in
-            self?.imageEditView.toolSettings.lineWidth = CGFloat(value)
+            guard let `self` = self else { return }
+            switch value {
+            case .absolute(let width):
+                self.imageEditView.toolSettings.lineWidth = CGFloat(width)
+            case .relative(let percent):
+                let width = self.imageEditView.editor.size.max * CGFloat(percent)
+                self.imageEditView.toolSettings.lineWidth = width
+            }
+            
         }
     }
     
@@ -180,6 +188,10 @@ open class EditorView<Reference: Hashable>: NSView {
     
     public var image: NSImage {
         return self.imageEditView.image
+    }
+    
+    public func centerAndZoom() {
+        self.scroll.centerAndZoom()
     }
 }
 

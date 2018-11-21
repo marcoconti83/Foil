@@ -38,11 +38,9 @@ public protocol AbstractBitmapContainer: AnyObject {
     /// Select bitmaps by reference
     func selectBitmapsByReference(_ references: Set<Reference>, extendSelection: Bool)
     
-    typealias BitmapSelectionObserver = (Set<Bitmap<Reference>>) -> ()
-    
     /// Add an observer that will be notified when bitmaps are selected/deselected
     /// It will return an observer token, when the token is released the observer is removed
-    func addBitmapSelectionObserver(block: @escaping BitmapSelectionObserver) -> Any
+    func addBitmapSelectionObserver(block: @escaping (Set<Bitmap<Reference>>) -> ()) -> Any
 }
 
 extension AbstractBitmapContainer {

@@ -29,6 +29,7 @@ import ClosureControls
 class PopupChoiceViewController<Selection>: NSViewController {
     
     private var selectionCallback: ((Selection)->())? = nil
+    private var popover: NSPopover!
     
     func showInPopup(
         over view: NSView,
@@ -36,6 +37,8 @@ class PopupChoiceViewController<Selection>: NSViewController {
     {
         let popover = NSPopover()
         self.selectionCallback = callback
+        self.popover = popover
+        popover.behavior = .transient
         popover.contentViewController = self
         popover.show(relativeTo: view.bounds, of: view, preferredEdge: .minY)
     }
@@ -46,7 +49,8 @@ class PopupChoiceViewController<Selection>: NSViewController {
     
     func didSelect(value: Selection) {
         self.selectionCallback?(value)
-        self.view.window?.close()
+        self.popover.performClose(nil)
+        self.popover.contentViewController = nil
     }
 }
 
