@@ -35,11 +35,21 @@ public class ImageLayers<Reference: Hashable> {
     
     var redrawDelegate: (()->())? = nil
     
+    private var _backgroundImage: NSImage
+    
     /// An image to be used as background
     public var backgroundImage: NSImage {
-        didSet {
-            guard oldValue != self.backgroundImage else { return }
+        set {
+            guard newValue != self._backgroundImage else { return }
+            if newValue.size != self.size {
+                self._backgroundImage = newValue.resized(to: self.size)!
+            } else {
+                self._backgroundImage = newValue
+            }
             self.redrawIfNeeded(rects: [self.rasterLayer.size.toRect])
+        }
+        get {
+            return self._backgroundImage
         }
     }
     
@@ -130,20 +140,20 @@ public class ImageLayers<Reference: Hashable> {
         self.rasterLayer = rasterLayer
         self.maskLayer = maskLayer
         self.backgroundColor = backgroundColor
-        self.backgroundImage = backgroundImage
         self.selectionLineWidth = max(1, backgroundImage.size.max / 200)
         self.bitmaps = bitmaps
         self.size = backgroundImage.size
+        self._backgroundImage = backgroundImage
         self.redraw(rects: [self.rasterLayer.size.toRect])
     }
     
     public init(backgroundImage: NSImage) {
         self.imageBeingEdited = NSImage(emptyClearImageWithSize: backgroundImage.size)
         self.rasterLayer = NSImage(emptyClearImageWithSize: backgroundImage.size)
-        self.backgroundImage = backgroundImage
         self.maskLayer = NSImage(emptyClearImageWithSize: backgroundImage.size)
         self.selectionLineWidth = max(1, backgroundImage.size.max / 200)
         self.size = backgroundImage.size
+        self._backgroundImage = backgroundImage
         self.redraw(rects: [self.rasterLayer.size.toRect])
     }
     
