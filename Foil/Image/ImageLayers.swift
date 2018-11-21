@@ -167,7 +167,8 @@ extension ImageLayers {
                 self.drawTemporaryBrush(rect: rect)
             }
             self.bitmaps.forEach { bmp in
-                bmp.draw() // TODO only if in rect
+                guard bmp.drawingRect.intersects(rect) else { return }
+                bmp.draw()
                 if drawForEditing && self.selectedBitmaps.contains(bmp) {
                     bmp.drawSelectionOverlay(lineWidth: self.selectionLineWidth)
                 }
