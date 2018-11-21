@@ -153,9 +153,7 @@ public class ImageLayers<Reference: Hashable> {
 extension ImageLayers {
     
     private func redraw(rects: [NSRect]) {
-        rects.forEach { rect in
-            self.render(target: self.imageBeingEdited, rect: rect, drawForEditing: true)
-        }
+        self.render(target: self.imageBeingEdited, rect: rects.union, drawForEditing: true)
         self.redrawDelegate?()
     }
     
@@ -236,9 +234,7 @@ extension ImageLayers {
     /// Draw pending rects and clear pending rects
     private func drawPending() {
         guard !self.rectsToDraw.isEmpty else { return }
-        let rect = self.rectsToDraw.reduce(NSRect.zero) { (prev, next) -> NSRect in
-            return prev.union(next)
-        }
+        let rect = self.rectsToDraw.union
         self.redrawIfNeeded(rects: [rect])
         self.rectsToDraw = []
     }
@@ -422,4 +418,30 @@ extension Line {
         return NSRect(includingLineFromPoint: self.start, toPoint: self.end, width: self.width)
     }
     
+}
+
+extension Array where Element == NSRect {
+    
+    var union: NSRect {
+        guard !self.isEmpty else { return NSRect.zero }
+        var minX = self[0].minX
+        var minY = self[0].minY
+        var maxX = self[0].maxX
+        var maxY = self[0].maxY
+        self.forEach {
+            if $0.minX < minX {
+                minX = $0.minX
+            }
+            if $0.maxX > maxX {
+                maxX = $0.maxX
+            }
+            if $0.minY < minY {
+                minY = $0.minY
+            }
+            if $0.maxY < maxY {
+                maxY = $0.maxY
+            }
+        }
+        return NSRect(corner: NSPoint(x: minX, y: minY), oppositeCorner: NSPoint(x: maxX, y: maxY))
+    }
 }
