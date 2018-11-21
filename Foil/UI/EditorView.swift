@@ -110,14 +110,14 @@ open class EditorView<Reference: Hashable>: NSView {
             ClosureButton(
                 image: NSImage(name: "color_wheel.png", fromClassBundle: EditorView.self)!,
                 toolTip: "Change color"
-                ) { [weak self] in
-                    self?.selectColor($0)
+                ) { [weak self] view in
+                    self?.selectColor(view)
             },
             ClosureButton(
                 image: NSImage(name: "line_size.png", fromClassBundle: EditorView.self)!,
                 toolTip: "Change line width"
-                ) { [weak self] in
-                    self?.selectLineSize($0)
+                ) { [weak self] view in
+                    self?.selectLineSize(view)
             },
             NSBox.horizontalLine()
             ].compactMap { $0 }
