@@ -163,8 +163,8 @@ extension ImageLayers {
             self.backgroundImage.draw(in: rect, from: rect, operation: .sourceOver, fraction: 1)
             self.rasterLayer.draw(in: rect, from: rect, operation: .sourceOver, fraction: 1)
             if drawForEditing {
-                self.drawTemporaryLine() // TODO
-                self.drawTemporaryBrush() // TODO
+                self.drawTemporaryLine(rect: rect)
+                self.drawTemporaryBrush(rect: rect)
             }
             self.bitmaps.forEach { bmp in
                 bmp.draw() // TODO only if in rect
@@ -187,19 +187,21 @@ extension ImageLayers {
         return image
     }
     
-    private func drawTemporaryLine() {
+    private func drawTemporaryLine(rect: NSRect) {
         guard let temporaryLine = self.lineBeingDrawn else {
             return
         }
+        guard temporaryLine.containingRect.intersects(rect) else { return }
         restoringGraphicState {
             temporaryLine.draw()
         }
     }
     
-    private func drawTemporaryBrush() {
+    private func drawTemporaryBrush(rect: NSRect) {
         guard let brush = self.brushPreview else {
             return
         }
+        guard NSRect(squareCenteredOnPoint: brush.point, width: brush.width).intersects(rect) else { return }
         restoringGraphicState {
             NSColor.white.setStroke()
             let source = brush.point - NSPoint(x: brush.width/2, y: brush.width/2)
