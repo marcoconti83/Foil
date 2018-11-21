@@ -58,7 +58,7 @@ public class ImageEditor<Reference: Hashable> {
     }
     
     public var size: NSSize {
-        return self.layers.backgroundImage.size
+        return self.layers.size
     }
     
     public convenience init(emptyImageOfSize size: NSSize) {

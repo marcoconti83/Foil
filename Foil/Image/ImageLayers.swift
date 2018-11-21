@@ -42,7 +42,7 @@ public class ImageLayers<Reference: Hashable> {
         set {
             guard newValue != self._backgroundImage else { return }
             if newValue.size != self.size {
-                self._backgroundImage = newValue.resized(to: self.size)!
+                self._backgroundImage = newValue.resized(size: self.size)!
             } else {
                 self._backgroundImage = newValue
             }

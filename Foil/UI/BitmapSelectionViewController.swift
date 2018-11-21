@@ -64,7 +64,7 @@ class BitmapSelectionViewController: PopupChoiceViewController<NSImage> {
         
         if !self.images.isEmpty {
             let images = self.images.map { img in
-                ClosureButton(image: img.resized(to: NSSize(width: 25, height: 25))!) { [weak self] _ in
+                ClosureButton(image: img.resized(size: NSSize(width: 25, height: 25))!) { [weak self] _ in
                     self?.didSelect(value: img)
                 }
             }.group(size: 5)
@@ -106,28 +106,5 @@ class BitmapSelectionViewController: PopupChoiceViewController<NSImage> {
             }
             bottomView.addArrangedSubview(button)
         }
-    }
-}
-
-
-extension NSImage {
-    func resized(to newSize: NSSize) -> NSImage? {
-        if let bitmapRep = NSBitmapImageRep(
-            bitmapDataPlanes: nil, pixelsWide: Int(newSize.width), pixelsHigh: Int(newSize.height),
-            bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false,
-            colorSpaceName: .calibratedRGB, bytesPerRow: 0, bitsPerPixel: 0
-            ) {
-            bitmapRep.size = newSize
-            NSGraphicsContext.saveGraphicsState()
-            NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: bitmapRep)
-            draw(in: NSRect(x: 0, y: 0, width: newSize.width, height: newSize.height), from: .zero, operation: .copy, fraction: 1.0)
-            NSGraphicsContext.restoreGraphicsState()
-            
-            let resizedImage = NSImage(size: newSize)
-            resizedImage.addRepresentation(bitmapRep)
-            return resizedImage
-        }
-        
-        return nil
     }
 }

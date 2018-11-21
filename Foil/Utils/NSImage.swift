@@ -71,4 +71,16 @@ extension NSImage {
             size.toRect.fill(using: .clear)
         }
     }
+
+    func resized(size: NSSize) -> NSImage? {
+        let newImage = NSImage(size: size)
+        newImage.lockFocus()
+        self.draw(
+            in: NSMakeRect(0, 0, size.width, size.height),
+            from: NSMakeRect(0, 0, self.size.width, self.size.height),
+            operation: .sourceOver,
+            fraction: CGFloat(1))
+        newImage.unlockFocus()
+        return newImage
+    }
 }
