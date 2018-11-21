@@ -98,6 +98,8 @@
 		A9CC23FF215EC43F00194228 /* moon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A9CC23FE215EC43E00194228 /* moon.jpg */; };
 		A9CC2403215EC6EF00194228 /* 200x200-green-rect-moon.png in Resources */ = {isa = PBXBuildFile; fileRef = A9CC2402215EC6EF00194228 /* 200x200-green-rect-moon.png */; };
 		A9CC2405215EC79000194228 /* 200x200-red-moons.png in Resources */ = {isa = PBXBuildFile; fileRef = A9CC2404215EC79000194228 /* 200x200-red-moons.png */; };
+		A9E11ACE21A578B700BFD49F /* PerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E11ACD21A578B700BFD49F /* PerformanceTests.swift */; };
+		A9E11AD021A57AC300BFD49F /* paul-gilmore.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A9E11ACF21A57AC300BFD49F /* paul-gilmore.jpg */; };
 		A9E3E0662161F8E70059B0A6 /* BrushToolTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E3E0652161F8E70059B0A6 /* BrushToolTest.swift */; };
 		A9E3E0682161F98F0059B0A6 /* 100x100-draw-line-shift.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E3E0672161F98F0059B0A6 /* 100x100-draw-line-shift.png */; };
 		A9E3E06A2161FB1C0059B0A6 /* 100x100-brush.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E3E0692161FB1B0059B0A6 /* 100x100-brush.png */; };
@@ -253,6 +255,8 @@
 		A9CC23FE215EC43E00194228 /* moon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = moon.jpg; sourceTree = "<group>"; };
 		A9CC2402215EC6EF00194228 /* 200x200-green-rect-moon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "200x200-green-rect-moon.png"; sourceTree = "<group>"; };
 		A9CC2404215EC79000194228 /* 200x200-red-moons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "200x200-red-moons.png"; sourceTree = "<group>"; };
+		A9E11ACD21A578B700BFD49F /* PerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceTests.swift; sourceTree = "<group>"; };
+		A9E11ACF21A57AC300BFD49F /* paul-gilmore.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "paul-gilmore.jpg"; sourceTree = "<group>"; };
 		A9E3E0652161F8E70059B0A6 /* BrushToolTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrushToolTest.swift; sourceTree = "<group>"; };
 		A9E3E0672161F98F0059B0A6 /* 100x100-draw-line-shift.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-draw-line-shift.png"; sourceTree = "<group>"; };
 		A9E3E0692161FB1B0059B0A6 /* 100x100-brush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "100x100-brush.png"; sourceTree = "<group>"; };
@@ -407,6 +411,7 @@
 				A928A1602174B6B7000C5BD8 /* BitmapTests.swift */,
 				A9F8F762217740AE00A57009 /* SerializationTests.swift */,
 				A93DC5B021804C54004ECDF1 /* StringTests.swift */,
+				A9E11ACD21A578B700BFD49F /* PerformanceTests.swift */,
 			);
 			path = FoilTests;
 			sourceTree = "<group>";
@@ -477,6 +482,7 @@
 		A9B7D44B215DFCAB002A95CB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A9E11ACF21A57AC300BFD49F /* paul-gilmore.jpg */,
 				A9CC23FE215EC43E00194228 /* moon.jpg */,
 				A9B7D44C215DFCAB002A95CB /* original-5pepper.png */,
 				A9B7D44D215DFCAB002A95CB /* Fixtures */,
@@ -678,6 +684,7 @@
 				A9B7D45C215E0753002A95CB /* 100x100-red-greenline.png in Resources */,
 				A98BC4702163F39B00E16215 /* 200x200-red-moons-not-selected.png in Resources */,
 				A926C318215F6555006B1388 /* 200x200-red-moons-selected-large.png in Resources */,
+				A9E11AD021A57AC300BFD49F /* paul-gilmore.jpg in Resources */,
 				A928A1592173E7A4000C5BD8 /* 100x100-mask-outline.png in Resources */,
 				A9E3E0702161FD1A0059B0A6 /* 100x100-eraser-outline.png in Resources */,
 				A9E3E0682161F98F0059B0A6 /* 100x100-draw-line-shift.png in Resources */,
@@ -765,6 +772,7 @@
 				A9E59EFA216D3A3000C573D9 /* NSRectTests.swift in Sources */,
 				A9E3E06C2161FB410059B0A6 /* EraserToolTests.swift in Sources */,
 				A928A1612174B6B7000C5BD8 /* BitmapTests.swift in Sources */,
+				A9E11ACE21A578B700BFD49F /* PerformanceTests.swift in Sources */,
 				A9B7D433215DFA15002A95CB /* ImageLayersTests.swift in Sources */,
 				A926C32C215FB71A006B1388 /* SelectionToolTests.swift in Sources */,
 				A926C32A215FB70C006B1388 /* LineToolTests.swift in Sources */,
