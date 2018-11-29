@@ -42,7 +42,7 @@ public class ImageLayers<Reference: Hashable> {
         set {
             guard newValue != self._backgroundImage else { return }
             if newValue.size != self.size {
-                self._backgroundImage = newValue.resized(size: self.size)!
+                self._backgroundImage = newValue.resized(size: self.size)
             } else {
                 self._backgroundImage = newValue
             }
@@ -170,7 +170,7 @@ extension ImageLayers {
     private func render(target: NSImage, rect: NSRect, drawForEditing: Bool) {
         target.lockingFocus {
             self.backgroundColor.drawSwatch(in: rect)
-            self.backgroundImage.draw(in: rect, from: rect, operation: .sourceOver, fraction: 1)
+            self.backgroundImage.draw(in: rect, from: rect, operation: .copy, fraction: 1)
             self.rasterLayer.draw(in: rect, from: rect, operation: .sourceOver, fraction: 1)
             if drawForEditing {
                 self.drawTemporaryLine(rect: rect)
@@ -185,7 +185,7 @@ extension ImageLayers {
             }
             self.maskLayer.draw(
                 in: rect,
-                from: self.maskLayer.size.toRect, // TODO only matching rect
+                from: rect,
                 operation: NSCompositingOperation.sourceAtop,
                 fraction: drawForEditing ? 0.5 : 1.0
             )

@@ -64,7 +64,7 @@ class BitmapSelectionViewController: PopupChoiceViewController<NSImage> {
         
         if !self.images.isEmpty {
             let images = self.images.map { img in
-                ClosureButton(image: img.resized(size: NSSize(width: 25, height: 25))!) { [weak self] _ in
+                ClosureButton(image: img.resized(size: NSSize(width: 25, height: 25))) { [weak self] _ in
                     self?.didSelect(value: img)
                 }
             }.group(size: 5)

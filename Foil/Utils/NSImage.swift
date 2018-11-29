@@ -72,15 +72,37 @@ extension NSImage {
         }
     }
 
-    func resized(size: NSSize) -> NSImage? {
-        let newImage = NSImage(size: size)
-        newImage.lockFocus()
-        self.draw(
-            in: NSMakeRect(0, 0, size.width, size.height),
-            from: NSMakeRect(0, 0, self.size.width, self.size.height),
-            operation: .sourceOver,
-            fraction: CGFloat(1))
-        newImage.unlockFocus()
-        return newImage
+    func resized(size: NSSize) -> NSImage {
+        let cgImage = self.cgImage!
+        let bitsPerComponent = cgImage.bitsPerComponent
+        let bytesPerRow = cgImage.bytesPerRow
+        let colorSpace = cgImage.colorSpace!
+        let bitmapInfo = CGImageAlphaInfo.noneSkipLast
+        let context = CGContext(data: nil,
+                                width: Int(cgImage.width / 2),
+                                height: Int(cgImage.height / 2),
+                                bitsPerComponent: bitsPerComponent,
+                                bytesPerRow: bytesPerRow,
+                                space: colorSpace,
+                                bitmapInfo: bitmapInfo.rawValue)!
+
+        context.interpolationQuality = .high
+        // TODO wtf
+        // If I resize it to its own size (so no change in size), performance OK
+        // `let newSize = self.size` // OK
+        // If I resize it to a different size, performance hit
+        // `let newSize = size` // Performance hit
+        let newSize = size
+        context.draw(cgImage, in: newSize.toRect)
+        let img = context.makeImage()!
+        return NSImage(cgImage: img, size: newSize)
+    }
+    
+    var cgImage: CGImage? {
+        get {
+            guard let imageData = self.tiffRepresentation else { return nil }
+            guard let sourceData = CGImageSourceCreateWithData(imageData as CFData, nil) else { return nil }
+            return CGImageSourceCreateImageAtIndex(sourceData, 0, nil)
+        }
     }
 }
