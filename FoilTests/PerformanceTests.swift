@@ -72,16 +72,16 @@ class PerformanceTests: XCTestCase {
     
     func testLineDrawing() {
         
-        let layers = ImageLayers<Int>(emptyImageOfSize: NSSize(width: 100, height: 100))
+        let layers = ImageLayers<Int>(emptyImageOfSize: NSSize(width: 500, height: 500))
         layers.backgroundColor = NSColor.green
         layers.drawRect(NSRect(x: 10, y: 10, width: 30, height: 30), color: NSColor.white)
         let bitmap = Bitmap<Int>(image: Utils.testImage("moon.jpg")!, centerPosition: NSPoint(x: 100, y: 100))
         layers.bitmaps.insert(bitmap)
         layers.backgroundImage = Utils.testImage("paul-gilmore.jpg")!
-        let points = layers.backgroundImage.pseudoRandomPoints
+        let points = layers.size.pseudoRandomPoints
         
         self.measure {
-            points.repeated(50).forEach { p in
+            points.forEach { p in
                 layers.drawLine(
                     from: p,
                     to: p * 2,
@@ -99,7 +99,7 @@ class PerformanceTests: XCTestCase {
         let bitmap = Bitmap<Int>(image: Utils.testImage("moon.jpg")!, centerPosition: NSPoint(x: 100, y: 100))
         layers.bitmaps.insert(bitmap)
         layers.backgroundImage = Utils.testImage("paul-gilmore.jpg")!
-        let points = layers.backgroundImage.pseudoRandomPoints
+        let points = layers.size.pseudoRandomPoints
         
         self.measure {
             points.repeated(25).forEach { p in
@@ -120,7 +120,7 @@ class PerformanceTests: XCTestCase {
         let bitmap = Bitmap<Int>(image: Utils.testImage("moon.jpg")!, centerPosition: NSPoint(x: 100, y: 100))
         layers.bitmaps.insert(bitmap)
         layers.backgroundImage = Utils.testImage("paul-gilmore.jpg")!
-        let points = layers.backgroundImage.pseudoRandomPoints
+        let points = layers.size.pseudoRandomPoints
         
         self.measure {
             points.repeated(50).forEach { p in
@@ -132,11 +132,11 @@ class PerformanceTests: XCTestCase {
 }
 
 
-extension NSImage {
+extension NSSize {
     
     var pseudoRandomPoints: [NSPoint] {
-        let xPos = pseudoRandom1.map { self.size.width * $0 }
-        let yPos = pseudoRandom2.map { self.size.height * $0 }
+        let xPos = pseudoRandom1.map { self.width * $0 }
+        let yPos = pseudoRandom2.map { self.height * $0 }
         
         return zip(xPos, yPos).map { NSPoint(x: $0.0, y: $0.1) }
     }

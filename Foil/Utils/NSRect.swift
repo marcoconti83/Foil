@@ -76,6 +76,16 @@ extension NSRect {
         let maxY = max(corner.y, oppositeCorner.y)
         self.init(x: minX, y: minY, width: maxX - minX, height: maxY - minY)
     }
+    
+    /// returns a new rect that has integer coordinates
+    /// The returned rect will be equal to or including self (equal or larger)
+    var forceInteger: NSRect {
+        return NSRect(x: Int(floor(self.minX)),
+                      y: Int(floor(self.minY)),
+                      width: Int(ceil(self.width)),
+                      height: Int(ceil(self.height))
+        )
+    }
 }
 
 /// Translate origin

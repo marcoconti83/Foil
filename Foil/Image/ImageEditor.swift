@@ -74,8 +74,8 @@ public class ImageEditor<Reference: Hashable> {
         self.layers = layers
         self.toolSettings.lineWidth = Swift.max(2, layers.rasterLayer.size.min / 200)
         self.toolType = .selection
-        self.layers.redrawDelegate = { [weak self] in
-            self?.delegate?.didRedrawImage()
+        self.layers.redrawDelegate = { [weak self] rect in
+            self?.delegate?.didRedrawImage(drawRect: rect)
         }
         self.setTool(.selection)
     }
@@ -146,7 +146,7 @@ extension ImageEditor: ToolDelegate {
 
 public protocol ImageEditorDelegate: class {
     
-    func didRedrawImage()
+    func didRedrawImage(drawRect: NSRect)
     func didChangeTool(_ tool: ToolType)
     func didScroll(x: CGFloat, y: CGFloat)
 }

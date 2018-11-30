@@ -26,14 +26,14 @@ import Cocoa
 /// Layers that compose the image: background, foreground, vector layer and so on
 public class ImageLayers<Reference: Hashable> {
     
-    public let imageBeingEdited: NSImage
+    private(set) public var imageBeingEdited: NSImage
     
     /// How thick is the selection line width
     let selectionLineWidth: CGFloat
     
     private var shouldRedraw: Bool = true
     
-    var redrawDelegate: (()->())? = nil
+    var redrawDelegate: ((NSRect)->())? = nil
     
     private var _backgroundImage: NSImage
     
@@ -163,15 +163,17 @@ public class ImageLayers<Reference: Hashable> {
 extension ImageLayers {
     
     private func redraw(rects: [NSRect]) {
-        self.render(target: self.imageBeingEdited, rect: rects.union, drawForEditing: true)
-        self.redrawDelegate?()
+        let rect = rects.union
+        self.render(target: self.imageBeingEdited, rect: rect, drawForEditing: true)
+        self.redrawDelegate?(rect)
     }
     
     private func render(target: NSImage, rect: NSRect, drawForEditing: Bool) {
+        let rect = rect.forceInteger
         target.lockingFocus {
             self.backgroundColor.drawSwatch(in: rect)
-            self.backgroundImage.draw(in: rect, from: rect, operation: .copy, fraction: 1)
-            self.rasterLayer.draw(in: rect, from: rect, operation: .sourceOver, fraction: 1)
+            self.backgroundImage.draw(in: rect, from: rect, operation: .sourceOver, fraction: 1)
+           self.rasterLayer.draw(in: rect, from: rect, operation: .sourceOver, fraction: 1)
             if drawForEditing {
                 self.drawTemporaryLine(rect: rect)
                 self.drawTemporaryBrush(rect: rect)
@@ -193,9 +195,9 @@ extension ImageLayers {
     }
     
     public var renderedImage: NSImage {
-        let image = NSImage(size: self.imageBeingEdited.size)
-        self.render(target: image, rect: self.imageBeingEdited.size.toRect, drawForEditing: false)
-        return image
+        let target = NSImage(size: self.size)
+        self.render(target: target, rect: self.size.toRect, drawForEditing: false)
+        return target
     }
     
     private func drawTemporaryLine(rect: NSRect) {

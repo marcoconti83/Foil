@@ -72,31 +72,24 @@ extension NSImage {
         }
     }
 
-    func resized(size: NSSize) -> NSImage {
+    public func resized(size: NSSize) -> NSImage {
+        let intSize = NSSize(width: Int(size.width), height: Int(size.height))
         let cgImage = self.cgImage!
-        let bitsPerComponent = cgImage.bitsPerComponent
-        let bytesPerRow = cgImage.bytesPerRow
-        let colorSpace = cgImage.colorSpace!
-        let bitmapInfo = CGImageAlphaInfo.noneSkipLast
         let context = CGContext(data: nil,
-                                width: Int(cgImage.width / 2),
-                                height: Int(cgImage.height / 2),
-                                bitsPerComponent: bitsPerComponent,
-                                bytesPerRow: bytesPerRow,
-                                space: colorSpace,
-                                bitmapInfo: bitmapInfo.rawValue)!
-
+                                width: Int(intSize.width),
+                                height: Int(intSize.height),
+                                bitsPerComponent: cgImage.bitsPerComponent,
+                                bytesPerRow: 0,
+                                space: cgImage.colorSpace!,
+                                bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue)!
+        
         context.interpolationQuality = .high
-        // TODO wtf
-        // If I resize it to its own size (so no change in size), performance OK
-        // `let newSize = self.size` // OK
-        // If I resize it to a different size, performance hit
-        // `let newSize = size` // Performance hit
-        let newSize = size
-        context.draw(cgImage, in: newSize.toRect)
+        context.draw(cgImage,
+                     in: NSRect(x: 0, y: 0, width: intSize.width, height: intSize.height))
         let img = context.makeImage()!
-        return NSImage(cgImage: img, size: newSize)
+        return NSImage(cgImage: img, size: intSize)
     }
+
     
     var cgImage: CGImage? {
         get {

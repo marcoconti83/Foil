@@ -31,7 +31,7 @@ class MockImageEditorDelegate: ImageEditorDelegate {
     var changeTool: [ToolType] = []
     var scroll: [(CGFloat, CGFloat)] = []
     
-    func didRedrawImage() {
+    func didRedrawImage(rect: NSRect) {
         self.redraw += 1
     }
     

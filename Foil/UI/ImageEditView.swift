@@ -135,8 +135,8 @@ extension ImageEditView: ImageEditorDelegate {
         self.resetCursorRects()
     }
     
-    public func didRedrawImage() {
-        self.needsDisplay = true
+    public func didRedrawImage(drawRect: NSRect) {
+        self.setNeedsDisplay(drawRect)
     }
     
     public func didScroll(x: CGFloat, y: CGFloat) {
