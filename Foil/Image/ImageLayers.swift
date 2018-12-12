@@ -68,6 +68,7 @@ public class ImageLayers<Reference: Hashable> {
             let newSelection = self.selectedBitmaps.intersection(bitmaps)
             self.batchOperations {
                 self.selectedBitmaps = newSelection
+                self.redrawIfNeeded()
             }
         }
     }
@@ -76,7 +77,7 @@ public class ImageLayers<Reference: Hashable> {
     internal(set) public var selectedBitmaps = Set<Bitmap<Reference>>() {
         didSet {
             guard self.selectedBitmaps != oldValue else { return }
-            self.redrawIfNeeded(rects: [self.rasterLayer.size.toRect])
+            self.redrawIfNeeded()
             self.notifySelectionChange()
         }
     }
@@ -224,6 +225,10 @@ extension ImageLayers {
             NSGraphicsContext.current!.compositingOperation = NSCompositingOperation.xor
             path.stroke()
         }
+    }
+    
+    private func redrawIfNeeded() {
+        self.redrawIfNeeded(rects: [self.size.toRect])
     }
     
     private func redrawIfNeeded(rects: [NSRect]) {

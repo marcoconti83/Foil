@@ -27,7 +27,7 @@ import Foundation
 extension Bitmap {
     
     func draw() {
-        self.image.draw(in: self.drawingRect)
+        self.image.draw(in: self.imageOnlyRect)
         if let labelImage = self.labelImage {
             labelImage.image.draw(in: labelImage.rectangle)
         }
@@ -36,7 +36,7 @@ extension Bitmap {
     func drawSelectionOverlay(lineWidth: CGFloat) {
         let borderCountourSize = Swift.max(lineWidth / 2, 0.5)
         let totalBorderSize = borderCountourSize * 2 + lineWidth
-        let drawRect = self.drawingRect.expand(by: totalBorderSize / 2)
+        let drawRect = self.imageOnlyRect.expand(by: totalBorderSize / 2)
         restoringGraphicState {
             // main border
             NSColor.red.setStroke()

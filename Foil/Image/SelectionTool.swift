@@ -136,7 +136,7 @@ class ScaleBitmapOperation<Reference: Hashable>: ToolMixin<Reference> {
         }
         
         let newCorner = Corner(point: point, direction: self.corner.direction)
-        let modifiedRect = self.bitmap.drawingRect.scaleToCorner(newCorner)
+        let modifiedRect = self.bitmap.imageOnlyRect.scaleToCorner(newCorner)
         let newScale = min(modifiedRect.size.width / self.bitmap.image.size.width,
                            modifiedRect.size.height / self.bitmap.image.size.height)
         let newRect = NSRect(origin: modifiedRect.origin, size: self.bitmap.image.size * newScale)

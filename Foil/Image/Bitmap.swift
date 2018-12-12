@@ -34,12 +34,19 @@ public class Bitmap<Reference: Hashable>: Equatable, Hashable, CustomDebugString
     
     /// A custom data reference
     public let reference: Reference?
+    public var drawingRect: NSRect {
+        if let labelRect = self.labelImage?.rectangle {
+            return labelRect.union(self.imageOnlyRect)
+        } else {
+            return self.imageOnlyRect
+        }
+    }
     
     // --- The following are cached for efficiency
     let originalSize: NSSize
     public let size: NSSize
     let halfSize: NSSize
-    let drawingRect: NSRect
+    let imageOnlyRect: NSRect
     let corners: [Corner]
     let labelImage: ImagePosition?
     // --- end of cache
@@ -59,15 +66,15 @@ public class Bitmap<Reference: Hashable>: Equatable, Hashable, CustomDebugString
         self.size = self.originalSize * scale
         self.halfSize = self.size / 2
         self.reference = reference
-        self.drawingRect = NSRect(
+        self.imageOnlyRect = NSRect(
             x: self.centerPosition.x - self.halfSize.width,
             y: self.centerPosition.y - self.halfSize.height,
             width: self.size.width,
             height: self.size.height
         )
-        self.corners = self.drawingRect.corners
+        self.corners = self.imageOnlyRect.corners
         if let label = label {
-            self.labelImage = drawLabel(label: label, bitmapDrawingRect: self.drawingRect)
+            self.labelImage = drawLabel(label: label, bitmapDrawingRect: self.imageOnlyRect)
         } else {
             self.labelImage = nil
         }
@@ -132,7 +139,7 @@ private let paragraphStyle: NSParagraphStyle = {
 private let stringDrawAttributes = [
     NSAttributedString.Key.foregroundColor: NSColor.black,
     NSAttributedString.Key.backgroundColor: NSColor.white,
-    NSAttributedString.Key.font: NSFont.boldSystemFont(ofSize: 20),
+    NSAttributedString.Key.font: NSFont.boldSystemFont(ofSize: 30),
     NSAttributedString.Key.paragraphStyle: paragraphStyle
 ]
 
