@@ -112,6 +112,7 @@
 		A9E59F02216DD28400C573D9 /* o.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E59EFF216DD28400C573D9 /* o.png */; };
 		A9E59F03216DD28400C573D9 /* e.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E59F00216DD28400C573D9 /* e.png */; };
 		A9E59F04216DD28400C573D9 /* u.png in Resources */ = {isa = PBXBuildFile; fileRef = A9E59F01216DD28400C573D9 /* u.png */; };
+		A9F8E89F21B1BF42005A83B3 /* paul-gilmore.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A9F8E89E21B1BF39005A83B3 /* paul-gilmore.jpg */; };
 		A9F8F7642177410700A57009 /* SerializationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9F8F762217740AE00A57009 /* SerializationTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -270,6 +271,7 @@
 		A9E59F00216DD28400C573D9 /* e.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = e.png; sourceTree = "<group>"; };
 		A9E59F01216DD28400C573D9 /* u.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = u.png; sourceTree = "<group>"; };
 		A9E59F06216DD44700C573D9 /* screenshot-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "screenshot-1.png"; sourceTree = "<group>"; };
+		A9F8E89E21B1BF39005A83B3 /* paul-gilmore.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "paul-gilmore.jpg"; sourceTree = "<group>"; };
 		A9F8F762217740AE00A57009 /* SerializationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerializationTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -343,6 +345,7 @@
 		A976981221615C49006CF0EC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				A9F8E89E21B1BF39005A83B3 /* paul-gilmore.jpg */,
 				A9E59F00216DD28400C573D9 /* e.png */,
 				A9E59EFF216DD28400C573D9 /* o.png */,
 				A9E59F01216DD28400C573D9 /* u.png */,
@@ -651,6 +654,7 @@
 				A926C33C215FC004006B1388 /* Assets.xcassets in Resources */,
 				A9E59EFE216D401B00C573D9 /* sky.jpg in Resources */,
 				A9E59F04216DD28400C573D9 /* u.png in Resources */,
+				A9F8E89F21B1BF42005A83B3 /* paul-gilmore.jpg in Resources */,
 				A926C33F215FC004006B1388 /* MainMenu.xib in Resources */,
 				A9E59F02216DD28400C573D9 /* o.png in Resources */,
 			);

@@ -42,7 +42,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         var settings = AppDelegate.defaultSettings
-        settings.backgroundImage = NSImage(name: "sky.jpg", fromClassBundle: AppDelegate.self)
+        settings.backgroundImage = NSImage(name: "paul-gilmore.jpg", fromClassBundle: AppDelegate.self)
         let editor = EditorView(settings: settings)
         window.contentView = editor
         DispatchQueue.main.async {
